@@ -29,14 +29,14 @@ Where `config` is an object that fits this format:
 
 ```json
 {
-  // Note that field order will be respected.
+  "_comment" : "Note that field order will be respected.",
   "fieldname1" : {
-    // All fields must include labels.
+    "_comment" : "All fields must include labels.",
     "label" : "Label for field1"
   }
   "fieldname2" : {
     "label" : "Label for field2"
-    // Fields with options will be converted to selects.
+    "_comment" : "Fields with options will be converted to selects.",
     "options" : {
       "AA" : "AA Value",
       "BB" : "BB Value"
