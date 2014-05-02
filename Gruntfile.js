@@ -44,7 +44,7 @@ module.exports = function(grunt) {
     qunit: {
       all: {
         options: {
-          urls: ['1.4.4', '1.11.0', '2.1.0'].map(function(version) {
+          urls: ['1.3.2', '1.4.4', '1.5.2', '1.6.4', '1.7.2', '1.8.3', '1.9.1', '1.10.2', 'git1', '2.0.3', 'git2'].map(function(version) {
             return 'http://localhost:<%= connect.server.options.port %>/test/addressfield.html?jquery=' + version;
           })
         }

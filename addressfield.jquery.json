@@ -16,11 +16,11 @@
   "licenses": [
     {
       "type": "GPL-2.0",
-      "url": "https://github.com/tableau-mkt/jquery.addressfield/blob/master/LICENSE-GPL-2.0"
+      "url": "https://github.com/tableau-mkt/jquery.addressfield/blob/master/LICENSE"
     }
   ],
   "dependencies": {
-    "jquery": ">=1.4.4"
+    "jquery": ">=1.3.2"
   },
   "keywords": []
 }
