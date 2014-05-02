@@ -217,6 +217,8 @@ $.getJSON('path/to/above.json', function(config) {
 });
 ```
 
+Looking for a full, compatible dataset of field configurations by country? You
+might be interested in [addressfield.json](https://github.com/tableau-mkt/addressfield.json).
 
 ## Contributing
 Check out the [Contributing guidelines](CONTRIBUTING.md)
