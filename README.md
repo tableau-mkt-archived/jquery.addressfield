@@ -1,4 +1,4 @@
-# jquery.addressfield
+# jquery.addressfield [![Build Status](https://travis-ci.org/tableau-mkt/jquery.addressfield.svg?branch=master)](https://travis-ci.org/tableau-mkt/jquery.addressfield)
 
 The simple, configurable, dynamic address field plugin.
 
