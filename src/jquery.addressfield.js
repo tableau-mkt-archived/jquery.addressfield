@@ -161,7 +161,7 @@
       if (i in order) {
         // Save off the element container over its class selector in order.
         $element = $(this).find('.' + order[i]).parent('div, section');
-        order[i] = $element;
+        order[i] = $element.clone();
 
         // Remove the original element from the page.
         $element.remove();
