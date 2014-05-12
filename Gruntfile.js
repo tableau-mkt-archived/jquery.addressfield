@@ -23,7 +23,7 @@ module.exports = function(grunt) {
       build: {
         src: ['src/jquery.<%= pkg.name %>.js'],
         dest: 'build/jquery.<%= pkg.name %>.js'
-      },
+      }
     },
     connect: {
       server: {
@@ -39,13 +39,28 @@ module.exports = function(grunt) {
       dist: {
         src: '<%= concat.build.dest %>',
         dest: 'build/jquery.<%= pkg.name %>.min.js'
-      },
+      }
     },
     qunit: {
+      options: {
+        '--web-security': 'no',
+        coverage: {
+          disposeCollector: true,
+          baseUrl: 'http://localhost:<%= connect.server.options.port %>/',
+          src: ['src/jquery.addressfield.js'],
+          instrumentedFiles: '.temp/',
+          htmlReport: 'report/coverage',
+          lcovReport: 'report/',
+          linesThresholdPct: 85,
+          statementsThresholdPct: 85,
+          functionsThresholdPct: 85,
+          branchesThresholdPct: 85
+        }
+      },
       all: {
         options: {
           urls: ['1.3.2', '1.4.4', '1.5.2', '1.6.4', '1.7.2', '1.8.3', '1.9.1', '1.10.2', 'git1', '2.0.3', 'git2'].map(function(version) {
-            return 'http://localhost:<%= connect.server.options.port %>/test/addressfield.html?jquery=' + version;
+            return 'test/addressfield.html?jquery=' + version;
           })
         }
       }
@@ -68,7 +83,7 @@ module.exports = function(grunt) {
           jshintrc: 'test/.jshintrc'
         },
         src: ['test/**/*.js']
-      },
+      }
     },
     watch: {
       gruntfile: {
@@ -82,15 +97,15 @@ module.exports = function(grunt) {
       test: {
         files: '<%= jshint.test.src %>',
         tasks: ['jshint:test', 'qunit']
-      },
-    },
+      }
+    }
   });
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-qunit');
+  grunt.loadNpmTasks('grunt-qunit-istanbul');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
