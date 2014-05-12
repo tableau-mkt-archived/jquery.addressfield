@@ -20,7 +20,8 @@
   });
 
   test('default select conversion', function() {
-    var $response;
+    var expectedData = this.adminregion.val(),
+        $response;
 
     // Call the default convertToSelect method; assert the correct effects.
     $response = $.fn.addressfield.convertToSelect.call(this.adminregion);
@@ -28,12 +29,14 @@
     equal($response.attr('name'), this.adminregion.attr('name'), 'should maintain name');
     equal($response.attr('id'), this.adminregion.attr('id'), 'should maintain html id');
     equal($response.attr('class'), this.adminregion.attr('class'), 'should maintain classes');
+    equal($response.data('_saved'), expectedData, 'should save original value to data attr');
 
-    expect(4);
+    expect(5);
   });
 
   test('default text conversion', function() {
-    var $response;
+    var expectedValue = this.country.val(),
+        $response;
 
     // Call the default convertToText method; assert it had the right effect.
     $response = $.fn.addressfield.convertToText.call(this.country);
@@ -42,8 +45,9 @@
     equal($response.attr('name'), this.country.attr('name'), 'should maintain name');
     equal($response.attr('id'), this.country.attr('id'), 'should maintain html id');
     equal($response.attr('class'), this.country.attr('class'), 'should maintain classes');
+    equal($response.val(), expectedValue, 'should maintain original input value');
 
-    expect(5);
+    expect(6);
   });
 
   test('default options update', function() {
@@ -51,17 +55,40 @@
         options = {
           "XX" : "Foo",
           "YY" : "Bar",
-          "ZZ" : "Baz"
+          "ZZ" : "Baz",
+          "US" : "Default"
         },
         parent = this,
+        oldData = $.fn.data,
+        mockDataData = [],
+        oldRemoveData = $.fn.removeData,
+        mockRemoveDataData = [],
         i;
+
+    // Override the core data method.
+    $.fn.data = function(key) {
+      mockDataData.push(key);
+      return oldData.call(this, key);
+    };
+
+    // Override the core removeData method.
+    $.fn.removeData = function(key) {
+      mockRemoveDataData.push(key);
+      return oldRemoveData.call(this, key);
+    };
 
     // Call the default updateOptions method, and assert the correct effects.
     $.fn.addressfield.updateOptions.call(this.country, options);
 
+    // Ensure the data and removeData methods are called with the correct keys.
+    strictEqual(mockDataData.length, 1, 'should call $.data() exactly once');
+    equal(mockDataData[0], '_saved', 'should call $.data() with key "_saved"');
+    strictEqual(mockRemoveDataData.length, 1, 'should call $.removeData() exactly once');
+    equal(mockRemoveDataData[0], '_saved', 'should call $.removeData() with key "_saved"');
+
     // Iterate through the old options, ensure they're gone.
     for (i = 0; i < oldOptions.length; ++i) {
-      if (i in oldOptions) {
+      if (i in oldOptions && oldOptions[i].value !== 'US') {
         strictEqual(this.country.find('option[value="' + oldOptions[i].value + '"]').length, 0, 'should remove old options');
       }
     }
@@ -72,7 +99,11 @@
       strictEqual(parent.country.find('option[value="' + value + '"]').text(), text, 'should add proper label for each value');
     });
 
-    expect(oldOptions.length + Object.keys(options).length * 2);
+    // Ensure the old value is maintained.
+    equal(this.country.val(), parent.country.val(), 'should maintain value after update');
+    equal(this.country.find('option:selected').text(), options.US, 'should have new option text, though');
+
+    expect(6 + oldOptions.length - 1 + Object.keys(options).length * 2);
   });
 
   test('default field hide', function() {
@@ -103,6 +134,11 @@
 
   test('default field order', function() {
     var expectedOrder = ['postalcode', 'localityname', 'administrativearea'],
+        expectedVals = {
+          'postalcode': 90210,
+          'localityname': 'Beverly Hills',
+          'administrativearea': 'CA'
+        },
         oldOrder = [],
         newOrder = [],
         mockCloneData = [],
@@ -126,6 +162,9 @@
     // Get the existing order of the locality fields.
     $('.locality').find('input').each(function() {
       oldOrder.push($(this).attr('class'));
+
+      // While we're at it, add expected values that should be maintained.
+      $(this).val(expectedVals[$(this).attr('class')]);
     });
 
     // Call the default orderFields method and assert the correct effects.
@@ -134,6 +173,9 @@
     // Get the new order of the locality fields.
     $('.locality').find('input').each(function() {
       newOrder.push($(this).attr('class'));
+
+      // Ensure the values provided match those expected.
+      equal($(this).val(), expectedVals[$(this).attr('class')], 'Value maintained through re-order.');
     });
 
     deepEqual(newOrder, expectedOrder, 'Order of fields updated as expected.');
@@ -142,7 +184,7 @@
     equal(mockRemoveData.length, expectedOrder.length, 'Remove method called the correct number of times.');
     deepEqual(mockRemoveData, expectedOrder, 'Remove method called for each field in the expected order.');
 
-    expect(5);
+    expect(5 + Object.keys(expectedVals).length);
   });
 
   module('jQuery#addressfield plugin behavior', {
