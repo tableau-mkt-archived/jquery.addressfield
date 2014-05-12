@@ -94,11 +94,19 @@
    * Updates a given select field's options with given options.
    */
   $.fn.addressfield.updateOptions = function (options) {
-    var $self = $(this);
+    var $self = $(this),
+        oldVal = $self.data('_saved') || $self.val();
+
     $self.children('option').remove();
     $.each(options, function (value, label) {
       $self.append($('<option></option>').attr('value', value).text(label));
     });
+
+    // Ensure the old value is still reflected after options are updated.
+    $self.val(oldVal).change();
+
+    // Clean up the data attribute; no-op if it was not previously populated.
+    $self.removeData('_saved');
   };
 
   /**
@@ -107,11 +115,17 @@
   $.fn.addressfield.convertToText = function () {
     var $self = $(this),
         $input = $('<input />').attr('type', 'text');
+
     $.each($self[0].attributes, function () {
       if ($.inArray(this.name, ['class', 'id', 'name']) !== -1) {
         $input.attr(this.name, this.value);
       }
     });
+
+    // Ensure the old value is still reflected after conversion.
+    $input.val($self.val());
+
+    // Replace the existing element with our new one; also return it.
     $self.replaceWith($input);
     return $input;
   };
@@ -122,11 +136,17 @@
   $.fn.addressfield.convertToSelect = function() {
     var $self = $(this),
         $select = $('<select></select>');
+
     $.each($self[0].attributes, function () {
       if ($.inArray(this.name, ['class', 'id', 'name']) !== -1) {
         $select.attr(this.name, this.value);
       }
     });
+
+    // Save the old input value to a data attribute, for use in updateOptions.
+    $select.data('_saved', $self.val());
+
+    // Replace the existing element with our new one; also return it.
     $self.replaceWith($select);
     return $select;
   };
@@ -161,7 +181,11 @@
       if (i in order) {
         // Save off the element container over its class selector in order.
         $element = $(this).find('.' + order[i]).parent('div, section');
-        order[i] = $element.clone();
+        order[i] = {
+          'element': $element.clone(),
+          'class': order[i],
+          'value': $(this).find('.' + order[i]).val()
+        };
 
         // Remove the original element from the page.
         $element.remove();
@@ -172,7 +196,10 @@
     // the correct order.
     for (i = 0; i < length; ++i) {
       if (i in order) {
-        $(this).append(order[i]);
+        $element = $(this).append(order[i].element);
+
+        // The clone process doesn't seem to copy input values; apply that here.
+        $element.find('.' + order[i].class).val(order[i].value).change();
       }
     }
   };
