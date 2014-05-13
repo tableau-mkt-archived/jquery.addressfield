@@ -64,9 +64,9 @@ And the input elements include their respective field names as classes, e.g.
 
 
 ## A more realistic usage example
-Here's a sample configuration for Canada, which has a distinct list of
-_provinces_, and the United States, which has a distinct list of _states_. Also
-note the labels for state/province and zip/postal code.
+Here's a sample configuration for Canada, which has a known, distinct list of
+_provinces_, and the United Kingdom, which doesn't have a list of administrative
+regions. Also note the labels for province/county and postal code/postcode.
 
 ```json
 {
@@ -93,74 +93,12 @@ note the labels for state/province and zip/postal code.
       "label" : "Postal code"
     }
   },
-  "US" : {
+  "GB" : {
     "administrativearea" : {
-      "label" : "State",
-      "options" : {
-        "AL" : "Alabama",
-        "AK" : "Alaska",
-        "AZ" : "Arizona",
-        "AR" : "Arkansas",
-        "CA" : "California",
-        "CO" : "Colorado",
-        "CT" : "Connecticut",
-        "DE" : "Delaware",
-        "DC" : "District Of Columbia",
-        "FL" : "Florida",
-        "GA" : "Georgia",
-        "HI" : "Hawaii",
-        "ID" : "Idaho",
-        "IL" : "Illinois",
-        "IN" : "Indiana",
-        "IA" : "Iowa",
-        "KS" : "Kansas",
-        "KY" : "Kentucky",
-        "LA" : "Louisiana",
-        "ME" : "Maine",
-        "MD" : "Maryland",
-        "MA" : "Massachusetts",
-        "MI" : "Michigan",
-        "MN" : "Minnesota",
-        "MS" : "Mississippi",
-        "MO" : "Missouri",
-        "MT" : "Montana",
-        "NE" : "Nebraska",
-        "NV" : "Nevada",
-        "NH" : "New Hampshire",
-        "NJ" : "New Jersey",
-        "NM" : "New Mexico",
-        "NY" : "New York",
-        "NC" : "North Carolina",
-        "ND" : "North Dakota",
-        "OH" : "Ohio",
-        "OK" : "Oklahoma",
-        "OR" : "Oregon",
-        "PA" : "Pennsylvania",
-        "RI" : "Rhode Island",
-        "SC" : "South Carolina",
-        "SD" : "South Dakota",
-        "TN" : "Tennessee",
-        "TX" : "Texas",
-        "UT" : "Utah",
-        "VT" : "Vermont",
-        "VA" : "Virginia",
-        "WA" : "Washington",
-        "WV" : "West Virginia",
-        "WI" : "Wisconsin",
-        "WY" : "Wyoming",
-        " " : "--",
-        "AS" : "American Samoa",
-        "FM" : "Federated States of Micronesia",
-        "GU" : "Guam",
-        "MH" : "Marshall Islands",
-        "MP" : "Northern Mariana Islands",
-        "PW" : "Palau",
-        "PR" : "Puerto Rico",
-        "VI" : "Virgin Islands"
-      }
+      "label" : "County"
     },
     "postalcode" : {
-      "label" : "ZIP code"
+      "label" : "Postcode"
     }
   }
 }
@@ -174,7 +112,7 @@ And here's some sample markup:
     <label for="address-country">Country</label>
     <select class="country" id="address-country" name="address[country]">
       <option value="CA">Canada</option>
-      <option value="US" selected>United States</option>
+      <option value="GB" selected>United Kingdom</option>
     </select>
   </div>
   <div class="thoroughfare-wrapper">
