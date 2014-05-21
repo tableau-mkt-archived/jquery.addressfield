@@ -50,7 +50,7 @@ body, h1, h2, h3, h4, h5, h6 {
 	}
 
 	.intro-message > h1 {
-		font-size: 3em;
+		font-size: 2.5em;
 	}
 
 	ul.intro-social-buttons > li {
@@ -129,7 +129,7 @@ body, h1, h2, h3, h4, h5, h6 {
 	.banner h2 {
 		margin: 0;
 		text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
-		font-size: 3em;
+		font-size: 2.5em;
 	}
 
 	ul.banner-social-buttons > li {
