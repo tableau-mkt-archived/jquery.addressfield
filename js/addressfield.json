@@ -1,0 +1,337 @@
+  var _countryConfig = {
+    "AU" : {
+      "label" : "Australia",
+      "thoroughfare" : {
+        "label" : "Address"
+      },
+        "localityname" : {
+          "label" : "City"
+        },
+        "administrativearea" : {
+          "label" : "State",
+          "options" : {
+            "ACT" : "Australian Capital Territory",
+            "NSW" : "New South Wales",
+            "NT" : "Northern Territory",
+            "QLD" : "Queensland",
+            "SA" : "South Australia",
+            "TAS" : "Tasmania",
+            "VIC" : "Victoria",
+            "WA" : "Western Australia"
+          }
+        },
+        "postalcode" : {
+          "label" : "Postal code"
+        }
+    },
+    "BR" : {
+      "label" : "Brazil",
+      "thoroughfare" : {
+        "label" : "Thoroughfare"
+      },
+        "localityname" : {
+          "label" : "City"
+        },
+        "administrativearea" : {
+          "label" : "State",
+          "options" : {
+            "AC" : "Acre",
+            "AL" : "Alagoas",
+            "AM" : "Amazonas",
+            "AP" : "Amapa",
+            "BA" : "Bahia",
+            "CE" : "Ceara",
+            "DF" : "Distrito Federal",
+            "ES" : "Espirito Santo",
+            "GO" : "Goias",
+            "MA" : "Maranhao",
+            "MG" : "Minas Gerais",
+            "MS" : "Mato Grosso do Sul",
+            "MT" : "Mato Grosso",
+            "PA" : "Para",
+            "PB" : "Paraiba",
+            "PE" : "Pernambuco",
+            "PI" : "Piaui",
+            "PR" : "Parana",
+            "RJ" : "Rio de Janeiro",
+            "RN" : "Rio Grande do Norte",
+            "RO" : "Rondonia",
+            "RR" : "Roraima",
+            "RS" : "Rio Grande do Sul",
+            "SC" : "Santa Catarina",
+            "SE" : "Sergipe",
+            "SP" : "Sao Paulo",
+            "TO" : "Tocantins"
+          }
+        },
+        "postalcode" : {
+          "label" : "Postal code"
+        }
+    },
+    "CA" : {
+      "label" : "Canada",
+      "thoroughfare" : {
+        "label" : "Address"
+      },
+        "localityname" : {
+          "label" : "City"
+        },
+        "administrativearea" : {
+          "label" : "Province",
+          "options" : {
+            "AB" : "Alberta",
+            "BC" : "British Columbia",
+            "MB" : "Manitoba",
+            "NB" : "New Brunswick",
+            "NL" : "Newfoundland",
+            "NT" : "Northwest Territories",
+            "NS" : "Nova Scotia",
+            "NU" : "Nunavut",
+            "ON" : "Ontario",
+            "PE" : "Prince Edward Island",
+            "QC" : "Quebec",
+            "SK" : "Saskatchewan",
+            "YT" : "Yukon Territory"
+          }
+        },
+        "postalcode" : {
+          "label" : "Postal code"
+        }
+    },
+    "FR" : {
+      "label" : "France",
+      "thoroughfare" : {
+        "label" : "Address"
+      },
+        "postalcode" : {
+          "label" : "Postal code"
+        },
+        "localityname" : {
+          "label" : "City"
+        }
+    },
+    "GB" : {
+      "label" : "United Kingdom",
+      "thoroughfare" : {
+        "label" : "Address"
+      },
+        "localityname" : {
+          "label" : "Town/city"
+        },
+        "administrativearea" : {
+          "label" : "County"
+        },
+        "postalcode" : {
+          "label" : "Postcode"
+        }
+    },
+    "IN" : {
+      "label" : "India",
+      "thoroughfare" : {
+        "label" : "Address"
+      },
+        "localityname" : {
+          "label" : "City"
+        },
+        "administrativearea" : {
+          "label" : "State",
+          "options" : {
+            "AP" : "Andhra Pradesh",
+            "AR" : "Arunachal Pradesh",
+            "AS" : "Assam",
+            "BR" : "Bihar",
+            "CT" : "Chhattisgarh",
+            "GA" : "Goa",
+            "GJ" : "Gujarat",
+            "HR" : "Haryana",
+            "HP" : "Himachal Pradesh",
+            "JK" : "Jammu and Kashmir",
+            "JH" : "Jharkhand",
+            "KA" : "Karnataka",
+            "KL" : "Kerala",
+            "MP" : "Madhya Pradesh",
+            "MH" : "Maharashtra",
+            "MN" : "Manipur",
+            "ML" : "Meghalaya",
+            "MZ" : "Mizoram",
+            "NL" : "Nagaland",
+            "OR" : "Odisha",
+            "PB" : "Punjab",
+            "RJ" : "Rajasthan",
+            "SK" : "Sikkim",
+            "TN" : "Tamil Nadu",
+            "TR" : "Tripura",
+            "UP" : "Uttar Pradesh",
+            "UT" : "Uttarakhand",
+            "WB" : "West Bengal",
+            " " : "--",
+            "AN" : "Andaman and Nicobar Islands",
+            "CH" : "Chandigarh",
+            "DN" : "Dadra and Nagar Haveli",
+            "DD" : "Daman and Diu",
+            "LD" : "Lakshadweep",
+            "DL" : "National Capital Territory of Delhi",
+            "PY" : "Puducherry"
+          }
+        },
+        "postalcode" : {
+          "label" : "Postal code"
+        }
+    },
+    "JP" : {
+      "label" : "Japan",
+      "thoroughfare" : {
+        "label" : "Address"
+      },
+        "postalcode" : {
+          "label" : "Postal code"
+        },
+        "localityname" : {
+          "label" : "City"
+        },
+        "administrativearea" : {
+          "label" : "Prefecture",
+          "options" : {
+            "Hokkaido" : "Hokkaido",
+            "Aomori" : "Aomori",
+            "Iwate" : "Iwate",
+            "Miyagi" : "Miyagi",
+            "Akita" : "Akita",
+            "Yamagata" : "Yamagata",
+            "Fukushima" : "Fukushima",
+            "Ibaraki" : "Ibaraki",
+            "Tochigi" : "Tochigi",
+            "Gunma" : "Gunma",
+            "Saitama" : "Saitama",
+            "Chiba" : "Chiba",
+            "Tokyo" : "Tokyo",
+            "Kanagawa" : "Kanagawa",
+            "Niigata" : "Niigata",
+            "Toyama" : "Toyama",
+            "Ishikawa" : "Ishikawa",
+            "Fukui" : "Fukui",
+            "Yamanashi" : "Yamanashi",
+            "Nagano" : "Nagano",
+            "Gifu" : "Gifu",
+            "Shizuoka" : "Shizuoka",
+            "Aichi" : "Aichi",
+            "Mie" : "Mie",
+            "Shiga" : "Shiga",
+            "Kyoto" : "Kyoto",
+            "Osaka" : "Osaka",
+            "Hyogo" : "Hyogo",
+            "Nara" : "Nara",
+            "Wakayama" : "Wakayama",
+            "Tottori" : "Tottori",
+            "Shimane" : "Shimane",
+            "Okayama" : "Okayama",
+            "Hiroshima" : "Hiroshima",
+            "Yamaguchi" : "Yamaguchi",
+            "Tokushima" : "Tokushima",
+            "Kagawa" : "Kagawa",
+            "Ehime" : "Ehime",
+            "Kochi" : "Kochi",
+            "Fukuoka" : "Fukuoka",
+            "Saga" : "Saga",
+            "Nagasaki" : "Nagasaki",
+            "Kumamoto" : "Kumamoto",
+            "Oita" : "Oita",
+            "Miyazaki" : "Miyazaki",
+            "Kagoshima" : "Kagoshima",
+            "Okinawa" : "Okinawa"
+          }
+        }
+    },
+    "MX" : {
+      "label" : "Mexico",
+      "thoroughfare" : {
+        "label" : "Address"
+      },
+        "postalcode" : {
+          "label" : "Postal code"
+        },
+        "localityname" : {
+          "label" : "City"
+        },
+        "administrativearea" : {
+          "label" : "State"
+        }
+    },
+    "US" : {
+      "label" : "United States",
+      "thoroughfare" : {
+        "label" : "Address"
+      },
+        "localityname" : {
+          "label" : "City"
+        },
+        "administrativearea" : {
+          "label" : "State",
+          "options" : {
+            "AL" : "Alabama",
+            "AK" : "Alaska",
+            "AZ" : "Arizona",
+            "AR" : "Arkansas",
+            "CA" : "California",
+            "CO" : "Colorado",
+            "CT" : "Connecticut",
+            "DE" : "Delaware",
+            "DC" : "District Of Columbia",
+            "FL" : "Florida",
+            "GA" : "Georgia",
+            "HI" : "Hawaii",
+            "ID" : "Idaho",
+            "IL" : "Illinois",
+            "IN" : "Indiana",
+            "IA" : "Iowa",
+            "KS" : "Kansas",
+            "KY" : "Kentucky",
+            "LA" : "Louisiana",
+            "ME" : "Maine",
+            "MD" : "Maryland",
+            "MA" : "Massachusetts",
+            "MI" : "Michigan",
+            "MN" : "Minnesota",
+            "MS" : "Mississippi",
+            "MO" : "Missouri",
+            "MT" : "Montana",
+            "NE" : "Nebraska",
+            "NV" : "Nevada",
+            "NH" : "New Hampshire",
+            "NJ" : "New Jersey",
+            "NM" : "New Mexico",
+            "NY" : "New York",
+            "NC" : "North Carolina",
+            "ND" : "North Dakota",
+            "OH" : "Ohio",
+            "OK" : "Oklahoma",
+            "OR" : "Oregon",
+            "PA" : "Pennsylvania",
+            "RI" : "Rhode Island",
+            "SC" : "South Carolina",
+            "SD" : "South Dakota",
+            "TN" : "Tennessee",
+            "TX" : "Texas",
+            "UT" : "Utah",
+            "VT" : "Vermont",
+            "VA" : "Virginia",
+            "WA" : "Washington",
+            "WV" : "West Virginia",
+            "WI" : "Wisconsin",
+            "WY" : "Wyoming",
+            " " : "--",
+            "AS" : "American Samoa",
+            "FM" : "Federated States of Micronesia",
+            "GU" : "Guam",
+            "MH" : "Marshall Islands",
+            "MP" : "Northern Mariana Islands",
+            "PW" : "Palau",
+            "PR" : "Puerto Rico",
+            "VI" : "Virgin Islands"
+          }
+        },
+        "postalcode" : {
+          "label" : "ZIP code"
+        }
+      }
+  };

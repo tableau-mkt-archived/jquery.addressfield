@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>jquery.addressfield - The simple, configurable, dynamic address field plugin.</title>
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+  <link href="css/landing-page.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#top">jquery.addressfield</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="#delightful">Delightful</a></li>
+          <li><a href="#simple">Simple</a></li>
+          <li><a href="#quality">Quality</a></li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+  </nav>
+
+  <div class="intro-header" id="top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="intro-message">
+            <h1>jquery.addressfield</h1>
+            <h3>The simple, configurable, dynamic address field plugin.</h3>
+            <hr class="intro-divider">
+            <ul class="list-inline intro-social-buttons">
+              <li><a href="https://github.com/tableau-mkt/jquery.addressfield/releases/download/v0.1.2/jquery.addressfield.min.js" class="btn btn-default btn-lg"><i class="fa fa-download fa-lg fa-fw"></i> <span class="network-name">Download</span></a></li>
+              <li><a href="https://github.com/tableau-mkt/jquery.addressfield/archive/master.zip" class="btn btn-default btn-lg"><i class="fa fa-file-code-o fa-fw"></i> <span class="network-name">Source</span></a></li>
+              <li><a href="https://github.com/tableau-mkt/jquery.addressfield" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Collaborate</span></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.container -->
+  </div>
+  <!-- /.intro-header -->
+
+  <div class="content-section-b" id="delightful">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5 col-sm-6">
+          <hr class="section-heading-spacer">
+          <div class="clearfix"></div>
+          <h2 class="section-heading">Not every country has US states</h2>
+          <p class="lead">Delight your users by adapting field labels, administrative region options, and address field order based on their postal norms.</p>
+          <p class="lead">Compatible with <a href="https://github.com/tableau-mkt/addressfield.json" target="_blank">addressfield.json</a> for xNAL compatible, country-based address form configuration.</p>
+        </div>
+        <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+          <div class="well bs-component">
+            <form class="form-horizontal" id="address-example">
+              <fieldset>
+                <legend>jquery.addressfield demo</legend>
+                <div class="form-group">
+                  <label for="country" class="col-lg-3 control-label">Country</label>
+                  <div class="col-lg-9">
+                    <select class="form-control" id="country" name="country">
+                      <option value="AU">Australia</option>
+                      <option value="BR">Brazil</option>
+                      <option value="CA">Canada</option>
+                      <option value="FR">France</option>
+                      <option value="IN">India</option>
+                      <option value="JP">Japan</option>
+                      <option value="MX">Mexico</option>
+                      <option value="GB">United Kingdom</option>
+                      <option value="US" selected>United States</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="address1" class="col-lg-3 control-label">Address</label>
+                  <div class="col-lg-9">
+                    <input type="text" class="form-control thoroughfare" id="address1" name="address1" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="city" class="col-lg-3 control-label">City</label>
+                  <div class="col-lg-9">
+                    <input type="text" class="form-control localityname" id="city" name="city" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="state" class="col-lg-3 control-label">State</label>
+                  <div class="col-lg-9">
+                    <input type="text" class="form-control administrativearea" id="state" name="state" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="zip" class="col-lg-3 control-label">Zip</label>
+                  <div class="col-lg-9">
+                    <input type="text" class="form-control postalcode" id="zip" name="zip" />
+                  </div>
+                </div>
+              </fieldset>
+              <div class="form-group">
+                <div class="col-lg-9 col-lg-offset-3">
+                  <button class="btn btn-default">Cancel</button>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </div>
+            </form>
+            <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.container -->
+  </div>
+  <!-- /.content-section-a -->
+
+  <div class="content-section-a" id="simple">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+          <hr class="section-heading-spacer">
+          <div class="clearfix"></div>
+          <h2 class="section-heading">Plays well with your existing shipping/PO forms</h2>
+          <p class="lead">Easily add dynamic form behavior on the client-side without the need to alter handlers on the server-side. Just drop in the JS, add classes, and go.</p>
+          <p class="lead">Get started with <a href="https://github.com/tableau-mkt/jquery.addressfield/blob/master/README.md" target="_blank">documentation</a>.</p>
+        </div>
+        <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+          <img class="img-responsive" src="img/legacy.png" alt="" />
+        </div>
+      </div>
+    </div>
+    <!-- /.container -->
+  </div>
+  <!-- /.content-section-b -->
+
+  <div class="content-section-b" id="quality">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5 col-sm-6">
+          <hr class="section-heading-spacer">
+          <div class="clearfix"></div>
+          <h2 class="section-heading">Quality you can count on</h2>
+          <p class="lead">Changes are continuously tested against jQuery 1.3.2+ with <a href="https://travis-ci.org/tableau-mkt/jquery.addressfield" target="_blank">Travis CI</a>; code complexity is monitored and managed using <a href="https://codeclimate.com/github/tableau-mkt/jquery.addressfield">Code Climate</a>.</p>
+        </div>
+        <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+          <img class="img-responsive" src="img/travis-heart-code-climate.png" alt="">
+        </div>
+      </div>
+    </div>
+    <!-- /.container -->
+  </div>
+  <!-- /.content-section-a -->
+
+  <div class="banner">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <h2>Get jquery.addressfield:</h2>
+        </div>
+        <div class="col-lg-6">
+          <ul class="list-inline banner-social-buttons">
+            <li><a href="https://github.com/tableau-mkt/jquery.addressfield/releases/download/v0.1.2/jquery.addressfield.min.js" class="btn btn-default btn-lg"><i class="fa fa-download fa-lg fa-fw"></i> <span class="network-name">Download</span></a></li>
+            <li><a href="https://github.com/tableau-mkt/jquery.addressfield/archive/master.zip" class="btn btn-default btn-lg"><i class="fa fa-file-code-o fa-fw"></i> <span class="network-name">Source</span></a></li>
+            <li><a href="https://github.com/tableau-mkt/jquery.addressfield" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Collaborate</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- /.container -->
+  </div>
+  <!-- /.banner -->
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <p class="copyright text-muted small">Photos licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/2.0/" target="_blank">cc by-nc-sa 2.0</a> by <a href="https://www.flickr.com/photos/swaroop121" target="_blank">Sebastian Surendar</a>. Template by <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a>. All trademarks are the property of their respective owners.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="js/jquery-1.10.2.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="js/jquery.addressfield.min.js"></script>
+  <script src="js/addressfield.json"></script>
+  <script src="js/landing-page.js"></script>
+</body>
+</html>
