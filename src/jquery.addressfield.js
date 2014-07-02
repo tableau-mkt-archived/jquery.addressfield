@@ -199,7 +199,7 @@
         $element = $(this).append(order[i].element);
 
         // The clone process doesn't seem to copy input values; apply that here.
-        $element.find('.' + order[i].class).val(order[i].value).change();
+        $element.find('.' + order[i]['class']).val(order[i].value).change();
       }
     }
   };
