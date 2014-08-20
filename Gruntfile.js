@@ -51,15 +51,15 @@ module.exports = function(grunt) {
           instrumentedFiles: '.temp/',
           htmlReport: 'report/coverage',
           lcovReport: 'report/',
-          linesThresholdPct: 85,
-          statementsThresholdPct: 85,
-          functionsThresholdPct: 85,
-          branchesThresholdPct: 85
+          linesThresholdPct: 80,
+          statementsThresholdPct: 80,
+          functionsThresholdPct: 80,
+          branchesThresholdPct: 80
         }
       },
       all: {
         options: {
-          urls: ['1.3.2', '1.4.4', '1.5.2', '1.6.4', '1.7.2', '1.8.3', '1.9.1', '1.10.2', 'git1', '2.0.3', 'git2'].map(function(version) {
+          urls: ['1.3.2', '1.4.4', '1.5.2', '1.6.4', '1.7.2', '1.8.3', '1.9.1', '1.10.2', '1.11.1', 'git1', '2.0.3', '2.1.0', '2.1.1', 'git2'].map(function(version) {
             return 'test/addressfield.html?jquery=' + version;
           })
         }
