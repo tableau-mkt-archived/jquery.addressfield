@@ -85,8 +85,16 @@
    * Updates a given field's label with a given label.
    */
   $.fn.addressfield.updateLabel = function (label) {
-    if ($(this).prev('label').length) {
-      $(this).prev('label').text(label);
+    var $this = $(this),
+        $previous = $this.prev('label'),
+        elementName = $this.attr('id'),
+        $label = $('label[for="' + elementName + '"]');
+
+    if ($label.length) {
+      $label.text(label);
+    }
+    else if ($previous.length) {
+      $previous.text(label);
     }
   };
 
