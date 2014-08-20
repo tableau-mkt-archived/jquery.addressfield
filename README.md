@@ -1,4 +1,4 @@
-# jquery.addressfield [![Build Status](https://travis-ci.org/tableau-mkt/jquery.addressfield.svg?branch=master)](https://travis-ci.org/tableau-mkt/jquery.addressfield) [![Coverage](https://codeclimate.com/github/tableau-mkt/jquery.addressfield/coverage.png)](https://codeclimate.com/github/tableau-mkt/jquery.addressfield) [![Code Climate](https://codeclimate.com/github/tableau-mkt/jquery.addressfield.png)](https://codeclimate.com/github/tableau-mkt/jquery.addressfield)
+# jquery.addressfield [![Build Status](https://travis-ci.org/tableau-mkt/jquery.addressfield.svg?branch=0.1)](https://travis-ci.org/tableau-mkt/jquery.addressfield) [![Coverage](https://codeclimate.com/github/tableau-mkt/jquery.addressfield/coverage.png)](https://codeclimate.com/github/tableau-mkt/jquery.addressfield) [![Code Climate](https://codeclimate.com/github/tableau-mkt/jquery.addressfield.png)](https://codeclimate.com/github/tableau-mkt/jquery.addressfield)
 
 The simple, configurable, dynamic address field plugin.
 
