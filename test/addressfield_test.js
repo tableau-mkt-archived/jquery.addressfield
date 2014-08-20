@@ -9,14 +9,20 @@
     }
   });
 
-  test('default label update', function() {
-    var label = 'Postcode';
+  test('default label update prev', function() {
+    var postLabel = 'Postcode',
+        countryLabel = 'Country/region';
 
     // Call the default updateLabel method; assert it had the right effect.
-    $.fn.addressfield.updateLabel.call(this.postalcode, label);
-    equal(this.postalcode.prev('label').text(), label, 'should update label');
+    $.fn.addressfield.updateLabel.call(this.postalcode, postLabel);
+    equal(this.postalcode.prev('label').text(), postLabel, 'should update post label');
 
-    expect(1);
+    // Call the default updateLabel method on a field whose label is not
+    // directly adjacent to the field; assert it had the right effect.
+    $.fn.addressfield.updateLabel.call(this.country, countryLabel);
+    equal($('label[for="' + this.country.attr('id') + '"]').text(), countryLabel, 'should update label');
+
+    expect(2);
   });
 
   test('default select conversion', function() {
