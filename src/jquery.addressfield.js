@@ -86,16 +86,10 @@
    */
   $.fn.addressfield.updateLabel = function (label) {
     var $this = $(this),
-        $previous = $this.prev('label'),
         elementName = $this.attr('id'),
-        $label = $('label[for="' + elementName + '"]');
+        $label = $('label[for="' + elementName + '"]') || $this.prev('label');
 
-    if ($label.length) {
-      $label.text(label);
-    }
-    else if ($previous.length) {
-      $previous.text(label);
-    }
+    $label.text(label);
   };
 
   /**
@@ -163,15 +157,16 @@
    * Hides the field, but stores it for restoration later, if necessary.
    */
   $.fn.addressfield.hideField = function() {
-    $(this).val('');
-    $(this).parent().hide();
+    $(this).val('').hide();
+    $.fn.addressfield.container.call(this).hide();
   };
 
   /**
    * Shows / restores the field that had been previously hidden.
    */
   $.fn.addressfield.showField = function() {
-    $(this).parent().show();
+    this.show();
+    $.fn.addressfield.container.call(this).show();
   };
 
   /**
@@ -179,6 +174,23 @@
    */
   $.fn.addressfield.isVisible = function() {
     return $(this).is(':visible');
+  };
+
+  /**
+   * Returns the container element for a given field.
+   */
+  $.fn.addressfield.container = function() {
+    var $this = $(this),
+        elementName = $this.attr('id'),
+        $label = $('label[for="' + elementName + '"]') || $this.prev('label');
+
+    // @todo drop support for jQuery 1.3, just use .has()
+    if (typeof $.fn.has === 'function') {
+      return $this.parents().has($label).first();
+    }
+    else {
+      return $this.parents().find(':has(label):has(#' + elementName + '):last');
+    }
   };
 
   /**
@@ -195,7 +207,7 @@
     for (i; i < length; ++i) {
       if (i in order) {
         // Save off the element container over its class selector in order.
-        $element = $(this).find('.' + order[i]).parent('div, section');
+        $element = $.fn.addressfield.container.call(this.find('.' + order[i]));
         order[i] = {
           'element': $element.clone(),
           'class': order[i],
