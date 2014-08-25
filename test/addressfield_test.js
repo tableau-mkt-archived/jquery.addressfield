@@ -127,7 +127,7 @@
 
   test('default field show', function() {
     // Hide the postalcode field to begin with.
-    $.fn.addressfield.hideField.call(this.postalcode);
+    this.postalcode.hide();
     ok(this.postalcode.not(':visible'), 'postal code field hidden');
 
     // Call the default showField method and assert the correct effects.
@@ -148,6 +148,52 @@
     strictEqual($.fn.addressfield.isVisible.call(this.postalcode), true, 'postal code field is not hidden');
 
     expect(2);
+  });
+
+  test('default field container', function() {
+    var mockParentsData = {},
+        oldParents = $.fn.parents,
+        oldHas = $.fn.has,
+        oldFirst = $.fn.first,
+        mockHasData = {},
+        mockFirstExpected = 'expected',
+        actualResponse;
+
+    // Override the core parents method.
+    $.fn.parents = function() {
+      mockParentsData = $(this);
+      return mockParentsData;
+    };
+
+    // Override the core has method.
+    $.fn.has = function($elements) {
+      mockHasData = $elements;
+      return $(this);
+    };
+
+    // Override the core first method.
+    $.fn.first = function() {
+      return mockFirstExpected;
+    };
+
+    // Call the default container method and assert its expected behavior.
+    actualResponse = $.fn.addressfield.container.call(this.postalcode);
+
+    // Ensure .parents() is called with $(this)
+    strictEqual(mockParentsData.attr('id'), this.postalcode.attr('id'), 'find parents of element');
+
+    // Ensure has is called on $(this) with appropriate label (using for)
+    strictEqual(mockHasData.attr('for'), this.postalcode.attr('id'), 'filter by elements containing label (for)');
+
+    // Ensure the method returns as expected.
+    strictEqual(actualResponse, mockFirstExpected, 'returned expected container');
+
+    expect(3);
+
+    // Reset methods.
+    $.fn.parents = oldParents;
+    $.fn.has = oldHas;
+    $.fn.first = oldFirst;
   });
 
   test('default field order', function() {
