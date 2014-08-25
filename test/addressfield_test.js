@@ -138,6 +138,18 @@
     expect(3);
   });
 
+  test('default field hidden', function() {
+    // Hide the postalcode field, assert that it is hidden.
+    $.fn.addressfield.hideField.call(this.postalcode);
+    strictEqual($.fn.addressfield.isVisible.call(this.postalcode), false, 'postal code field is hidden');
+
+    // Call the default showField method and assert that it is not hidden.
+    $.fn.addressfield.showField.call(this.postalcode);
+    strictEqual($.fn.addressfield.isVisible.call(this.postalcode), true, 'postal code field is not hidden');
+
+    expect(2);
+  });
+
   test('default field order', function() {
     var expectedOrder = ['postalcode', 'localityname', 'administrativearea'],
         expectedVals = {
@@ -318,7 +330,7 @@
     };
 
     // Hide the postalcode field to begin with.
-    $.fn.addressfield.hideField.call(this.address.find('.postalcode'));
+    $('.postalcode').hide();
     ok(this.address.find('.postalcode').not(':visible'), 'postal code field hidden');
 
     // Call the addressfield plugin and assert the correct effects.
