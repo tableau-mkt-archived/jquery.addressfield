@@ -60,7 +60,7 @@
           }
 
           // When adding fields that didn't previously exist.
-          if ($element.not(':visible') && $.inArray(field, enabled_fields) !== -1) {
+          if (!$.fn.addressfield.isVisible.call($element) && $.inArray(field, enabled_fields) !== -1) {
             $.fn.addressfield.showField.call($element);
           }
         }
@@ -172,6 +172,13 @@
    */
   $.fn.addressfield.showField = function() {
     $(this).parent().show();
+  };
+
+  /**
+   * Returns whether or not the field is visible.
+   */
+  $.fn.addressfield.isVisible = function() {
+    return $(this).is(':visible');
   };
 
   /**
