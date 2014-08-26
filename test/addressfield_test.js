@@ -196,6 +196,34 @@
     $.fn.first = oldFirst;
   });
 
+  test('default copy attrs to', function() {
+    var $mock = $('<input id="bar" name="baz" other="fizz" />'),
+        mockAttrData = [],
+        oldAttr = $.fn.attr,
+        $target = $('<input />');
+
+    // Mock the core attr method.
+    $.fn.attr = function(name, value) {
+      oldAttr.call($target, name, value);
+      mockAttrData.push(name);
+    };
+
+    // Run the copy attrs method.
+    $.fn.addressfield.copyAttrsTo.call($mock, $target);
+
+    // Ensure expected behavior.
+    strictEqual(mockAttrData.length, 2, 'called exactly 3 times');
+    ok($.inArray('id', mockAttrData) > -1, 'id copied');
+    ok($.inArray('name', mockAttrData) > -1, 'name copied');
+    strictEqual($.inArray('class', mockAttrData), -1, 'class not copied');
+    strictEqual($.inArray('other', mockAttrData), -1, 'class not copied');
+
+    expect(5);
+
+    // Reset methods.
+    $.fn.attr = oldAttr;
+  });
+
   test('default field order', function() {
     var expectedOrder = ['postalcode', 'localityname', 'administrativearea'],
         expectedVals = {

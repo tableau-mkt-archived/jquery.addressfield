@@ -118,11 +118,8 @@
     var $self = $(this),
         $input = $('<input />').attr('type', 'text');
 
-    $.each($self[0].attributes, function () {
-      if ($.inArray(this.name, ['class', 'id', 'name']) !== -1) {
-        $input.attr(this.name, this.value);
-      }
-    });
+    // Copy attributes from $self to $input.
+    $.fn.addressfield.copyAttrsTo.call($self, $input);
 
     // Ensure the old value is still reflected after conversion.
     $input.val($self.val());
@@ -139,11 +136,8 @@
     var $self = $(this),
         $select = $('<select></select>');
 
-    $.each($self[0].attributes, function () {
-      if ($.inArray(this.name, ['class', 'id', 'name']) !== -1) {
-        $select.attr(this.name, this.value);
-      }
-    });
+    // Copy attributes from $self to $select.
+    $.fn.addressfield.copyAttrsTo.call($self, $select);
 
     // Save the old input value to a data attribute, for use in updateOptions.
     $select.data('_saved', $self.val());
@@ -191,6 +185,20 @@
     else {
       return $this.parents().find(':has(label):has(#' + elementName + '):last');
     }
+  };
+
+  /**
+   * Copies select HTML attributes from a given element to the supplied element.
+   */
+  $.fn.addressfield.copyAttrsTo = function($to) {
+    var attributes = ['class', 'id', 'name'],
+        $this = $(this);
+
+    $.each($this[0].attributes, function () {
+      if ($.inArray(this.name, attributes) !== -1) {
+        $to.attr(this.name, this.value);
+      }
+    });
   };
 
   /**
