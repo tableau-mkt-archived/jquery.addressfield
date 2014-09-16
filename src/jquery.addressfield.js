@@ -132,9 +132,9 @@
         oldVal = $self.data('_saved') || $self.val();
 
     $self.children('option').remove();
-    $.each(options, function (optionObj) {
-      var value = $.fn.addressfield.onlyKey(options[optionObj]);
-      $self.append($('<option></option>').attr('value', value).text(options[optionObj][value]));
+    $.each(options, function (optionPos) {
+      var value = $.fn.addressfield.onlyKey(options[optionPos]);
+      $self.append($('<option></option>').attr('value', value).text(options[optionPos][value]));
     });
 
     // Ensure the old value is still reflected after options are updated.
