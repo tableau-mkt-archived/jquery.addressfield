@@ -30,18 +30,22 @@ Where `config` is an object that fits this format:
 ```json
 {
   "_comment" : "Note that field order will be respected.",
-  "fieldname1" : {
-    "_comment" : "All fields must include labels.",
-    "label" : "Label for field1"
-  }
-  "fieldname2" : {
-    "label" : "Label for field2"
-    "_comment" : "Fields with options will be converted to selects.",
-    "options" : {
-      "AA" : "AA Value",
-      "BB" : "BB Value"
+  "fields" : [{
+    "fieldname1" : {
+      "_comment" : "All fields must include labels.",
+      "label" : "Label for field1"
     }
-  }
+  }, {
+    "fieldname2" : {
+      "label" : "Label for field2"
+      "_comment" : "Fields with options will be converted to selects.",
+      "options" : [{
+        "AA" : "AA Value"
+      }, {
+        "BB" : "BB Value"
+      }]
+    }
+  }]
 }
 ```
 
@@ -71,35 +75,55 @@ regions. Also note the labels for province/county and postal code/postcode.
 ```json
 {
   "CA" : {
-    "administrativearea" : {
-      "label" : "Province",
-      "options" : {
-        "AB" : "Alberta",
-        "BC" : "British Columbia",
-        "MB" : "Manitoba",
-        "NB" : "New Brunswick",
-        "NL" : "Newfoundland",
-        "NT" : "Northwest Territories",
-        "NS" : "Nova Scotia",
-        "NU" : "Nunavut",
-        "ON" : "Ontario",
-        "PE" : "Prince Edward Island",
-        "QC" : "Quebec",
-        "SK" : "Saskatchewan",
-        "YT" : "Yukon Territory"
+    "fields" : [{
+      "administrativearea" : {
+        "label" : "Province",
+        "options" : [{
+          "" : "--"
+        }, {
+          "AB" : "Alberta"
+        }, {
+          "BC" : "British Columbia"
+        }, {
+          "MB" : "Manitoba"
+        }, {
+          "NB" : "New Brunswick"
+        }, {
+          "NL" : "Newfoundland"
+        }, {
+          "NT" : "Northwest Territories"
+        }, {
+          "NS" : "Nova Scotia"
+        }, {
+          "NU" : "Nunavut"
+        }, {
+          "ON" : "Ontario"
+        }, {
+          "PE" : "Prince Edward Island"
+        }, {
+          "QC" : "Quebec"
+        }, {
+          "SK" : "Saskatchewan"
+        }, {
+          "YT" : "Yukon Territory"
+        }]
       }
-    },
-    "postalcode" : {
-      "label" : "Postal code"
-    }
+    }, {
+      "postalcode" : {
+        "label" : "Postal code"
+      }
+    }]
   },
   "GB" : {
-    "administrativearea" : {
-      "label" : "County"
-    },
-    "postalcode" : {
-      "label" : "Postcode"
-    }
+    "fields" : [{
+      "administrativearea" : {
+        "label" : "County"
+      }
+    }, {
+      "postalcode" : {
+        "label" : "Postcode"
+      }
+    }]
   }
 }
 ```
@@ -156,7 +180,7 @@ $.getJSON('path/to/above.json', function(config) {
 ```
 
 Looking for a full, compatible dataset of field configurations by country? You
-might be interested in [addressfield.json](https://github.com/tableau-mkt/addressfield.json).
+might be interested in v1.x of [addressfield.json](https://github.com/tableau-mkt/addressfield.json).
 
 ## Contributing
 Check out the [Contributing guidelines](CONTRIBUTING.md)

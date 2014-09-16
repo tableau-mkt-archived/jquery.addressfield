@@ -9,6 +9,43 @@
     }
   });
 
+  test('default only key', function() {
+    var object = {onlyKey: 'value'},
+        returnedKey;
+
+    // Call the default onlyKey method; assert it returns the expected value.
+    returnedKey = $.fn.addressfield.onlyKey(object);
+    equal(returnedKey, 'onlyKey', 'should return only key in object');
+
+    expect(1);
+  });
+
+  test('default has field', function() {
+    var config = {fields: [{
+        premise: {}
+      }, {
+        locality: [{
+          administrativearea: {}
+        }]
+      }]},
+      testFields = {
+        'premise' : true,
+        'thoroughfare': false,
+        'administrativearea': true,
+        'postalcode': false
+      },
+      testField,
+      response;
+
+    // Call the default hasField method; assert it returns as expected.
+    for (testField in testFields) {
+      response = $.fn.addressfield.hasField(config, testField);
+      strictEqual(response, testFields[testField], 'should respond whether config has field');
+    }
+
+    expect(Object.keys(testFields).length);
+  });
+
   test('default label update prev', function() {
     var postLabel = 'Postcode',
         countryLabel = 'Country/region';
@@ -58,12 +95,12 @@
 
   test('default options update', function() {
     var oldOptions = this.country.clone().get(0).options,
-        options = {
-          "XX" : "Foo",
-          "YY" : "Bar",
-          "ZZ" : "Baz",
-          "US" : "Default"
-        },
+        options = [
+          {"XX" : "Foo"},
+          {"YY" : "Bar"},
+          {"ZZ" : "Baz"},
+          {"US" : "Default"}
+        ],
         parent = this,
         oldData = $.fn.data,
         mockDataData = [],
@@ -100,14 +137,15 @@
     }
 
     // Iterate through expected options, ensure they're there.
-    $.each(options, function(value, text) {
+    $.each(options, function(optionPos) {
+      var value = $.fn.addressfield.onlyKey(options[optionPos]);
       strictEqual(parent.country.find('option[value="' + value + '"]').length, 1, 'should add new options');
-      strictEqual(parent.country.find('option[value="' + value + '"]').text(), text, 'should add proper label for each value');
+      strictEqual(parent.country.find('option[value="' + value + '"]').text(), options[optionPos][value], 'should add proper label for each value');
     });
 
     // Ensure the old value is maintained.
     equal(this.country.val(), parent.country.val(), 'should maintain value after update');
-    equal(this.country.find('option:selected').text(), options.US, 'should have new option text, though');
+    equal(this.country.find('option:selected').text(), options[3].US, 'should have new option text, though');
 
     expect(6 + oldOptions.length - 1 + Object.keys(options).length * 2);
   });
@@ -315,7 +353,7 @@
 
   test('attempts to hide disabled fields', function() {
     var mockData = [],
-        shouldBeShown = {'postalcode' : ""},
+        shouldBeShown = {fields: [{'postalcode' : ""}]},
         attemptToHide = ['administrativearea', 'locality', 'postalcode'];
 
     // Override the hideField method.
@@ -335,7 +373,7 @@
     var updateLabelMethodCalled = 0,
         mockData = '',
         expectedLabel = 'Foobar',
-        config = {'postalcode' : {'label': expectedLabel}},
+        config = {fields: [{'postalcode' : {'label': expectedLabel}}]},
         enabledFields = ['postalcode'];
 
     // Override the updateLabel method.
@@ -356,7 +394,7 @@
     var updateLabelMethodCalled = 0,
         mockData = '',
         expectedLabel = 'Foobar',
-        config = {'postalcode' : {'label': expectedLabel}},
+        config = {fields: [{'postalcode' : {'label': expectedLabel}}]},
         enabledFields = ['notpostalcode'];
 
     // Override the updateLabel method.
@@ -376,7 +414,7 @@
     var updateLabelMethodCalled = 0,
         mockData = '',
         expectedLabel = 'Foobar',
-        config = {"locality" : {'postalcode' : {'label': expectedLabel}}},
+        config = {fields: [{"locality" : [{'postalcode' : {'label': expectedLabel}}]}]},
         enabledFields = ['postalcode', 'locality'];
 
     // Override the updateLabel method.
@@ -395,7 +433,7 @@
 
   test('attempts to show a hidden, enabled field', function() {
     var mockData = [],
-        config = {'postalcode' : {'label': 'Postcode'}},
+        config = {fields: [{'postalcode' : {'label': 'Postcode'}}]},
         enabledFields = ['postalcode'];
 
     // Override the showField method.
@@ -417,7 +455,7 @@
 
   test('does not attempt to show a hidden, but disabled field', function() {
     var mockData = [],
-      config = {'postalcode' : {'label': 'Postcode'}},
+      config = {fields: [{'postalcode' : {'label': 'Postcode'}}]},
       enabledFields = [];
 
     // Override the showField method.
@@ -438,17 +476,18 @@
 
   test('field order attempted is as expected', function() {
     var mockData = [],
-        config = {
-          'postalcode' : {'label': 'Postcode'},
+        config = {fields: [{
+          'postalcode': {'label': 'Postcode'}
+        }, {
           'localityname' : {'label' : 'City'}
-        },
+        }]},
         enabledFields = ['localityname', 'postalcode'],
         expectedOrder = [],
         field;
 
     // Determine the expected order from the config above.
-    for (field in config) {
-      expectedOrder.push(field);
+    for (field in config.fields) {
+      expectedOrder.push($.fn.addressfield.onlyKey(config.fields[field]));
     }
 
     // Override the orderFields method.
@@ -465,7 +504,7 @@
 
   test('converts select fields to text', function() {
     var convertToTextMethodCalled = 0,
-        config = {'country' : {'label' : 'Country/Region'}},
+        config = {fields: [{'country' : {'label' : 'Country/Region'}}]},
         enabledFields = ['country'];
 
     // Override the convertToText method.
@@ -483,7 +522,7 @@
 
   test('does not convert disabled select fields to text', function() {
     var convertToTextMethodCalled = 0,
-        config = {'country' : {'label' : 'Country/Region'}},
+        config = {fields: [{'country' : {'label' : 'Country/Region'}}]},
         enabledFields = [];
 
     // Override the convertToText method.
@@ -502,17 +541,18 @@
   test('updates options for existing select', function() {
     var updateOptionsMethodCalled = 0,
         convertToSelectMethodCalled = 0,
-        config = {
+        config = {fields: [{
           'country' : {
             'label' : 'Country/Region',
-            'options' : {
-              "foo" : "bar",
+            'options' : [{
+              "foo": "bar"
+            }, {
               "baz" : "fizz"
-            }
+            }]
           }
-        },
+        }]},
         enabledFields = ['country'],
-        updatedOptions = {};
+        updatedOptions = [];
 
     // Override the convertToText method.
     $.fn.addressfield.updateOptions = function(options) {
@@ -529,7 +569,7 @@
     // Call the addressfield plugin and assert the correct effects.
     this.address.addressfield(config, enabledFields);
     equal(updateOptionsMethodCalled, 1, 'should be called');
-    deepEqual(updatedOptions, config.country.options, 'options should match');
+    deepEqual(updatedOptions, config.fields[0].country.options, 'options should match');
     equal(convertToSelectMethodCalled, 0, 'should not convert to select');
 
     expect(3);
@@ -538,17 +578,18 @@
   test('updates options and converts to select', function() {
     var updateOptionsMethodCalled = 0,
         convertToSelectMethodCalled = 0,
-        config = {
+        config = {fields: [{
         'administrativearea' : {
           'label' : 'Province',
-          'options' : {
-            "foo" : "bar",
+          'options' : [{
+            "foo": "bar"
+          }, {
             "baz" : "fizz"
-          }
+          }]
         }
-      },
+      }]},
       enabledFields = ['administrativearea'],
-      updatedOptions = {};
+      updatedOptions = [];
 
     // Override the convertToText method.
     $.fn.addressfield.updateOptions = function(options) {
@@ -565,7 +606,7 @@
     // Call the addressfield plugin and assert the correct effects.
     this.address.addressfield(config, enabledFields);
     equal(updateOptionsMethodCalled, 1, 'should be called');
-    deepEqual(updatedOptions, config.administrativearea.options, 'options should match');
+    deepEqual(updatedOptions, config.fields[0].administrativearea.options, 'options should match');
     equal(convertToSelectMethodCalled, 1, 'should convert to select');
 
     expect(3);
