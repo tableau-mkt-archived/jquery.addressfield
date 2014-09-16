@@ -9,6 +9,43 @@
     }
   });
 
+  test('default only key', function() {
+    var object = {onlyKey: 'value'},
+        returnedKey;
+
+    // Call the default onlyKey method; assert it returns the expected value.
+    returnedKey = $.fn.addressfield.onlyKey(object);
+    equal(returnedKey, 'onlyKey', 'should return only key in object');
+
+    expect(1);
+  });
+
+  test('default has field', function() {
+    var config = {fields: [{
+        premise: {}
+      }, {
+        locality: [{
+          administrativearea: {}
+        }]
+      }]},
+      testFields = {
+        'premise' : true,
+        'thoroughfare': false,
+        'administrativearea': true,
+        'postalcode': false
+      },
+      testField,
+      response;
+
+    // Call the default hasField method; assert it returns as expected.
+    for (testField in testFields) {
+      response = $.fn.addressfield.hasField(config, testField);
+      strictEqual(response, testFields[testField], 'should respond whether config has field');
+    }
+
+    expect(Object.keys(testFields).length);
+  });
+
   test('default label update prev', function() {
     var postLabel = 'Postcode',
         countryLabel = 'Country/region';
