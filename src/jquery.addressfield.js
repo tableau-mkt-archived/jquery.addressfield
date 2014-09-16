@@ -17,52 +17,53 @@
     var $container = $(this),
       field_order = [],
       $element,
+      field_pos,
       field;
 
     // Iterate through defined address fields for this country.
-    for (field in config) {
-      // Account for non-field attributes within the configuration.
-      if (typeof config[field] === 'object') {
-        // Pick out the existing elements for the given field.
-        $element = $container.find('.' + field);
+    for (field_pos in config.fields) {
+      // Determine the xNAL name of this field.
+      field = $.fn.addressfield.onlyKey(config.fields[field_pos]);
 
-        // Account for nested fields.
-        if (!config[field].hasOwnProperty('label')) {
-          return $.fn.addressfield.call($element, config[field], enabled_fields);
+      // Pick out the existing elements for the given field.
+      $element = $container.find('.' + field);
+
+      // Account for nested fields.
+      if (config.fields[field_pos][field] instanceof Array) {
+        return $.fn.addressfield.call($element, {fields: config.fields[field_pos][field]}, enabled_fields);
+      }
+      // Otherwise perform the usual actions.
+      else {
+        // When swapping out labels / values for existing fields.
+        // Ensure the element exists and is configured to be displayed.
+        if ($element.length && $.inArray(field, enabled_fields) !== -1) {
+          // Push this field onto the field_order array.
+          field_order.push(field);
+
+          // Update the options.
+          if (typeof config.fields[field_pos][field].options !== 'undefined') {
+            // If this field has options but it's currently a text field,
+            // convert it back to a select field.
+            if (!$element.is('select')) {
+              $element = $.fn.addressfield.convertToSelect.call($element);
+            }
+            $.fn.addressfield.updateOptions.call($element, config.fields[field_pos][field].options);
+          }
+          else {
+            // If this field does not have options but it's currently a select
+            // field, convert it back to a text field.
+            if ($element.is('select')) {
+              $element = $.fn.addressfield.convertToText.call($element);
+            }
+          }
+
+          // Update the label.
+          $.fn.addressfield.updateLabel.call($element, config.fields[field_pos][field].label);
         }
-        // Otherwise perform the usual actions.
-        else {
-          // When swapping out labels / values for existing fields.
-          // Ensure the element exists and is configured to be displayed.
-          if ($element.length && $.inArray(field, enabled_fields) !== -1) {
-            // Push this field onto the field_order array.
-            field_order.push(field);
 
-            // Update the options.
-            if (typeof config[field].options !== 'undefined') {
-              // If this field has options but it's currently a text field,
-              // convert it back to a select field.
-              if (!$element.is('select')) {
-                $element = $.fn.addressfield.convertToSelect.call($element);
-              }
-              $.fn.addressfield.updateOptions.call($element, config[field].options);
-            }
-            else {
-              // If this field does not have options but it's currently a select
-              // field, convert it back to a text field.
-              if ($element.is('select')) {
-                $element = $.fn.addressfield.convertToText.call($element);
-              }
-            }
-
-            // Update the label.
-            $.fn.addressfield.updateLabel.call($element, config[field].label);
-          }
-
-          // When adding fields that didn't previously exist.
-          if (!$.fn.addressfield.isVisible.call($element) && $.inArray(field, enabled_fields) !== -1) {
-            $.fn.addressfield.showField.call($element);
-          }
+        // When adding fields that didn't previously exist.
+        if (!$.fn.addressfield.isVisible.call($element) && $.inArray(field, enabled_fields) !== -1) {
+          $.fn.addressfield.showField.call($element);
         }
       }
     }
@@ -70,7 +71,7 @@
     // Now check for fields that are still on the page but shouldn't be.
     $.each(enabled_fields, function (index, field) {
       var $element = $container.find('.' + field);
-      if ($element.length && !config.hasOwnProperty(field)) {
+      if ($element.length && !$.fn.addressfield.hasField(config, field)) {
         $.fn.addressfield.hideField.call($element);
       }
     });
@@ -79,6 +80,37 @@
     $.fn.addressfield.orderFields.call($container, field_order);
 
     return this;
+  };
+
+  /**
+   * Returns the "first" (only) key of a JavaScript object.
+   */
+  $.fn.addressfield.onlyKey = function (obj) {
+    for (var i in obj) {
+      return i;
+    }
+  };
+
+  /**
+   * Returns whether or not a given configuration contains a given field.
+   */
+  $.fn.addressfield.hasField = function (config, expectedField) {
+    var pos,
+        field;
+
+    for (pos in config.fields) {
+      field = $.fn.addressfield.onlyKey(config.fields[pos]);
+      if (config.fields[pos][field] instanceof Array) {
+        return $.fn.addressfield.hasField({fields: config.fields[pos][field]}, expectedField);
+      }
+      else {
+        if (field === expectedField) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   };
 
   /**
@@ -100,8 +132,9 @@
         oldVal = $self.data('_saved') || $self.val();
 
     $self.children('option').remove();
-    $.each(options, function (value, label) {
-      $self.append($('<option></option>').attr('value', value).text(label));
+    $.each(options, function (optionObj) {
+      var value = $.fn.addressfield.onlyKey(options[optionObj]);
+      $self.append($('<option></option>').attr('value', value).text(options[optionObj][value]));
     });
 
     // Ensure the old value is still reflected after options are updated.
