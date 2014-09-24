@@ -12,7 +12,7 @@ dynamically...
 - Updating select options (e.g. US states vs. Canadian provinces)
 - Updating field order (e.g. city, state, zip for US, different elsewhere),
 - Validating fields on a field-by-field basis (e.g. between various
-  postal code standards--depends on [jQuery.validate[(http://jqueryvalidation.org/)),
+  postal code standards--depends on [jQuery.validate](http://jqueryvalidation.org/)),
 - Providing placeholder text for configured fields (helpful when validating
   above).
 
