@@ -2,6 +2,20 @@
 
 The simple, configurable, dynamic address field plugin.
 
+## Features
+This plugin enhances user experience on your address (shipping/PO) forms by
+dynamically...
+- Updating field labels (e.g. "ZIP code" vs. "Postcode"),
+- Adding or removing fields that are irrelevant (e.g. for a particular locales),
+- Converting fields between select lists and text fields (e.g. US States vs.
+  counties in the UK),
+- Updating select options (e.g. US states vs. Canadian provinces)
+- Updating field order (e.g. city, state, zip for US, different elsewhere),
+- Validating fields on a field-by-field basis (e.g. between various
+  postal code standards--depends on [jQuery.validate[(http://jqueryvalidation.org/)),
+- Providing placeholder text for configured fields (helpful when validating
+  above).
+
 ## Installation
 Include the script after your jQuery include (unless you're packaging scripts
 in some other magical way):
