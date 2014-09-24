@@ -46,6 +46,108 @@
     expect(Object.keys(testFields).length);
   });
 
+  test('default example placeholder', function() {
+    var postExamplesExpecteds = {
+          "98103": "e.g. 98103",
+          "": ""
+        },
+        example;
+
+    // Call the default updateEg method; assert it had the desired effect.
+    for (example in postExamplesExpecteds) {
+      $.fn.addressfield.updateEg.call(this.postalcode, example);
+      equal(this.postalcode.attr('placeholder'), postExamplesExpecteds[example]);
+    }
+
+    expect(Object.keys(postExamplesExpecteds).length);
+  });
+
+  test('default validator no format', function() {
+    var fieldName = 'postalcode',
+        expectedMethodName = 'isValid_' + fieldName,
+        addMethodValues = {};
+
+    // Stub out jQuery.validator.
+    $.validator = {
+      "messages": {},
+      "addMethod": function (methodName, callable, message) {
+        addMethodValues.methodName = methodName;
+        addMethodValues.callable = callable;
+        addMethodValues.message = message;
+      }
+    };
+
+    // Call the default validate method with no format; assert desired effects.
+    $.fn.addressfield.validate.call(this.postalcode, fieldName, {});
+    equal(addMethodValues.methodName, expectedMethodName, 'should use expected validation method name');
+    equal(addMethodValues.message, 'Please check your formatting.', 'should use default message when not previously defined');
+    equal(addMethodValues.callable(), true, 'should set validation method to function that always returns true');
+
+    // Do the same, but provide an alternate message.
+    addMethodValues = {};
+    $.validator.messages[expectedMethodName] = 'Overridden message.';
+    $.fn.addressfield.validate.call(this.postalcode, fieldName, {});
+    equal(addMethodValues.methodName, expectedMethodName, 'should use expected validation method name');
+    equal(addMethodValues.message, $.validator.messages[expectedMethodName], 'should use pre-defined message when provided');
+    equal(addMethodValues.callable(), true, 'should set validation method to function that always returns true');
+
+    // "Unset" jQuery.validator.
+    delete $.validator;
+    expect(6);
+  });
+
+  test('default validator with format', function() {
+    var fieldName = 'postalcode',
+        format = {format: "^\\d{1}$"},
+        expectedMethodName = 'isValid_' + fieldName,
+        expectedRule = {},
+        addMethodValues = {},
+        rulesValues = {};
+
+    // Stub out jQuery.validator.
+    $.validator = {
+      "messages": {},
+      "addMethod": function (methodName, callable, message) {
+        addMethodValues.methodName = methodName;
+        addMethodValues.callable = callable;
+        addMethodValues.message = message;
+      }
+    };
+
+    // Mock jQuery.rules, define expected rule.
+    expectedRule[expectedMethodName] = true;
+    $.fn.rules = function(method, rule) {
+      rulesValues.method = method;
+      rulesValues.rule = rule;
+    };
+
+    // Call the default validate method with a format; assert desired effects.
+    $.fn.addressfield.validate.call(this.postalcode, fieldName, format);
+    equal(addMethodValues.methodName, expectedMethodName, 'should use expected validation method name');
+    equal(addMethodValues.message, 'Please check your formatting.', 'should use default message when not previously defined');
+    equal(addMethodValues.callable(1), true, 'should set validation method to evaluate true when appropriate');
+    equal(addMethodValues.callable('d'), false, 'should set validation method to evaluate false when appropriate');
+    equal(rulesValues.method, 'add', 'should call $.rules with add method');
+    deepEqual(rulesValues.rule, expectedRule, 'should call $.rules with expected rule');
+
+    // Do the same, but provide an alternate message.
+    addMethodValues = {};
+    rulesValues = {};
+    $.validator.messages[expectedMethodName] = 'Overridden message.';
+    $.fn.addressfield.validate.call(this.postalcode, fieldName, format);
+    equal(addMethodValues.methodName, expectedMethodName, 'should use expected validation method name');
+    equal(addMethodValues.message, $.validator.messages[expectedMethodName], 'should use pre-defined message when provided');
+    equal(addMethodValues.callable(1), true, 'should set validation method to evaluate true when appropriate');
+    equal(addMethodValues.callable('d'), false, 'should set validation method to evaluate false when appropriate');
+    equal(rulesValues.method, 'add', 'should call $.rules with add method');
+    deepEqual(rulesValues.rule, expectedRule, 'should call $.rules with expected rule');
+
+    // "Unset" jQuery.validator and the rules method.
+    delete $.validator;
+    delete $.fn.rules;
+    expect(12);
+  });
+
   test('default label update prev', function() {
     var postLabel = 'Postcode',
         countryLabel = 'Country/region';
@@ -610,6 +712,62 @@
     equal(convertToSelectMethodCalled, 1, 'should convert to select');
 
     expect(3);
+  });
+
+  test('updates placeholder empty or not', function() {
+    var config = {fields: [{'postalcode': {'label': 'Postcode', 'eg': '98103'}}]},
+        enabledFields = ['postalcode'],
+        passedPlaceholder = '';
+
+    // Override the updateEg method.
+    $.fn.addressfield.updateEg = function(placeholder) {
+      passedPlaceholder = placeholder;
+    };
+
+    // Call the addressfield plugin and assert the correct effects.
+    this.address.addressfield(config, enabledFields);
+    equal(passedPlaceholder, config.fields[0].postalcode.eg, 'should be called with passed example');
+    delete config.fields[0].postalcode.eg;
+    this.address.addressfield(config, enabledFields);
+    equal(passedPlaceholder, '', 'should be called with empty string');
+
+    expect(2);
+  });
+
+  test('do not update placeholder on options list', function() {
+    var config = {fields: [{'administrativearea' : {'label' : 'Province', 'options' : []}}]},
+        enabledFields = ['administrativearea'],
+        updateEgCalled = 0;
+
+    // Override the updateEg method.
+    $.fn.addressfield.updateEg = function() {
+      updateEgCalled++;
+    };
+
+    // Call the addressfield plugin and assert the correct effects.
+    this.address.addressfield(config, enabledFields);
+    equal(updateEgCalled, 0, 'should not be called on an option list');
+
+    expect(1);
+  });
+
+  test('call validate handling', function() {
+    var config = {fields: [{'postalcode': {'label': 'Postcode', 'eg': '98103'}}]},
+        enabledFields = ['postalcode'],
+        validateValues = {};
+
+    // Override the validate method.
+    $.fn.addressfield.validate = function(field, format) {
+      validateValues.field = field;
+      validateValues.format = format;
+    };
+
+    // Call the addressfield plugin and assert the correct effects.
+    this.address.addressfield(config, enabledFields);
+    equal(validateValues.field, 'postalcode', 'should be called with given field name');
+    deepEqual(validateValues.format, config.fields[0].postalcode, 'should be called with given field config');
+
+    expect(2);
   });
 
 }(jQuery));
