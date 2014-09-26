@@ -273,12 +273,18 @@
    * Copies select HTML attributes from a given element to the supplied element.
    */
   $.fn.addressfield.copyAttrsTo = function($to) {
-    var attributes = ['class', 'id', 'name'],
+    var attributes = ['class', 'id', 'name', 'propdescname'],
         $this = $(this);
 
     $.each($this[0].attributes, function () {
       if ($.inArray(this.name, attributes) !== -1) {
-        $to.attr(this.name, this.value);
+        // Compatibility for IE8.
+        if (this.name === 'propdescname') {
+          $to.attr('name', this.value);
+        }
+        else {
+          $to.attr(this.name, this.value);
+        }
       }
     });
   };
