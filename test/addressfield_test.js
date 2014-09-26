@@ -340,7 +340,8 @@
     var $mock = $('<input id="bar" name="baz" other="fizz" />'),
         mockAttrData = [],
         oldAttr = $.fn.attr,
-        $target = $('<input />');
+        $target = $('<input />'),
+        attribute = document.createAttribute('propdescname');
 
     // Mock the core attr method.
     $.fn.attr = function(name, value) {
@@ -358,7 +359,18 @@
     strictEqual($.inArray('class', mockAttrData), -1, 'class not copied');
     strictEqual($.inArray('other', mockAttrData), -1, 'class not copied');
 
-    expect(5);
+    // Fake IE8 test: add a propdescname attribute to the DOM element.
+    mockAttrData = [];
+    $target = $('<input />');
+    $mock = $('<input id="bar" other="fizz" />');
+    attribute.nodeValue= 'ie8baz';
+    $mock[0].attributes.setNamedItem(attribute);
+
+    // Then make sure it gets copied over as a "name" attr.
+    $.fn.addressfield.copyAttrsTo.call($mock, $target);
+    ok($.inArray('name', mockAttrData) > -1, 'name copied for IE8');
+
+    expect(6);
 
     // Reset methods.
     $.fn.attr = oldAttr;
