@@ -14,14 +14,3 @@ script: grunt test --verbose
 
 after_script:
   - codeclimate < report/lcov.info
-
-deploy:
-  provider: releases
-  api_key:
-    secure: "bEN+Af0Hc9DIGtuKgKYMxwiNTJlVmUGrjVHkZBe7nzKYlc4ntWSJW+rjVOhowD1RsH3sC+cTvSS0JlHE65EFdVBMXZbgVbpcOSuapgh8aPz0dqXdRtk4GVQupNWbR8pcDScULX+aTxzjY0g473Wt6Rz8GqNwlnxG7s6La/BUfNU="
-  file: build/jquery.addressfield.min.js
-  skip_cleanup: true
-  on:
-    repo: tableau-mkt/jquery.addressfield
-    tags: true
-    branch: master
