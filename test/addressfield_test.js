@@ -782,4 +782,21 @@
     expect(2);
   });
 
+  test('check event fired', function() {
+    var config = {fields: [{'postalcode': {'label': 'Postcode', 'eg': '98103'}}]},
+        enabledFields = ['postalcode'],
+        fired = false;
+
+    // Bind an event listener for addressfield:after to the document element.
+    $(document).bind('addressfield:after', function () {
+      fired = true;
+    });
+
+    // Call the addressfield plugin and assert the correct effects.
+    this.address.addressfield(config, enabledFields);
+
+    ok(fired, 'should fire addressfield:after event');
+    expect(1);
+  });
+
 }(jQuery));

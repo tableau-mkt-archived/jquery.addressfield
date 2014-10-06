@@ -87,6 +87,9 @@
     // Now ensure the fields are in their given order.
     $.fn.addressfield.orderFields.call($container, field_order);
 
+    // Trigger an addressfield:after event on the container.
+    $container.trigger('addressfield:after');
+
     return this;
   };
 

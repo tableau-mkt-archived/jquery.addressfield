@@ -196,5 +196,8 @@ $.getJSON('path/to/above.json', function(config) {
 Looking for a full, compatible dataset of field configurations by country? You
 might be interested in v1.x of [addressfield.json](https://github.com/tableau-mkt/addressfield.json).
 
+## Events
+After calling jQuery.addressfield on a fieldset or other field/form wrapper the event named `addressfield:after` will be fired, immediately before returning. This can be useful when you need custom behavior right after addressfield does its thing.
+
 ## Contributing
 Check out the [Contributing guidelines](CONTRIBUTING.md)
