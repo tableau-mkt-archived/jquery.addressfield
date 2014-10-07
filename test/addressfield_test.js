@@ -443,6 +443,38 @@
   });
 
 
+  test('extends default configurations', function () {
+    var oldExtend = $.extend,
+        expectedOptions = {
+          foo: 'bar',
+          baz: 'fizz',
+          defs: {},
+          fields: {}
+        },
+        expectedDefaults = {
+          defs: {fields: {}},
+          fields: {}
+        },
+        mockData = {};
+
+    // Override the core extend method.
+    $.extend = function(arg1, arg2) {
+      mockData.defaults = JSON.parse(JSON.stringify(arg1));
+      mockData.options = JSON.parse(JSON.stringify(arg2));
+      return oldExtend.call(this, arg1, arg2);
+    };
+
+    // Call the addressfield plugin and assert the correct effects.
+    this.address.addressfield(expectedOptions);
+    deepEqual(mockData.defaults, expectedDefaults, 'should be called with expected defaults');
+    deepEqual(mockData.options, expectedOptions, 'should be called with passed options');
+
+    // Reset methods.
+    $.extend = oldExtend;
+
+    expect(2);
+  });
+
   test('attempts to order fields', function() {
     var orderFieldsMethodCalled = 0,
         mockData = {};

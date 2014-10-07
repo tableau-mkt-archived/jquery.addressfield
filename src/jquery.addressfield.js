@@ -13,11 +13,10 @@
    * xNAL standards), and an array of fields you desire to show (again, roughly
    * xNAL compatible).
    *
-   * @param configs
+   * @param options
    *   A configuration object with the following properties:
    *   - defs: An object whose format matches that of addressfield.json. (See
    *     the README for more details.)
-   *
    *   - fields: An object mapping xNAL field names to selectors associated with
    *     their field. For example:
    *     {
@@ -28,17 +27,18 @@
    * @return
    *   Returns itself (useful for chaining).
    */
-  $.fn.addressfield = function(configs) {
+  $.fn.addressfield = function(options) {
     var $container = $(this),
+        configs = $.extend({
+          defs: {fields: {}},
+          fields: {}
+        }, options),
         field_order = [],
         $element,
         selector,
         placeholder,
         field_pos,
         field;
-
-    // Provide default values for sanity.
-    configs = configs || {defs: {fields: {}}, fields: {}};
 
     // Iterate through defined address fields for this country.
     for (field_pos in configs.defs.fields) {
