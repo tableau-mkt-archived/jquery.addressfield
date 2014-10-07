@@ -13,7 +13,7 @@ module.exports = function(grunt) {
       ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
     // Task configuration.
     clean: {
-      files: ['build']
+      files: ['dist']
     },
     concat: {
       options: {
@@ -22,7 +22,7 @@ module.exports = function(grunt) {
       },
       build: {
         src: ['src/jquery.<%= pkg.name %>.js'],
-        dest: 'build/jquery.<%= pkg.name %>.js'
+        dest: 'dist/jquery.<%= pkg.name %>.js'
       }
     },
     connect: {
@@ -38,7 +38,7 @@ module.exports = function(grunt) {
       },
       dist: {
         src: '<%= concat.build.dest %>',
-        dest: 'build/jquery.<%= pkg.name %>.min.js'
+        dest: 'dist/jquery.<%= pkg.name %>.min.js'
       }
     },
     qunit: {
