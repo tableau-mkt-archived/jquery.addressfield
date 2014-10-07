@@ -13,7 +13,7 @@
    * xNAL standards), and an array of fields you desire to show (again, roughly
    * xNAL compatible).
    */
-  $.fn.addressfield = function(config, enabled_fields) {
+  $.fn.addressfield = function(configs) {
     var $container = $(this),
         field_order = [],
         $element,
@@ -21,34 +21,37 @@
         field_pos,
         field;
 
+    // Provide default values for sanity.
+    configs = configs || {defs: {fields: {}}, fields: []};
+
     // Iterate through defined address fields for this country.
-    for (field_pos in config.fields) {
+    for (field_pos in configs.defs.fields) {
       // Determine the xNAL name of this field.
-      field = $.fn.addressfield.onlyKey(config.fields[field_pos]);
+      field = $.fn.addressfield.onlyKey(configs.defs.fields[field_pos]);
 
       // Pick out the existing elements for the given field.
       $element = $container.find('.' + field);
 
       // Account for nested fields.
-      if (config.fields[field_pos][field] instanceof Array) {
-        return $.fn.addressfield.call($element, {fields: config.fields[field_pos][field]}, enabled_fields);
+      if (configs.defs.fields[field_pos][field] instanceof Array) {
+        return $.fn.addressfield.call($element, {defs: {fields: configs.defs.fields[field_pos][field]}, fields: configs.fields});
       }
       // Otherwise perform the usual actions.
       else {
         // When swapping out labels / values for existing fields.
         // Ensure the element exists and is configured to be displayed.
-        if ($element.length && $.inArray(field, enabled_fields) !== -1) {
+        if ($element.length && $.inArray(field, configs.fields) !== -1) {
           // Push this field onto the field_order array.
           field_order.push(field);
 
           // Update the options.
-          if (typeof config.fields[field_pos][field].options !== 'undefined') {
+          if (typeof configs.defs.fields[field_pos][field].options !== 'undefined') {
             // If this field has options but it's currently a text field,
             // convert it back to a select field.
             if (!$element.is('select')) {
               $element = $.fn.addressfield.convertToSelect.call($element);
             }
-            $.fn.addressfield.updateOptions.call($element, config.fields[field_pos][field].options);
+            $.fn.addressfield.updateOptions.call($element, configs.defs.fields[field_pos][field].options);
           }
           else {
             // If this field does not have options but it's currently a select
@@ -58,28 +61,28 @@
             }
 
             // Apply a placeholder; empty one if none exists.
-            placeholder = config.fields[field_pos][field].hasOwnProperty('eg') ? config.fields[field_pos][field].eg : '';
+            placeholder = configs.defs.fields[field_pos][field].hasOwnProperty('eg') ? configs.defs.fields[field_pos][field].eg : '';
             $.fn.addressfield.updateEg.call($element, placeholder);
           }
 
           // Update the label.
-          $.fn.addressfield.updateLabel.call($element, config.fields[field_pos][field].label);
+          $.fn.addressfield.updateLabel.call($element, configs.defs.fields[field_pos][field].label);
         }
 
         // When adding fields that didn't previously exist.
-        if (!$.fn.addressfield.isVisible.call($element) && $.inArray(field, enabled_fields) !== -1) {
+        if (!$.fn.addressfield.isVisible.call($element) && $.inArray(field, configs.fields) !== -1) {
           $.fn.addressfield.showField.call($element);
         }
 
         // Add, update, or remove validation handling for this field.
-        $.fn.addressfield.validate.call($element, field, config.fields[field_pos][field]);
+        $.fn.addressfield.validate.call($element, field, configs.defs.fields[field_pos][field]);
       }
     }
 
     // Now check for fields that are still on the page but shouldn't be.
-    $.each(enabled_fields, function (index, field) {
+    $.each(configs.fields, function (index, field) {
       var $element = $container.find('.' + field);
-      if ($element.length && !$.fn.addressfield.hasField(config, field)) {
+      if ($element.length && !$.fn.addressfield.hasField(configs.defs, field)) {
         $.fn.addressfield.hideField.call($element);
       }
     });

@@ -438,7 +438,7 @@
   });
 
   test('is chainable', function() {
-    strictEqual(this.address.addressfield({}, []), this.address, 'should be chainable');
+    strictEqual(this.address.addressfield(), this.address, 'should be chainable');
     expect(1);
   });
 
@@ -457,7 +457,7 @@
     };
 
     // Call the addressfield plugin and assert the correct effects.
-    this.address.addressfield({}, []);
+    this.address.addressfield();
     equal(orderFieldsMethodCalled, 1, 'should call orderFields exactly once');
     deepEqual(mockData.order, [], 'should be called with an empty array');
     deepEqual(mockData.container, this.address, 'should be called with the address container');
@@ -468,7 +468,8 @@
   test('attempts to hide disabled fields', function() {
     var mockData = [],
         shouldBeShown = {fields: [{'postalcode' : ""}]},
-        attemptToHide = ['administrativearea', 'locality', 'postalcode'];
+        attemptToHide = ['administrativearea', 'locality', 'postalcode'],
+        mockConfig = {defs: shouldBeShown, fields: attemptToHide};
 
     // Override the hideField method.
     $.fn.addressfield.hideField = function() {
@@ -476,7 +477,7 @@
     };
 
     // Call the addressfield plugin and assert the correct effects.
-    this.address.addressfield(shouldBeShown, attemptToHide);
+    this.address.addressfield(mockConfig);
     equal(mockData.length, 2, 'should only be called twice, despite passing 3 fields');
     strictEqual(mockData.indexOf('postalcode'), -1, 'postal code should not have been hidden');
 
@@ -488,7 +489,8 @@
         mockData = '',
         expectedLabel = 'Foobar',
         config = {fields: [{'postalcode' : {'label': expectedLabel}}]},
-        enabledFields = ['postalcode'];
+        enabledFields = ['postalcode'],
+        mockConfig = {defs: config, fields: enabledFields};
 
     // Override the updateLabel method.
     $.fn.addressfield.updateLabel = function(label) {
@@ -497,7 +499,7 @@
     };
 
     // Call the addressfield plugin and assert the correct effects.
-    this.address.addressfield(config, enabledFields);
+    this.address.addressfield(mockConfig);
     equal(updateLabelMethodCalled, 1, 'should only be called once');
     equal(mockData, expectedLabel, 'should be called with the expected label');
 
@@ -509,7 +511,8 @@
         mockData = '',
         expectedLabel = 'Foobar',
         config = {fields: [{'postalcode' : {'label': expectedLabel}}]},
-        enabledFields = ['notpostalcode'];
+        enabledFields = ['notpostalcode'],
+        mockConfig = {defs: config, fields: enabledFields};
 
     // Override the updateLabel method.
     $.fn.addressfield.updateLabel = function(label) {
@@ -518,7 +521,7 @@
     };
 
     // Call the addressfield plugin and assert the correct effects.
-    this.address.addressfield(config, enabledFields);
+    this.address.addressfield(mockConfig);
     equal(updateLabelMethodCalled, 0, 'should not be called');
 
     expect(1);
@@ -529,7 +532,8 @@
         mockData = '',
         expectedLabel = 'Foobar',
         config = {fields: [{"locality" : [{'postalcode' : {'label': expectedLabel}}]}]},
-        enabledFields = ['postalcode', 'locality'];
+        enabledFields = ['postalcode', 'locality'],
+        mockConfig = {defs: config, fields: enabledFields};
 
     // Override the updateLabel method.
     $.fn.addressfield.updateLabel = function(label) {
@@ -538,7 +542,7 @@
     };
 
     // Call the addressfield plugin and assert the correct effects.
-    this.address.addressfield(config, enabledFields);
+    this.address.addressfield(mockConfig);
     equal(updateLabelMethodCalled, 1, 'should only be called once');
     equal(mockData, expectedLabel, 'should be called with the expected label');
 
@@ -548,7 +552,8 @@
   test('attempts to show a hidden, enabled field', function() {
     var mockData = [],
         config = {fields: [{'postalcode' : {'label': 'Postcode'}}]},
-        enabledFields = ['postalcode'];
+        enabledFields = ['postalcode'],
+        mockConfig = {defs: config, fields: enabledFields};
 
     // Override the showField method.
     $.fn.addressfield.showField = function() {
@@ -560,7 +565,7 @@
     ok(this.address.find('.postalcode').not(':visible'), 'postal code field hidden');
 
     // Call the addressfield plugin and assert the correct effects.
-    this.address.addressfield(config, enabledFields);
+    this.address.addressfield(mockConfig);
     equal(mockData.length, 1, 'should be called exactly once');
     equal(mockData[0], 'postalcode', 'postal code should have been shown');
 
@@ -570,7 +575,7 @@
   test('does not attempt to show a hidden, but disabled field', function() {
     var mockData = [],
       config = {fields: [{'postalcode' : {'label': 'Postcode'}}]},
-      enabledFields = [];
+      mockConfig = {defs: config, fields: []};
 
     // Override the showField method.
     $.fn.addressfield.showField = function() {
@@ -582,7 +587,7 @@
     ok(this.address.find('.postalcode').not(':visible'), 'postal code field hidden');
 
     // Call the addressfield plugin and assert the correct effects.
-    this.address.addressfield(config, enabledFields);
+    this.address.addressfield(mockConfig);
     equal(mockData.length, 0, 'should not be called');
 
     expect(2);
@@ -596,6 +601,7 @@
           'localityname' : {'label' : 'City'}
         }]},
         enabledFields = ['localityname', 'postalcode'],
+        mockConfig = {defs: config, fields: enabledFields},
         expectedOrder = [],
         field;
 
@@ -610,7 +616,7 @@
     };
 
     // Call the addressfield plugin and assert the correct effects.
-    this.address.addressfield(config, enabledFields);
+    this.address.addressfield(mockConfig);
     deepEqual(mockData, expectedOrder, 'should order fields as expected');
 
     expect(1);
@@ -619,7 +625,8 @@
   test('converts select fields to text', function() {
     var convertToTextMethodCalled = 0,
         config = {fields: [{'country' : {'label' : 'Country/Region'}}]},
-        enabledFields = ['country'];
+        enabledFields = ['country'],
+        mockConfig = {defs: config, fields: enabledFields};
 
     // Override the convertToText method.
     $.fn.addressfield.convertToText = function() {
@@ -628,7 +635,7 @@
     };
 
     // Call the addressfield plugin and assert the correct effects.
-    this.address.addressfield(config, enabledFields);
+    this.address.addressfield(mockConfig);
     equal(convertToTextMethodCalled, 1, 'should be called exactly once');
 
     expect(1);
@@ -637,7 +644,7 @@
   test('does not convert disabled select fields to text', function() {
     var convertToTextMethodCalled = 0,
         config = {fields: [{'country' : {'label' : 'Country/Region'}}]},
-        enabledFields = [];
+        mockConfig = {defs: config, fields: []};
 
     // Override the convertToText method.
     $.fn.addressfield.convertToText = function() {
@@ -646,7 +653,7 @@
     };
 
     // Call the addressfield plugin and assert the correct effects.
-    this.address.addressfield(config, enabledFields);
+    this.address.addressfield(mockConfig);
     equal(convertToTextMethodCalled, 0, 'should not be called');
 
     expect(1);
@@ -666,6 +673,7 @@
           }
         }]},
         enabledFields = ['country'],
+        mockConfig = {defs: config, fields: enabledFields},
         updatedOptions = [];
 
     // Override the convertToText method.
@@ -681,7 +689,7 @@
     };
 
     // Call the addressfield plugin and assert the correct effects.
-    this.address.addressfield(config, enabledFields);
+    this.address.addressfield(mockConfig);
     equal(updateOptionsMethodCalled, 1, 'should be called');
     deepEqual(updatedOptions, config.fields[0].country.options, 'options should match');
     equal(convertToSelectMethodCalled, 0, 'should not convert to select');
@@ -703,6 +711,7 @@
         }
       }]},
       enabledFields = ['administrativearea'],
+      mockConfig = {defs: config, fields: enabledFields},
       updatedOptions = [];
 
     // Override the convertToText method.
@@ -718,7 +727,7 @@
     };
 
     // Call the addressfield plugin and assert the correct effects.
-    this.address.addressfield(config, enabledFields);
+    this.address.addressfield(mockConfig);
     equal(updateOptionsMethodCalled, 1, 'should be called');
     deepEqual(updatedOptions, config.fields[0].administrativearea.options, 'options should match');
     equal(convertToSelectMethodCalled, 1, 'should convert to select');
@@ -729,6 +738,7 @@
   test('updates placeholder empty or not', function() {
     var config = {fields: [{'postalcode': {'label': 'Postcode', 'eg': '98103'}}]},
         enabledFields = ['postalcode'],
+        mockConfig = {defs: config, fields: enabledFields},
         passedPlaceholder = '';
 
     // Override the updateEg method.
@@ -737,10 +747,10 @@
     };
 
     // Call the addressfield plugin and assert the correct effects.
-    this.address.addressfield(config, enabledFields);
+    this.address.addressfield(mockConfig);
     equal(passedPlaceholder, config.fields[0].postalcode.eg, 'should be called with passed example');
-    delete config.fields[0].postalcode.eg;
-    this.address.addressfield(config, enabledFields);
+    delete mockConfig.defs.fields[0].postalcode.eg;
+    this.address.addressfield(mockConfig);
     equal(passedPlaceholder, '', 'should be called with empty string');
 
     expect(2);
@@ -749,6 +759,7 @@
   test('do not update placeholder on options list', function() {
     var config = {fields: [{'administrativearea' : {'label' : 'Province', 'options' : []}}]},
         enabledFields = ['administrativearea'],
+        mockConfig = {defs: config, fields: enabledFields},
         updateEgCalled = 0;
 
     // Override the updateEg method.
@@ -757,7 +768,7 @@
     };
 
     // Call the addressfield plugin and assert the correct effects.
-    this.address.addressfield(config, enabledFields);
+    this.address.addressfield(mockConfig);
     equal(updateEgCalled, 0, 'should not be called on an option list');
 
     expect(1);
@@ -766,6 +777,7 @@
   test('call validate handling', function() {
     var config = {fields: [{'postalcode': {'label': 'Postcode', 'eg': '98103'}}]},
         enabledFields = ['postalcode'],
+        mockConfig = {defs: config, fields: enabledFields},
         validateValues = {};
 
     // Override the validate method.
@@ -775,7 +787,7 @@
     };
 
     // Call the addressfield plugin and assert the correct effects.
-    this.address.addressfield(config, enabledFields);
+    this.address.addressfield(mockConfig);
     equal(validateValues.field, 'postalcode', 'should be called with given field name');
     deepEqual(validateValues.format, config.fields[0].postalcode, 'should be called with given field config');
 
@@ -785,6 +797,7 @@
   test('check event fired', function() {
     var config = {fields: [{'postalcode': {'label': 'Postcode', 'eg': '98103'}}]},
         enabledFields = ['postalcode'],
+        mockConfig = {defs: config, fields: enabledFields},
         fired = false;
 
     // Bind an event listener for addressfield:after to the document element.
@@ -793,7 +806,7 @@
     });
 
     // Call the addressfield plugin and assert the correct effects.
-    this.address.addressfield(config, enabledFields);
+    this.address.addressfield(mockConfig);
 
     ok(fired, 'should fire addressfield:after event');
     expect(1);
