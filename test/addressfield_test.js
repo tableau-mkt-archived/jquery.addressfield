@@ -377,7 +377,7 @@
   });
 
   test('default field order', function() {
-    var expectedOrder = ['postalcode', 'localityname', 'administrativearea'],
+    var expectedOrder = ['.postalcode', '.localityname', '.administrativearea'],
         expectedVals = {
           'postalcode': 90210,
           'localityname': 'Beverly Hills',
@@ -393,19 +393,19 @@
 
     // Override the core clone method.
     $.fn.clone = function() {
-      mockCloneData.push($(this).find('input, select').attr('class'));
+      mockCloneData.push('.' + $(this).find('input, select').attr('class'));
       return oldClone.call(this);
     };
 
     // Override the core remove method.
     $.fn.remove = function() {
-      mockRemoveData.push($(this).find('input, select').attr('class'));
+      mockRemoveData.push('.' + $(this).find('input, select').attr('class'));
       return oldRemove.call(this);
     };
 
     // Get the existing order of the locality fields.
     $('.locality').find('input').each(function() {
-      oldOrder.push($(this).attr('class'));
+      oldOrder.push('.' + $(this).attr('class'));
 
       // While we're at it, add expected values that should be maintained.
       $(this).val(expectedVals[$(this).attr('class')]);
@@ -416,7 +416,7 @@
 
     // Get the new order of the locality fields.
     $('.locality').find('input').each(function() {
-      newOrder.push($(this).attr('class'));
+      newOrder.push('.' + $(this).attr('class'));
 
       // Ensure the values provided match those expected.
       equal($(this).val(), expectedVals[$(this).attr('class')], 'Value maintained through re-order.');
@@ -468,7 +468,11 @@
   test('attempts to hide disabled fields', function() {
     var mockData = [],
         shouldBeShown = {fields: [{'postalcode' : ""}]},
-        attemptToHide = ['administrativearea', 'locality', 'postalcode'],
+        attemptToHide = {
+          administrativearea: '.administrativearea',
+          locality: '.locality',
+          postalcode: '.postalcode'
+        },
         mockConfig = {defs: shouldBeShown, fields: attemptToHide};
 
     // Override the hideField method.
@@ -489,7 +493,7 @@
         mockData = '',
         expectedLabel = 'Foobar',
         config = {fields: [{'postalcode' : {'label': expectedLabel}}]},
-        enabledFields = ['postalcode'],
+        enabledFields = {postalcode: '.postalcode'},
         mockConfig = {defs: config, fields: enabledFields};
 
     // Override the updateLabel method.
@@ -511,7 +515,7 @@
         mockData = '',
         expectedLabel = 'Foobar',
         config = {fields: [{'postalcode' : {'label': expectedLabel}}]},
-        enabledFields = ['notpostalcode'],
+        enabledFields = {notpostalcode: '.notpostalcode'},
         mockConfig = {defs: config, fields: enabledFields};
 
     // Override the updateLabel method.
@@ -532,7 +536,7 @@
         mockData = '',
         expectedLabel = 'Foobar',
         config = {fields: [{"locality" : [{'postalcode' : {'label': expectedLabel}}]}]},
-        enabledFields = ['postalcode', 'locality'],
+        enabledFields = {postalcode: '.postalcode', locality: '.locality'},
         mockConfig = {defs: config, fields: enabledFields};
 
     // Override the updateLabel method.
@@ -552,7 +556,7 @@
   test('attempts to show a hidden, enabled field', function() {
     var mockData = [],
         config = {fields: [{'postalcode' : {'label': 'Postcode'}}]},
-        enabledFields = ['postalcode'],
+        enabledFields = {postalcode: '.postalcode'},
         mockConfig = {defs: config, fields: enabledFields};
 
     // Override the showField method.
@@ -575,7 +579,7 @@
   test('does not attempt to show a hidden, but disabled field', function() {
     var mockData = [],
       config = {fields: [{'postalcode' : {'label': 'Postcode'}}]},
-      mockConfig = {defs: config, fields: []};
+      mockConfig = {defs: config, fields: {}};
 
     // Override the showField method.
     $.fn.addressfield.showField = function() {
@@ -600,14 +604,14 @@
         }, {
           'localityname' : {'label' : 'City'}
         }]},
-        enabledFields = ['localityname', 'postalcode'],
+        enabledFields = {localityname: '.localityname', postalcode: '.postalcode'},
         mockConfig = {defs: config, fields: enabledFields},
         expectedOrder = [],
         field;
 
     // Determine the expected order from the config above.
     for (field in config.fields) {
-      expectedOrder.push($.fn.addressfield.onlyKey(config.fields[field]));
+      expectedOrder.push('.' + $.fn.addressfield.onlyKey(config.fields[field]));
     }
 
     // Override the orderFields method.
@@ -625,7 +629,7 @@
   test('converts select fields to text', function() {
     var convertToTextMethodCalled = 0,
         config = {fields: [{'country' : {'label' : 'Country/Region'}}]},
-        enabledFields = ['country'],
+        enabledFields = {country: '.country'},
         mockConfig = {defs: config, fields: enabledFields};
 
     // Override the convertToText method.
@@ -644,7 +648,7 @@
   test('does not convert disabled select fields to text', function() {
     var convertToTextMethodCalled = 0,
         config = {fields: [{'country' : {'label' : 'Country/Region'}}]},
-        mockConfig = {defs: config, fields: []};
+        mockConfig = {defs: config, fields: {}};
 
     // Override the convertToText method.
     $.fn.addressfield.convertToText = function() {
@@ -672,7 +676,7 @@
             }]
           }
         }]},
-        enabledFields = ['country'],
+        enabledFields = {country: '.country'},
         mockConfig = {defs: config, fields: enabledFields},
         updatedOptions = [];
 
@@ -710,7 +714,7 @@
           }]
         }
       }]},
-      enabledFields = ['administrativearea'],
+      enabledFields = {administrativearea: '.administrativearea'},
       mockConfig = {defs: config, fields: enabledFields},
       updatedOptions = [];
 
@@ -737,7 +741,7 @@
 
   test('updates placeholder empty or not', function() {
     var config = {fields: [{'postalcode': {'label': 'Postcode', 'eg': '98103'}}]},
-        enabledFields = ['postalcode'],
+        enabledFields = {postalcode: '.postalcode'},
         mockConfig = {defs: config, fields: enabledFields},
         passedPlaceholder = '';
 
@@ -758,7 +762,7 @@
 
   test('do not update placeholder on options list', function() {
     var config = {fields: [{'administrativearea' : {'label' : 'Province', 'options' : []}}]},
-        enabledFields = ['administrativearea'],
+        enabledFields = {administrativearea: '.administrativearea'},
         mockConfig = {defs: config, fields: enabledFields},
         updateEgCalled = 0;
 
@@ -776,7 +780,7 @@
 
   test('call validate handling', function() {
     var config = {fields: [{'postalcode': {'label': 'Postcode', 'eg': '98103'}}]},
-        enabledFields = ['postalcode'],
+        enabledFields = {postalcode: '.postalcode'},
         mockConfig = {defs: config, fields: enabledFields},
         validateValues = {};
 
@@ -796,7 +800,7 @@
 
   test('check event fired', function() {
     var config = {fields: [{'postalcode': {'label': 'Postcode', 'eg': '98103'}}]},
-        enabledFields = ['postalcode'],
+        enabledFields = {postalcode: '.postalcode'},
         mockConfig = {defs: config, fields: enabledFields},
         fired = false;
 

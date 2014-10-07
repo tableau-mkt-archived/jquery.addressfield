@@ -12,17 +12,33 @@
    * representing how the country writes its addresses (conforming roughly to
    * xNAL standards), and an array of fields you desire to show (again, roughly
    * xNAL compatible).
+   *
+   * @param configs
+   *   A configuration object with the following properties:
+   *   - defs: An object whose format matches that of addressfield.json. (See
+   *     the README for more details.)
+   *
+   *   - fields: An object mapping xNAL field names to selectors associated with
+   *     their field. For example:
+   *     {
+   *       administrativearea: '#state',
+   *       postalcode: '.foo .bar #zip'
+   *     }
+   *
+   * @return
+   *   Returns itself (useful for chaining).
    */
   $.fn.addressfield = function(configs) {
     var $container = $(this),
         field_order = [],
         $element,
+        selector,
         placeholder,
         field_pos,
         field;
 
     // Provide default values for sanity.
-    configs = configs || {defs: {fields: {}}, fields: []};
+    configs = configs || {defs: {fields: {}}, fields: {}};
 
     // Iterate through defined address fields for this country.
     for (field_pos in configs.defs.fields) {
@@ -30,7 +46,8 @@
       field = $.fn.addressfield.onlyKey(configs.defs.fields[field_pos]);
 
       // Pick out the existing elements for the given field.
-      $element = $container.find('.' + field);
+      selector = configs.fields.hasOwnProperty(field) ? configs.fields[field] : '.' + field;
+      $element = $container.find(selector);
 
       // Account for nested fields.
       if (configs.defs.fields[field_pos][field] instanceof Array) {
@@ -40,9 +57,9 @@
       else {
         // When swapping out labels / values for existing fields.
         // Ensure the element exists and is configured to be displayed.
-        if ($element.length && $.inArray(field, configs.fields) !== -1) {
-          // Push this field onto the field_order array.
-          field_order.push(field);
+        if ($element.length && configs.fields.hasOwnProperty(field)) {
+          // Push this field selector onto the field_order array.
+          field_order.push(selector);
 
           // Update the options.
           if (typeof configs.defs.fields[field_pos][field].options !== 'undefined') {
@@ -70,7 +87,7 @@
         }
 
         // When adding fields that didn't previously exist.
-        if (!$.fn.addressfield.isVisible.call($element) && $.inArray(field, configs.fields) !== -1) {
+        if (!$.fn.addressfield.isVisible.call($element) && configs.fields.hasOwnProperty(field)) {
           $.fn.addressfield.showField.call($element);
         }
 
@@ -80,9 +97,9 @@
     }
 
     // Now check for fields that are still on the page but shouldn't be.
-    $.each(configs.fields, function (index, field) {
-      var $element = $container.find('.' + field);
-      if ($element.length && !$.fn.addressfield.hasField(configs.defs, field)) {
+    $.each(configs.fields, function (field_name, field_selector) {
+      var $element = $container.find(field_selector);
+      if ($element.length && !$.fn.addressfield.hasField(configs.defs, field_name)) {
         $.fn.addressfield.hideField.call($element);
       }
     });
@@ -296,8 +313,8 @@
   };
 
   /**
-   * Re-orders fields given an array of class names representing fields. Note
-   * that this can be called recursively if one of the values passed in the
+   * Re-orders fields given an array of selectors representing fields. Note that
+   * this can be called recursively if one of the values passed in the
    * order array is itself an array.
    */
   $.fn.addressfield.orderFields = function(order) {
@@ -309,11 +326,11 @@
     for (i = 0; i < length; ++i) {
       if (i in order) {
         // Save off the element container over its class selector in order.
-        $element = $.fn.addressfield.container.call(this.find('.' + order[i]));
+        $element = $.fn.addressfield.container.call(this.find(order[i]));
         order[i] = {
           'element': $element.clone(),
-          'class': order[i],
-          'value': $(this).find('.' + order[i]).val()
+          'selector': order[i],
+          'value': $(this).find(order[i]).val()
         };
 
         // Remove the original element from the page.
@@ -328,7 +345,7 @@
         $element = $(this).append(order[i].element);
 
         // The clone process doesn't seem to copy input values; apply that here.
-        $element.find('.' + order[i]['class']).val(order[i].value).change();
+        $element.find(order[i]['selector']).val(order[i].value).change();
       }
     }
   };
