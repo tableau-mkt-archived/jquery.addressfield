@@ -24,15 +24,23 @@
    *       postalcode: '.foo .bar #zip'
    *     }
    *
-   * @return
+   * @returns {*}
    *   Returns itself (useful for chaining).
    */
   $.fn.addressfield = function(options) {
-    var $container = $(this),
-        configs = $.extend({
+    var configs = $.extend({
           defs: {fields: {}},
           fields: {}
-        }, options),
+        }, options);
+
+    return $.fn.addressfield.apply.call(this, configs);
+  };
+
+  /**
+   * Applies a given field configuration against a given postal address form.
+   */
+  $.fn.addressfield.apply = function (configs) {
+    var $container = $(this),
         field_order = [],
         $element,
         selector,
