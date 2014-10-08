@@ -452,8 +452,10 @@
           fields: {}
         },
         expectedDefaults = {
-          defs: {fields: {}},
-          fields: {}
+          fields: {},
+          json: null,
+          async: true,
+          defs: {fields: {}}
         },
         mockData = {};
 

@@ -15,25 +15,70 @@
    *
    * @param options
    *   A configuration object with the following properties:
-   *   - defs: An object whose format matches that of addressfield.json. (See
-   *     the README for more details.)
-   *   - fields: An object mapping xNAL field names to selectors associated with
-   *     their field. For example:
+   *   - fields: (Required) An object mapping xNAL field names to jQuery
+   *     selectors corresponding to the associated form elements. Any fields in
+   *     your form that are not listed here will be ignored when mutating your
+   *     postal address form. Note that the "country" field is required at a
+   *     minimum. A common example might look like:
    *     {
-   *       administrativearea: '#state',
-   *       postalcode: '.foo .bar #zip'
+   *       country: 'select#address-country',
+   *       localityname: 'input.city',
+   *       administrativearea: '#address-state',
+   *       postalcode: '.zipcode'
    *     }
+   *   - json: One of:
+   *     - A string, representing the path to a JSON resource containing postal
+   *       address field configurations matching the format defined by the
+   *       addressfield.json project. This project comes packaged with a release
+   *       of addressfield.json for ease-of-use, but you can provide your own
+   *       configuration as well!
+   *     - An object, representing the exact same data in the exact same format
+   *       as would be returned by the JSON request for the string version of
+   *       this configuration. Useful in cases where a hard-coded configuration
+   *       would be more advantageous over the extra http request.
+   *   - async: (Optional) Boolean flag that represents whether the request to
+   *     the JSON resource specified above will be performed synchronously or
+   *     asynchronously. Defaults to true (async JSON request).
+   *   - defs: Deprecated; if no JSON config is provided (neither a valid
+   *     path nor a full JavaScript object), you can use this key to apply a
+   *     one-time postal form mutation given a field configuration and field
+   *     map. Useful for quick-and-dirty upgrades from jquery.addressfield 0.x.
+   *     Use of this functionality is highly discouraged.
    *
    * @returns {*}
    *   Returns itself (useful for chaining).
    */
   $.fn.addressfield = function(options) {
-    var configs = $.extend({
-          defs: {fields: {}},
-          fields: {}
+    var $container = this,
+        configs = $.extend({
+          fields: {},
+          json: null,
+          async: true,
+          // @deprecated Support for manual, synchronous, external control.
+          defs: {fields: {}}
         }, options);
 
-    return $.fn.addressfield.apply.call(this, configs.defs, configs.fields);
+    // If a path was given for a JSON resource, load the resource and execute.
+    if (typeof configs.json === 'string') {
+      $.ajax({
+        dataType: "json",
+        url: configs.json,
+        async: configs.async,
+        success: function (data) {
+          $.fn.addressfield.binder.call($container, configs.fields, $.fn.addressfield.transform(data));
+        }
+      });
+      return $container;
+    }
+    // In this case, a direct configuration has been provided inline.
+    else if (typeof configs.json === 'object' && configs.json !== null) {
+      return $.fn.addressfield.binder.call($container, configs.fields, $.fn.addressfield.transform(configs.json));
+    }
+    // Legacy support for manual, synchronous, external control.
+    // @deprecated Remove this functionality in the next major version (2.0.x).
+    else {
+      return $.fn.addressfield.apply.call($container, configs.defs, configs.fields);
+    }
   };
 
   /**
@@ -128,6 +173,45 @@
     $container.trigger('addressfield:after');
 
     return this;
+  };
+
+  /**
+   * Binds a handler to the country form field element, which applies postal
+   * address form mutations to this form container based on the selected country
+   * and given xNAL field map.
+   *
+   * @param fieldMap
+   *   A map of xNAL fields to jQuery selectors representing their corresponding
+   *   form field elements.
+   *
+   * @param countryConfigMap
+   *   A map of field configurations to country ISO codes which should match
+   *   the values associated with the country select element, defined in the
+   *   fieldMap above).
+   */
+  $.fn.addressfield.binder = function(fieldMap, countryConfigMap) {
+    var $container = this;
+
+    $(fieldMap.country).bind('change', function() {
+      // Trigger the apply method with the country's data.
+      $.fn.addressfield.apply.call($container, countryConfigMap[this.value], fieldMap);
+    });
+  };
+
+  /**
+   * Transforms JSON data returned in the instantiation method to the format
+   * expected by the binder method.
+   */
+  $.fn.addressfield.transform = function(data) {
+    var countryMap = {},
+        position;
+
+    // Store a map of countries to their associated field configs.
+    for (position in data.options) {
+      countryMap[data.options[position].iso] = data.options[position];
+    }
+
+    return countryMap;
   };
 
   /**
