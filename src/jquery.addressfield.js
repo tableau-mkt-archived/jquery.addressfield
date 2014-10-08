@@ -33,50 +33,59 @@
           fields: {}
         }, options);
 
-    return $.fn.addressfield.apply.call(this, configs);
+    return $.fn.addressfield.apply.call(this, configs.defs, configs.fields);
   };
 
   /**
    * Applies a given field configuration against a given postal address form.
+   *
+   * @param config
+   *   The field configuration to be applied to the postal address form.
+   *
+   * @param fieldMap
+   *   A mapping of xNAL field names to their selectors within this form.
+   *
+   * @returns {*}
+   *   Returns itself (useful for chaining).
    */
-  $.fn.addressfield.apply = function (configs) {
+  $.fn.addressfield.apply = function (config, fieldMap) {
     var $container = $(this),
-        field_order = [],
+        fieldOrder = [],
         $element,
         selector,
         placeholder,
-        field_pos,
+        fieldPos,
         field;
 
     // Iterate through defined address fields for this country.
-    for (field_pos in configs.defs.fields) {
+    for (fieldPos in config.fields) {
       // Determine the xNAL name of this field.
-      field = $.fn.addressfield.onlyKey(configs.defs.fields[field_pos]);
+      field = $.fn.addressfield.onlyKey(config.fields[fieldPos]);
 
       // Pick out the existing elements for the given field.
-      selector = configs.fields.hasOwnProperty(field) ? configs.fields[field] : '.' + field;
+      selector = fieldMap.hasOwnProperty(field) ? fieldMap[field] : '.' + field;
       $element = $container.find(selector);
 
       // Account for nested fields.
-      if (configs.defs.fields[field_pos][field] instanceof Array) {
-        return $.fn.addressfield.call($element, {defs: {fields: configs.defs.fields[field_pos][field]}, fields: configs.fields});
+      if (config.fields[fieldPos][field] instanceof Array) {
+        return $.fn.addressfield.call($element, {defs: {fields: config.fields[fieldPos][field]}, fields: fieldMap});
       }
       // Otherwise perform the usual actions.
       else {
         // When swapping out labels / values for existing fields.
         // Ensure the element exists and is configured to be displayed.
-        if ($element.length && configs.fields.hasOwnProperty(field)) {
-          // Push this field selector onto the field_order array.
-          field_order.push(selector);
+        if ($element.length && fieldMap.hasOwnProperty(field)) {
+          // Push this field selector onto the fieldOrder array.
+          fieldOrder.push(selector);
 
           // Update the options.
-          if (typeof configs.defs.fields[field_pos][field].options !== 'undefined') {
+          if (typeof config.fields[fieldPos][field].options !== 'undefined') {
             // If this field has options but it's currently a text field,
             // convert it back to a select field.
             if (!$element.is('select')) {
               $element = $.fn.addressfield.convertToSelect.call($element);
             }
-            $.fn.addressfield.updateOptions.call($element, configs.defs.fields[field_pos][field].options);
+            $.fn.addressfield.updateOptions.call($element, config.fields[fieldPos][field].options);
           }
           else {
             // If this field does not have options but it's currently a select
@@ -86,34 +95,34 @@
             }
 
             // Apply a placeholder; empty one if none exists.
-            placeholder = configs.defs.fields[field_pos][field].hasOwnProperty('eg') ? configs.defs.fields[field_pos][field].eg : '';
+            placeholder = config.fields[fieldPos][field].hasOwnProperty('eg') ? config.fields[fieldPos][field].eg : '';
             $.fn.addressfield.updateEg.call($element, placeholder);
           }
 
           // Update the label.
-          $.fn.addressfield.updateLabel.call($element, configs.defs.fields[field_pos][field].label);
+          $.fn.addressfield.updateLabel.call($element, config.fields[fieldPos][field].label);
         }
 
         // When adding fields that didn't previously exist.
-        if (!$.fn.addressfield.isVisible.call($element) && configs.fields.hasOwnProperty(field)) {
+        if (!$.fn.addressfield.isVisible.call($element) && fieldMap.hasOwnProperty(field)) {
           $.fn.addressfield.showField.call($element);
         }
 
         // Add, update, or remove validation handling for this field.
-        $.fn.addressfield.validate.call($element, field, configs.defs.fields[field_pos][field]);
+        $.fn.addressfield.validate.call($element, field, config.fields[fieldPos][field]);
       }
     }
 
     // Now check for fields that are still on the page but shouldn't be.
-    $.each(configs.fields, function (field_name, field_selector) {
+    $.each(fieldMap, function (field_name, field_selector) {
       var $element = $container.find(field_selector);
-      if ($element.length && !$.fn.addressfield.hasField(configs.defs, field_name)) {
+      if ($element.length && !$.fn.addressfield.hasField(config, field_name)) {
         $.fn.addressfield.hideField.call($element);
       }
     });
 
     // Now ensure the fields are in their given order.
-    $.fn.addressfield.orderFields.call($container, field_order);
+    $.fn.addressfield.orderFields.call($container, fieldOrder);
 
     // Trigger an addressfield:after event on the container.
     $container.trigger('addressfield:after');
