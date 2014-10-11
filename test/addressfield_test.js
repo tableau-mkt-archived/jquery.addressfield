@@ -376,6 +376,54 @@
     $.fn.attr = oldAttr;
   });
 
+  test('default transform', function() {
+    var givenInput = {options: [{
+          iso: 'US',
+          label: 'United States'
+        }, {
+          iso: 'CA',
+          label: 'Canada'
+        }]},
+        expectedOutput = {US: givenInput.options[0], CA: givenInput.options[1]},
+        returnedOutput;
+
+    // Call the default binder method; assert it returns the expected value.
+    returnedOutput = $.fn.addressfield.transform(givenInput);
+    deepEqual(expectedOutput, returnedOutput, 'should transform data as expected');
+
+    expect(1);
+  });
+
+  test('default binder', function() {
+    var fieldMap = {country: 'select.country'},
+        countryVal = 'US',
+        countryConfig = {US: {key: 'value'}},
+        oldApply = $.fn.addressfield.apply,
+        savedContainer,
+        savedConfig,
+        savedFieldMap;
+
+    // Mock our own apply call.
+    $.fn.addressfield.apply = function (config, fieldMap) {
+      savedContainer = this;
+      savedConfig = config;
+      savedFieldMap = fieldMap;
+      return oldApply.call(this, config, fieldMap);
+    };
+
+    // Call the default binder method; assert it had the expected affects.
+    $.fn.addressfield.binder.call(this.address, fieldMap, countryConfig);
+    this.country.val(countryVal).change();
+    deepEqual(savedContainer, this.address, 'change triggered bound event on expected container');
+    deepEqual(savedConfig, countryConfig[countryVal], 'bound apply used expected field config');
+    deepEqual(savedFieldMap, fieldMap, 'bound apply used expected field map');
+
+    // Reset.
+    $.fn.addressfield.apply = oldApply;
+
+    expect(3);
+  });
+
   test('default field order', function() {
     var expectedOrder = ['.postalcode', '.localityname', '.administrativearea'],
         expectedVals = {
