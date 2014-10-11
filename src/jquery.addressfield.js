@@ -113,7 +113,7 @@
 
       // Account for nested fields.
       if (config.fields[fieldPos][field] instanceof Array) {
-        return $.fn.addressfield.call($element, {defs: {fields: config.fields[fieldPos][field]}, fields: fieldMap});
+        return $.fn.addressfield.apply.call($element, {fields: config.fields[fieldPos][field]}, fieldMap);
       }
       // Otherwise perform the usual actions.
       else {
