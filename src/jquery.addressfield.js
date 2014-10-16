@@ -72,8 +72,7 @@
     }
     // In this case, a direct configuration has been provided inline.
     else if (typeof configs.json === 'object' && configs.json !== null) {
-      $.fn.addressfield.binder.call($container, configs.fields, $.fn.addressfield.transform(configs.json));
-      return $container;
+      return $.fn.addressfield.binder.call($container, configs.fields, $.fn.addressfield.transform(configs.json));
     }
     // Legacy support for manual, synchronous, external control.
     // @deprecated Remove this functionality in the next major version (2.0.x).
@@ -197,6 +196,8 @@
       // Trigger the apply method with the country's data.
       $.fn.addressfield.apply.call($container, countryConfigMap[this.value], fieldMap);
     });
+
+    return $container;
   };
 
   /**

@@ -526,6 +526,43 @@
     expect(2);
   });
 
+  test('binds when passed data object', function() {
+    var oldBinder = $.fn.addressfield.binder,
+        oldTransform = $.fn.addressfield.transform,
+        mockFields = {foo: 'bar'},
+        mockJsonData = {some: 'thing'},
+        mockTransformedData = {fizz: 'buzz'},
+        binderContainer,
+        binderFields,
+        binderData,
+        transformData;
+
+    // Mock the binder and transform methods.
+    $.fn.addressfield.binder = function(fields, data) {
+      binderContainer = this;
+      binderFields = fields;
+      binderData = data;
+    };
+    $.fn.addressfield.transform = function(data) {
+      transformData = data;
+      return mockTransformedData;
+    };
+
+    // Instantiate the plugin and assert the correct effects.
+    this.address.addressfield({fields: mockFields, json: mockJsonData});
+
+    strictEqual(transformData, mockJsonData, 'transformed data as expected');
+    strictEqual(binderData, mockTransformedData, 'received transformed data');
+    strictEqual(binderFields, mockFields, 'received expected fields');
+    strictEqual(binderContainer, this.address, 'bound context is as expected');
+
+    // Reset methods.
+    $.fn.addressfield.binder = oldBinder;
+    $.fn.addressfield.transform = oldTransform;
+
+    expect(4);
+  });
+
   module('jQuery#addressfield apply behavior', {
     setup: function() {
       this.address = $('#qunit-fixture');
