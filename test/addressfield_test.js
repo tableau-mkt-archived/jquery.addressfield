@@ -526,6 +526,67 @@
     expect(2);
   });
 
+  test('loads and binds when passed a string', function() {
+    var oldAjax = $.ajax,
+        oldBinder = $.fn.addressfield.binder,
+        oldTransform = $.fn.addressfield.transform,
+        mockTransformedData = {transformed: 'data'},
+        expectedFields = {foo: 'bar'},
+        expectedResponseData = {fizz: 'bizz'},
+        expectedDataType = 'json',
+        expectedUrl = '/foo/bar/baz.json',
+        expectedAsync = false,
+        ajaxDataType,
+        ajaxUrl,
+        ajaxAsync,
+        binderContainer,
+        binderFields,
+        binderData,
+        transformData;
+
+    // Mock the core ajax and addressfield binder and transform methods.
+    $.ajax = function(options) {
+      ajaxDataType = options.dataType;
+      ajaxUrl = options.url;
+      ajaxAsync = options.async;
+      options.success(expectedResponseData);
+      // Override so any real AJAX results in a no-op.
+      options.success = function() {};
+      return oldAjax(options);
+    };
+    $.fn.addressfield.binder = function(fields, data) {
+      binderContainer = this;
+      binderFields = fields;
+      binderData = data;
+    };
+    $.fn.addressfield.transform = function(data) {
+      transformData = data;
+      return mockTransformedData;
+    };
+
+    // Instantiate the addressfield plugin and assert the correct effects.
+    this.address.addressfield({
+      json: expectedUrl,
+      fields: expectedFields,
+      async: expectedAsync
+    });
+
+    strictEqual(ajaxDataType, expectedDataType, 'passed expected data type');
+    strictEqual(ajaxUrl, expectedUrl, 'passed expected url');
+    strictEqual(ajaxAsync, expectedAsync, 'passed expected async value');
+    strictEqual(transformData, expectedResponseData, 'transformed ajax json response data');
+    strictEqual(binderContainer, this.address, 'bound to expected container');
+    strictEqual(binderFields, expectedFields, 'bound with expected fields');
+    strictEqual(binderData, mockTransformedData, 'bound with transformed data');
+
+    // Reset methods.
+    $.ajax = oldAjax;
+    $.fn.addressfield.binder = oldBinder;
+    $.fn.addressfield.transform = oldTransform;
+
+    expect(7);
+  });
+
   test('binds when passed data object', function() {
     var oldBinder = $.fn.addressfield.binder,
         oldTransform = $.fn.addressfield.transform,
