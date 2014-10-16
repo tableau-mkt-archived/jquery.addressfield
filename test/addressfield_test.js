@@ -549,7 +549,10 @@
     };
 
     // Instantiate the plugin and assert the correct effects.
-    this.address.addressfield({fields: mockFields, json: mockJsonData});
+    this.address.addressfield({
+      fields: mockFields,
+      json: mockJsonData
+    });
 
     strictEqual(transformData, mockJsonData, 'transformed data as expected');
     strictEqual(binderData, mockTransformedData, 'received transformed data');
@@ -561,6 +564,37 @@
     $.fn.addressfield.transform = oldTransform;
 
     expect(4);
+  });
+
+  test('applies when null data is passed in', function() {
+    var oldApply = $.fn.addressfield.apply,
+        expectedFields = {foo: 'bar'},
+        expectedDefs = {fizz: 'buzz'},
+        applyContainer,
+        passedDefs,
+        passedFields;
+
+    // Mock the apply method.
+    $.fn.addressfield.apply = function(defs, fields) {
+      applyContainer = this;
+      passedDefs = defs;
+      passedFields = fields;
+    };
+
+    // Instantiate the plugin and assert the correct effects.
+    this.address.addressfield({
+      json: null,
+      fields: expectedFields,
+      defs: expectedDefs
+    });
+
+    strictEqual(applyContainer, this.address, 'applied to expected container');
+    strictEqual(passedDefs, expectedDefs, 'applied expected field definitions');
+    strictEqual(passedFields, expectedFields, 'applied expected fields');
+
+    // Reset methods.
+    $.fn.addressfield.apply = oldApply;
+    expect(3);
   });
 
   module('jQuery#addressfield apply behavior', {
