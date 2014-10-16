@@ -72,7 +72,8 @@
     }
     // In this case, a direct configuration has been provided inline.
     else if (typeof configs.json === 'object' && configs.json !== null) {
-      return $.fn.addressfield.binder.call($container, configs.fields, $.fn.addressfield.transform(configs.json));
+      $.fn.addressfield.binder.call($container, configs.fields, $.fn.addressfield.transform(configs.json));
+      return $container;
     }
     // Legacy support for manual, synchronous, external control.
     // @deprecated Remove this functionality in the next major version (2.0.x).

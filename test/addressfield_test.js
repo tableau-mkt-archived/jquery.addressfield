@@ -487,7 +487,9 @@
 
   test('is chainable', function() {
     strictEqual(this.address.addressfield(), this.address, 'should be chainable');
-    expect(1);
+    strictEqual(this.address.addressfield({json:''}), this.address, 'should be chainable');
+    strictEqual(this.address.addressfield({json:{}}), this.address, 'should be chainable');
+    expect(3);
   });
 
   test('extends default configurations', function () {
