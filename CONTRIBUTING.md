@@ -1,7 +1,7 @@
 # Contributing
 
 ## Important notes
-Grunt will place minified / packaged versions of this plugin in the `build`
+Grunt will place minified / packaged versions of this plugin in the `dist`
 subdirectory. Don't worry about those! You'll find source code in the `src`
 subdirectory!
 
