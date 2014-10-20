@@ -1,0 +1,33 @@
+{
+  "name": "jquery.addressfield",
+  "version": "1.0.0",
+  "homepage": "https://tableau-mkt.github.io/jquery.addressfield",
+  "authors": [
+    "Eric Peterson <epeterson@tableausoftware.com>"
+  ],
+  "description": "The simple, configurable, dynamic postal address form plugin.",
+  "main": "dist/jquery.addressfield.js",
+  "dependencies" : {
+    "jquery": ">=1.3.2",
+    "addressfield.json": "~1.0"
+  },
+  "devDependencies": {
+    "qunit": "1.11.0"
+  },
+  "keywords": [
+    "postal",
+    "address",
+    "dynamic",
+    "field",
+    "form"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "libs",
+    "test",
+    "tests"
+  ]
+}

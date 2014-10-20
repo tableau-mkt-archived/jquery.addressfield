@@ -12,43 +12,125 @@
    * representing how the country writes its addresses (conforming roughly to
    * xNAL standards), and an array of fields you desire to show (again, roughly
    * xNAL compatible).
+   *
+   * @param options
+   *   A configuration object with the following properties:
+   *   - fields: (Required) An object mapping xNAL field names to jQuery
+   *     selectors corresponding to the associated form elements. Any fields in
+   *     your form that are not listed here will be ignored when mutating your
+   *     postal address form. Note that the "country" field is required at a
+   *     minimum. A common example might look like:
+   *     {
+   *       country: 'select#address-country',
+   *       localityname: 'input.city',
+   *       administrativearea: '#address-state',
+   *       postalcode: '.zipcode'
+   *     }
+   *   - json: One of:
+   *     - A string, representing the path to a JSON resource containing postal
+   *       address field configurations matching the format defined by the
+   *       addressfield.json project. This project comes packaged with a release
+   *       of addressfield.json for ease-of-use, but you can provide your own
+   *       configuration as well!
+   *     - An object, representing the exact same data in the exact same format
+   *       as would be returned by the JSON request for the string version of
+   *       this configuration. Useful in cases where a hard-coded configuration
+   *       would be more advantageous over the extra http request.
+   *   - async: (Optional) Boolean flag that represents whether the request to
+   *     the JSON resource specified above will be performed synchronously or
+   *     asynchronously. Defaults to true (async JSON request).
+   *   - defs: Deprecated; if no JSON config is provided (neither a valid
+   *     path nor a full JavaScript object), you can use this key to apply a
+   *     one-time postal form mutation given a field configuration and field
+   *     map. Useful for quick-and-dirty upgrades from jquery.addressfield 0.x.
+   *     Use of this functionality is highly discouraged.
+   *
+   * @returns {*}
+   *   Returns itself (useful for chaining).
    */
-  $.fn.addressfield = function(config, enabled_fields) {
+  $.fn.addressfield = function(options) {
+    var $container = this,
+        configs = $.extend({
+          fields: {},
+          json: null,
+          async: true,
+          // @deprecated Support for manual, synchronous, external control.
+          defs: {fields: {}}
+        }, options);
+
+    // If a path was given for a JSON resource, load the resource and execute.
+    if (typeof configs.json === 'string') {
+      $.ajax({
+        dataType: "json",
+        url: configs.json,
+        async: configs.async,
+        success: function (data) {
+          $.fn.addressfield.binder.call($container, configs.fields, $.fn.addressfield.transform(data));
+        }
+      });
+      return $container;
+    }
+    // In this case, a direct configuration has been provided inline.
+    else if (typeof configs.json === 'object' && configs.json !== null) {
+      return $.fn.addressfield.binder.call($container, configs.fields, $.fn.addressfield.transform(configs.json));
+    }
+    // Legacy support for manual, synchronous, external control.
+    // @deprecated Remove this functionality in the next major version (2.0.x).
+    else {
+      return $.fn.addressfield.apply.call($container, configs.defs, configs.fields);
+    }
+  };
+
+  /**
+   * Applies a given field configuration against a given postal address form.
+   *
+   * @param config
+   *   The field configuration to be applied to the postal address form.
+   *
+   * @param fieldMap
+   *   A mapping of xNAL field names to their selectors within this form.
+   *
+   * @returns {*}
+   *   Returns itself (useful for chaining).
+   */
+  $.fn.addressfield.apply = function (config, fieldMap) {
     var $container = $(this),
-        field_order = [],
+        fieldOrder = [],
         $element,
+        selector,
         placeholder,
-        field_pos,
+        fieldPos,
         field;
 
     // Iterate through defined address fields for this country.
-    for (field_pos in config.fields) {
+    for (fieldPos in config.fields) {
       // Determine the xNAL name of this field.
-      field = $.fn.addressfield.onlyKey(config.fields[field_pos]);
+      field = $.fn.addressfield.onlyKey(config.fields[fieldPos]);
 
       // Pick out the existing elements for the given field.
-      $element = $container.find('.' + field);
+      selector = fieldMap.hasOwnProperty(field) ? fieldMap[field] : '.' + field;
+      $element = $container.find(selector);
 
       // Account for nested fields.
-      if (config.fields[field_pos][field] instanceof Array) {
-        return $.fn.addressfield.call($element, {fields: config.fields[field_pos][field]}, enabled_fields);
+      if (config.fields[fieldPos][field] instanceof Array) {
+        return $.fn.addressfield.apply.call($element, {fields: config.fields[fieldPos][field]}, fieldMap);
       }
       // Otherwise perform the usual actions.
       else {
         // When swapping out labels / values for existing fields.
         // Ensure the element exists and is configured to be displayed.
-        if ($element.length && $.inArray(field, enabled_fields) !== -1) {
-          // Push this field onto the field_order array.
-          field_order.push(field);
+        if ($element.length && fieldMap.hasOwnProperty(field)) {
+          // Push this field selector onto the fieldOrder array.
+          fieldOrder.push(selector);
 
           // Update the options.
-          if (typeof config.fields[field_pos][field].options !== 'undefined') {
+          if (typeof config.fields[fieldPos][field].options !== 'undefined') {
             // If this field has options but it's currently a text field,
             // convert it back to a select field.
             if (!$element.is('select')) {
               $element = $.fn.addressfield.convertToSelect.call($element);
             }
-            $.fn.addressfield.updateOptions.call($element, config.fields[field_pos][field].options);
+            $.fn.addressfield.updateOptions.call($element, config.fields[fieldPos][field].options);
           }
           else {
             // If this field does not have options but it's currently a select
@@ -58,39 +140,80 @@
             }
 
             // Apply a placeholder; empty one if none exists.
-            placeholder = config.fields[field_pos][field].hasOwnProperty('eg') ? config.fields[field_pos][field].eg : '';
+            placeholder = config.fields[fieldPos][field].hasOwnProperty('eg') ? config.fields[fieldPos][field].eg : '';
             $.fn.addressfield.updateEg.call($element, placeholder);
           }
 
           // Update the label.
-          $.fn.addressfield.updateLabel.call($element, config.fields[field_pos][field].label);
+          $.fn.addressfield.updateLabel.call($element, config.fields[fieldPos][field].label);
         }
 
         // When adding fields that didn't previously exist.
-        if (!$.fn.addressfield.isVisible.call($element) && $.inArray(field, enabled_fields) !== -1) {
+        if (!$.fn.addressfield.isVisible.call($element) && fieldMap.hasOwnProperty(field)) {
           $.fn.addressfield.showField.call($element);
         }
 
         // Add, update, or remove validation handling for this field.
-        $.fn.addressfield.validate.call($element, field, config.fields[field_pos][field]);
+        $.fn.addressfield.validate.call($element, field, config.fields[fieldPos][field]);
       }
     }
 
     // Now check for fields that are still on the page but shouldn't be.
-    $.each(enabled_fields, function (index, field) {
-      var $element = $container.find('.' + field);
-      if ($element.length && !$.fn.addressfield.hasField(config, field)) {
+    $.each(fieldMap, function (field_name, field_selector) {
+      var $element = $container.find(field_selector);
+      if ($element.length && !$.fn.addressfield.hasField(config, field_name)) {
         $.fn.addressfield.hideField.call($element);
       }
     });
 
     // Now ensure the fields are in their given order.
-    $.fn.addressfield.orderFields.call($container, field_order);
+    $.fn.addressfield.orderFields.call($container, fieldOrder);
 
     // Trigger an addressfield:after event on the container.
     $container.trigger('addressfield:after');
 
     return this;
+  };
+
+  /**
+   * Binds a handler to the country form field element, which applies postal
+   * address form mutations to this form container based on the selected country
+   * and given xNAL field map.
+   *
+   * @param fieldMap
+   *   A map of xNAL fields to jQuery selectors representing their corresponding
+   *   form field elements.
+   *
+   * @param countryConfigMap
+   *   A map of field configurations to country ISO codes which should match
+   *   the values associated with the country select element, defined in the
+   *   fieldMap above).
+   */
+  $.fn.addressfield.binder = function(fieldMap, countryConfigMap) {
+    var $container = this;
+
+    $(fieldMap.country).bind('change', function() {
+      // Trigger the apply method with the country's data.
+      $.fn.addressfield.apply.call($container, countryConfigMap[this.value], fieldMap);
+    });
+
+    return $container;
+  };
+
+  /**
+   * Transforms JSON data returned in the instantiation method to the format
+   * expected by the binder method.
+   */
+  $.fn.addressfield.transform = function(data) {
+    var countryMap = {},
+        position;
+
+    // Store a map of countries to their associated field configs.
+    for (position in data.options) {
+      countryMap[data.options[position].iso] = data.options[position];
+    }
+
+    return countryMap;
   };
 
   /**
@@ -293,8 +416,8 @@
   };
 
   /**
-   * Re-orders fields given an array of class names representing fields. Note
-   * that this can be called recursively if one of the values passed in the
+   * Re-orders fields given an array of selectors representing fields. Note that
+   * this can be called recursively if one of the values passed in the
    * order array is itself an array.
    */
   $.fn.addressfield.orderFields = function(order) {
@@ -306,11 +429,11 @@
     for (i = 0; i < length; ++i) {
       if (i in order) {
         // Save off the element container over its class selector in order.
-        $element = $.fn.addressfield.container.call(this.find('.' + order[i]));
+        $element = $.fn.addressfield.container.call(this.find(order[i]));
         order[i] = {
           'element': $element.clone(),
-          'class': order[i],
-          'value': $(this).find('.' + order[i]).val()
+          'selector': order[i],
+          'value': $(this).find(order[i]).val()
         };
 
         // Remove the original element from the page.
@@ -325,7 +448,7 @@
         $element = $(this).append(order[i].element);
 
         // The clone process doesn't seem to copy input values; apply that here.
-        $element.find('.' + order[i]['class']).val(order[i].value).change();
+        $element.find(order[i]['selector']).val(order[i].value).change();
       }
     }
   };

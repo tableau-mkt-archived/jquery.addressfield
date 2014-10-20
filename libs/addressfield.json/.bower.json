@@ -1,0 +1,32 @@
+{
+  "name": "addressfield.json",
+  "version": "1.0.0",
+  "homepage": "https://github.com/tableau-mkt/addressfield.json",
+  "authors": [
+    "Eric Peterson <epeterson@tableausoftware.com>"
+  ],
+  "description": "JSON configuration representing how address forms should be rendered on a country-by-country basis.",
+  "main": "build/addressfield.min.json",
+  "keywords": [
+    "postal",
+    "address",
+    "field"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "1.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.0",
+    "commit": "e405a9b122f9a1916a60cc5ce9f663b37fc36fe3"
+  },
+  "_source": "git://github.com/tableau-mkt/addressfield.json.git",
+  "_target": "~1.0",
+  "_originalSource": "addressfield.json"
+}
