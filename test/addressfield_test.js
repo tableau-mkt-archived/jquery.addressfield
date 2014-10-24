@@ -1015,7 +1015,7 @@
     // Bind an event listener for addressfield:after to the document element.
     $(document).bind('addressfield:after', function (event, data) {
       if (event.type === 'addressfield:after' && data && data.hasOwnProperty('config') && data.hasOwnProperty('fieldMap')) {
-          fired = true;
+        fired = true;
       }
     });
 
