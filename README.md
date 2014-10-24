@@ -1,4 +1,4 @@
-# jquery.addressfield [![Build Status](https://travis-ci.org/tableau-mkt/jquery.addressfield.svg?branch=master)](https://travis-ci.org/tableau-mkt/jquery.addressfield) [![Coverage](https://codeclimate.com/github/tableau-mkt/jquery.addressfield/coverage.png)](https://codeclimate.com/github/tableau-mkt/jquery.addressfield) [![Code Climate](https://codeclimate.com/github/tableau-mkt/jquery.addressfield.png)](https://codeclimate.com/github/tableau-mkt/jquery.addressfield)
+# jquery.addressfield [![Build Status](https://travis-ci.org/tableau-mkt/jquery.addressfield.svg?branch=master)](https://travis-ci.org/tableau-mkt/jquery.addressfield) [![Test Coverage](https://codeclimate.com/github/tableau-mkt/jquery.addressfield/badges/coverage.svg)](https://codeclimate.com/github/tableau-mkt/jquery.addressfield) [![Code Climate](https://codeclimate.com/github/tableau-mkt/jquery.addressfield/badges/gpa.svg)](https://codeclimate.com/github/tableau-mkt/jquery.addressfield)
 
 The simple, configurable, dynamic postal address field plugin.
 
