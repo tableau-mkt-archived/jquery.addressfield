@@ -1013,14 +1013,16 @@
         fired = false;
 
     // Bind an event listener for addressfield:after to the document element.
-    $(document).bind('addressfield:after', function () {
-      fired = true;
+    $(document).bind('addressfield:after', function (event, data) {
+      if (event.type === 'addressfield:after' && data && data.hasOwnProperty('config') && data.hasOwnProperty('fieldMap')) {
+          fired = true;
+      }
     });
 
     // Call addressfield apply and assert the correct effects.
     $.fn.addressfield.apply.call(this.address, config, enabledFields);
 
-    ok(fired, 'should fire addressfield:after event');
+    ok(fired, 'should fire addressfield:after event with data object');
     expect(1);
   });
 

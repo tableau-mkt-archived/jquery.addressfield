@@ -170,7 +170,7 @@
     $.fn.addressfield.orderFields.call($container, fieldOrder);
 
     // Trigger an addressfield:after event on the container.
-    $container.trigger('addressfield:after');
+    $container.trigger('addressfield:after', {config: config, fieldMap: fieldMap});
 
     return this;
   };
