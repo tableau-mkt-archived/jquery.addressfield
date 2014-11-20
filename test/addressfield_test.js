@@ -138,6 +138,7 @@
     equal(addMethodValues.methodName, expectedMethodName, 'should use expected validation method name');
     equal(addMethodValues.message, $.validator.messages[expectedMethodName], 'should use pre-defined message when provided');
     equal(addMethodValues.callable(1), true, 'should set validation method to evaluate true when appropriate');
+    equal(addMethodValues.callable(' 1  '), true, 'should allow leading/trailing whitespace');
     equal(addMethodValues.callable('d'), false, 'should set validation method to evaluate false when appropriate');
     equal(rulesValues.method, 'add', 'should call $.rules with add method');
     deepEqual(rulesValues.rule, expectedRule, 'should call $.rules with expected rule');
@@ -145,7 +146,7 @@
     // "Unset" jQuery.validator and the rules method.
     delete $.validator;
     delete $.fn.rules;
-    expect(12);
+    expect(13);
   });
 
   test('default label update prev', function() {
@@ -1015,7 +1016,7 @@
     // Bind an event listener for addressfield:after to the document element.
     $(document).bind('addressfield:after', function (event, data) {
       if (event.type === 'addressfield:after' && data && data.hasOwnProperty('config') && data.hasOwnProperty('fieldMap')) {
-          fired = true;
+        fired = true;
       }
     });
 
