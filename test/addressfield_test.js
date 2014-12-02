@@ -483,14 +483,23 @@
   module('jQuery#addressfield plugin behavior', {
     setup: function() {
       this.address = $('#qunit-fixture');
+      this.country = $('#address-country');
     }
   });
 
   test('is chainable', function() {
+    var oldBinder = $.fn.addressfield.binder;
+
+    // Stub the binder method.
+    $.fn.addressfield.binder = function() {};
+
     strictEqual(this.address.addressfield(), this.address, 'should be chainable');
     strictEqual(this.address.addressfield({json:''}), this.address, 'should be chainable');
-    strictEqual(this.address.addressfield({json:{}}), this.address, 'should be chainable');
+    strictEqual(this.address.addressfield({json:{},fields:{country:'.country'}}), this.address, 'should be chainable');
     expect(3);
+
+    // Clean everything up.
+    $.fn.addressfield.binder = oldBinder;
   });
 
   test('extends default configurations', function () {
@@ -529,14 +538,16 @@
 
   test('loads and binds when passed a string', function() {
     var oldAjax = $.ajax,
+        oldChange = $.fn.change,
         oldBinder = $.fn.addressfield.binder,
         oldTransform = $.fn.addressfield.transform,
         mockTransformedData = {transformed: 'data'},
-        expectedFields = {foo: 'bar'},
+        expectedFields = {foo: 'bar', country: '#address-country'},
         expectedResponseData = {fizz: 'bizz'},
         expectedDataType = 'json',
         expectedUrl = '/foo/bar/baz.json',
         expectedAsync = false,
+        changeWasTriggeredOn = null,
         ajaxDataType,
         ajaxUrl,
         ajaxAsync,
@@ -545,7 +556,7 @@
         binderData,
         transformData;
 
-    // Mock the core ajax and addressfield binder and transform methods.
+    // Mock the core ajax/change and addressfield binder and transform methods.
     $.ajax = function(options) {
       ajaxDataType = options.dataType;
       ajaxUrl = options.url;
@@ -554,6 +565,9 @@
       // Override so any real AJAX results in a no-op.
       options.success = function() {};
       return oldAjax(options);
+    };
+    $.fn.change = function() {
+      changeWasTriggeredOn = this;
     };
     $.fn.addressfield.binder = function(fields, data) {
       binderContainer = this;
@@ -579,27 +593,34 @@
     strictEqual(binderContainer, this.address, 'bound to expected container');
     strictEqual(binderFields, expectedFields, 'bound with expected fields');
     strictEqual(binderData, mockTransformedData, 'bound with transformed data');
+    deepEqual(changeWasTriggeredOn, this.country, 'change triggered on country');
 
     // Reset methods.
     $.ajax = oldAjax;
+    $.fn.change = oldChange;
     $.fn.addressfield.binder = oldBinder;
     $.fn.addressfield.transform = oldTransform;
 
-    expect(7);
+    expect(8);
   });
 
   test('binds when passed data object', function() {
     var oldBinder = $.fn.addressfield.binder,
         oldTransform = $.fn.addressfield.transform,
-        mockFields = {foo: 'bar'},
+        oldChange = $.fn.change,
+        mockFields = {foo: 'bar', country: '#address-country'},
         mockJsonData = {some: 'thing'},
         mockTransformedData = {fizz: 'buzz'},
+        changeWasTriggeredOn = null,
         binderContainer,
         binderFields,
         binderData,
         transformData;
 
-    // Mock the binder and transform methods.
+    // Mock the core change and addressfield binder and transform methods.
+    $.fn.change = function() {
+      changeWasTriggeredOn = this;
+    };
     $.fn.addressfield.binder = function(fields, data) {
       binderContainer = this;
       binderFields = fields;
@@ -620,12 +641,14 @@
     strictEqual(binderData, mockTransformedData, 'received transformed data');
     strictEqual(binderFields, mockFields, 'received expected fields');
     strictEqual(binderContainer, this.address, 'bound context is as expected');
+    deepEqual(changeWasTriggeredOn, this.country, 'change triggered on country');
 
     // Reset methods.
+    $.fn.change = oldChange;
     $.fn.addressfield.binder = oldBinder;
     $.fn.addressfield.transform = oldTransform;
 
-    expect(4);
+    expect(5);
   });
 
   test('applies when null data is passed in', function() {
