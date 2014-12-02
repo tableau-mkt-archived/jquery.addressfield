@@ -2,25 +2,49 @@
  * Primary address field implementation.
  */
 (function ($) {
-  var configuredFields = [
-      'thoroughfare',
-      'localityname',
-      'administrativearea',
-      'postalcode'
-    ];
-
-  // On country change...
-  $('#country').change(function landingPageCountryChange() {
-    // Trigger the addressfield plugin with the country's data.
-    $('#address-example fieldset').addressfield(_countryConfig[this.value], configuredFields);
-  });
-
-  // On document load, apply the configuration.
+  // On document ready, instantiate the plugin.
   $(document).ready(function landingPageOnReady() {
-    $('#address-example fieldset').addressfield(_countryConfig[$('#country').val()], configuredFields);
+    // Initialize jquery.validate (optional).
+    $('#address-example').validate({});
+
+    // Initialize jquery.addressfield.
+    $('#address-example fieldset').addressfield({
+      json: 'js/jquery.addressfield/addressfield.min.json',
+      fields: {
+        country: '#country',
+        thoroughfare: '#address1',
+        premise: '#address2',
+        localityname: '#city',
+        administrativearea: '#state',
+        postalcode: '#zip'
+      }
+    });
   });
 })(jQuery);
 
+/**
+ * Makes jQuery.validate compatible with Bootstrap.
+ * @see http://stackoverflow.com/a/18754780
+ */
+(function ($) {
+  $.validator.setDefaults({
+    highlight: function(element) {
+      $(element).closest('.form-group').addClass('has-error');
+    },
+    unhighlight: function(element) {
+      $(element).closest('.form-group').removeClass('has-error');
+    },
+    errorElement: 'span',
+    errorClass: 'help-block',
+    errorPlacement: function(error, element) {
+      if(element.parent('.input-group').length) {
+        error.insertAfter(element.parent());
+      } else {
+        error.insertAfter(element);
+      }
+    }
+  });
+})(jQuery);
 
 /**
  * Smooth scroller...
