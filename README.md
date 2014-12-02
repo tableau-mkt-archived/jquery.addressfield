@@ -34,6 +34,10 @@ wrapper with a few special configuration keys and the plugin takes care of the
 rest:
 
 ```javascript
+// If jquery.validate is in use, instantiate it here with your options:
+$('#my-address-form').validate({/* ... */});
+
+// Instantiate jquery.addressfield with your configs:
 $('#my-address-form').addressfield({
   json: '/path/to/addressfield.json',
   fields: {
