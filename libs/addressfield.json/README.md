@@ -23,6 +23,7 @@ You can also browse existing projects that are built on top of addressfield.json
 in your target language/framework:
 - [jquery.addressfield](https://tableau-mkt.github.io/jquery.addressfield) (for
   JavaScript / jQuery 1.3.2+)
+- [Scale Address Field](https://www.drupal.org/project/scale_addressfield) (for Drupal 7)
 
 #### Package / dependency management
 You can also use a package manager to declare addressfield.json as a dependency
