@@ -1,6 +1,6 @@
 {
   "name": "addressfield.json",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "homepage": "https://github.com/tableau-mkt/addressfield.json",
   "authors": [
     "Eric Peterson <epeterson@tableausoftware.com>"
@@ -20,13 +20,13 @@
     "test",
     "tests"
   ],
-  "_release": "1.0.0",
+  "_release": "1.1.0",
   "_resolution": {
     "type": "version",
-    "tag": "v1.0.0",
-    "commit": "e405a9b122f9a1916a60cc5ce9f663b37fc36fe3"
+    "tag": "v1.1.0",
+    "commit": "d494731378bd8e204d356dfe41e4503a33ddd920"
   },
   "_source": "git://github.com/tableau-mkt/addressfield.json.git",
-  "_target": "~1.0",
+  "_target": "~1.1",
   "_originalSource": "addressfield.json"
 }

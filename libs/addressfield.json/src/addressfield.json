@@ -21,6 +21,13 @@
               "localityname": {
                 "label": "City"
               }
+            },
+            {
+              "postalcode": {
+                "label": "Postal code",
+                "format": "^\\d{4}$",
+                "eg": "1001"
+              }
             }
           ]
         }
@@ -49,7 +56,9 @@
             },
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^22\\d{3}$",
+                "eg": "22150"
               }
             }
           ]
@@ -128,13 +137,18 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code"
+              "localityname": {
+                "label": "City"
               }
             },
             {
-              "localityname": {
-                "label": "City"
+              "administrativearea": {
+                "label": "State"
+              }
+            },
+            {
+              "postalcode": {
+                "label": "ZIP code"
               }
             }
           ]
@@ -311,7 +325,84 @@
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "State",
+                "options": [
+                  {
+                    "": "--"
+                  },
+                  {
+                    "B": "Buenos Aires"
+                  },
+                  {
+                    "K": "Catamarca"
+                  },
+                  {
+                    "H": "Chaco"
+                  },
+                  {
+                    "U": "Chubut"
+                  },
+                  {
+                    "C": "Ciudad de Buenos Aires"
+                  },
+                  {
+                    "X": "Córdoba"
+                  },
+                  {
+                    "W": "Corrientes"
+                  },
+                  {
+                    "E": "Entre Ríos"
+                  },
+                  {
+                    "P": "Formosa"
+                  },
+                  {
+                    "Y": "Jujuy"
+                  },
+                  {
+                    "L": "La Pampa"
+                  },
+                  {
+                    "F": "La Rioja"
+                  },
+                  {
+                    "M": "Mendoza"
+                  },
+                  {
+                    "N": "Misiones"
+                  },
+                  {
+                    "Q": "Neuquén"
+                  },
+                  {
+                    "R": "Río Negro"
+                  },
+                  {
+                    "A": "Salta"
+                  },
+                  {
+                    "J": "San Juan"
+                  },
+                  {
+                    "D": "San Luis"
+                  },
+                  {
+                    "Z": "Santa Cruz"
+                  },
+                  {
+                    "S": "Santa Fe"
+                  },
+                  {
+                    "G": "Santiago del Estero"
+                  },
+                  {
+                    "V": "Tierra del Fuego"
+                  },
+                  {
+                    "T": "Tucumán"
+                  }
+                ]
               }
             }
           ]
@@ -342,6 +433,11 @@
             {
               "localityname": {
                 "label": "City"
+              }
+            },
+            {
+              "administrativearea": {
+                "label": "Province"
               }
             }
           ]
@@ -396,7 +492,7 @@
           "locality": [
             {
               "localityname": {
-                "label": "City"
+                "label": "City/suburb"
               }
             },
             {
@@ -435,7 +531,7 @@
             },
             {
               "postalcode": {
-                "label": "Postal code",
+                "label": "Postcode",
                 "format": "^\\d{4}$",
                 "eg": "2000"
               }
@@ -462,7 +558,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^\\d{4}$",
+                "eg": "3741"
               }
             },
             {
@@ -527,7 +625,7 @@
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "Island"
               }
             }
           ]
@@ -647,7 +745,7 @@
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "Province"
               }
             }
           ]
@@ -672,7 +770,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^\\d{4}$",
+                "eg": "4000"
               }
             },
             {
@@ -915,7 +1015,7 @@
       "fields": [
         {
           "thoroughfare": {
-            "label": "thoroughfare"
+            "label": "Thoroughfare"
           }
         },
         {
@@ -924,12 +1024,12 @@
           }
         },
         {
-          "dependent_localityname": {
-            "label": "Neighborhood"
-          }
-        },
-        {
           "locality": [
+            {
+              "dependent_localityname": {
+                "label": "Neighborhood"
+              }
+            },
             {
               "localityname": {
                 "label": "City"
@@ -1373,6 +1473,11 @@
               "localityname": {
                 "label": "City"
               }
+            },
+            {
+              "administrativearea": {
+                "label": "Island"
+              }
             }
           ]
         }
@@ -1395,13 +1500,13 @@
         {
           "locality": [
             {
-              "localityname": {
-                "label": "City"
+              "postalcode": {
+                "label": "Postal code"
               }
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "Island"
               }
             }
           ]
@@ -1483,6 +1588,61 @@
               "localityname": {
                 "label": "City"
               }
+            },
+            {
+              "administrativearea": {
+                "label": "State",
+                "options": [
+                  {
+                    "": "--"
+                  },
+                  {
+                    "AI": "Aysén del General Carlos Ibáñez del Campo"
+                  },
+                  {
+                    "AN": "Antofagasta"
+                  },
+                  {
+                    "AR": "Araucanía"
+                  },
+                  {
+                    "AP": "Arica y Parinacota"
+                  },
+                  {
+                    "AT": "Atacama"
+                  },
+                  {
+                    "BI": "Biobío"
+                  },
+                  {
+                    "CO": "Coquimbo"
+                  },
+                  {
+                    "LI": "Libertador General Bernardo O'Higgins"
+                  },
+                  {
+                    "LL": "Los Lagos"
+                  },
+                  {
+                    "LR": "Los Ríos"
+                  },
+                  {
+                    "MA": "Magallanes y de la Antártica Chilena"
+                  },
+                  {
+                    "ML": "Maule"
+                  },
+                  {
+                    "RM": "Metropolitana de Santiago"
+                  },
+                  {
+                    "TA": "Tarapacá"
+                  },
+                  {
+                    "VS": "Valparaíso"
+                  }
+                ]
+              }
             }
           ]
         }
@@ -1505,10 +1665,8 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code",
-                "format": "^\\d{6}$",
-                "eg": "101200"
+              "dependent_localityname": {
+                "label": "District"
               }
             },
             {
@@ -1618,6 +1776,13 @@
                   }
                 ]
               }
+            },
+            {
+              "postalcode": {
+                "label": "Postal code",
+                "format": "^\\d{6}$",
+                "eg": "101200"
+              }
             }
           ]
         }
@@ -1640,13 +1805,18 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code"
+              "localityname": {
+                "label": "City"
               }
             },
             {
-              "localityname": {
-                "label": "City"
+              "administrativearea": {
+                "label": "Province"
+              }
+            },
+            {
+              "postalcode": {
+                "label": "Postal code"
               }
             }
           ]
@@ -1670,13 +1840,18 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code"
+              "localityname": {
+                "label": "City"
               }
             },
             {
-              "localityname": {
-                "label": "City"
+              "administrativearea": {
+                "label": "Province"
+              }
+            },
+            {
+              "postalcode": {
+                "label": "Postal code"
               }
             }
           ]
@@ -2016,7 +2191,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^\\d{4}$",
+                "eg": "8660"
               }
             },
             {
@@ -2166,7 +2343,98 @@
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "Governorate",
+                "options": [
+                  {
+                    "": "--"
+                  },
+                  {
+                    "ALX": "Alexandria"
+                  },
+                  {
+                    "ASN": "Aswan"
+                  },
+                  {
+                    "AST": "Asyut"
+                  },
+                  {
+                    "BH": "Beheira"
+                  },
+                  {
+                    "BNS": "Beni Suef"
+                  },
+                  {
+                    "C": "Cairo"
+                  },
+                  {
+                    "DK": "Dakahlia"
+                  },
+                  {
+                    "DT": "Damietta"
+                  },
+                  {
+                    "FYM": "Faiyum"
+                  },
+                  {
+                    "GH": "Gharbia"
+                  },
+                  {
+                    "GZ": "Giza"
+                  },
+                  {
+                    "IS": "Ismailia"
+                  },
+                  {
+                    "KFS": "Kafr el-Sheikh"
+                  },
+                  {
+                    "MT": "Matruh"
+                  },
+                  {
+                    "MN": "Minya"
+                  },
+                  {
+                    "MNF": "Monufia"
+                  },
+                  {
+                    "WAD": "New Valley"
+                  },
+                  {
+                    "SIN": "North Sinai"
+                  },
+                  {
+                    "PTS": "Port Said"
+                  },
+                  {
+                    "KB": "Qalyubia"
+                  },
+                  {
+                    "KN": "Qena"
+                  },
+                  {
+                    "BA": "Red Sea"
+                  },
+                  {
+                    "SHR": "Sharqia"
+                  },
+                  {
+                    "SHG": "Sohag"
+                  },
+                  {
+                    "JS": "South Sinai"
+                  },
+                  {
+                    "SUZ": "Suez"
+                  },
+                  {
+                    "LX": "Luxor"
+                  }
+                ]
+              }
+            },
+            {
+              "postalcode": {
+                "label": "Postal code"
               }
             }
           ]
@@ -2201,7 +2469,7 @@
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "Province"
               }
             }
           ]
@@ -2426,7 +2694,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^\\d{5}$",
+                "eg": "00550"
               }
             },
             {
@@ -2488,7 +2758,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^9[78]3\\d{2}$",
+                "eg": "97300"
               }
             },
             {
@@ -2528,7 +2800,7 @@
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "Island"
               }
             }
           ]
@@ -2727,11 +2999,6 @@
               "postalcode": {
                 "label": "Postal code"
               }
-            },
-            {
-              "localityname": {
-                "label": "City"
-              }
             }
           ]
         }
@@ -2755,7 +3022,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^\\d{3} ?\\d{2}$",
+                "eg": "151 24"
               }
             },
             {
@@ -2785,7 +3054,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^39\\d{2}$",
+                "eg": "3911"
               }
             },
             {
@@ -2840,7 +3111,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^9[78][01]\\d{2}$",
+                "eg": "97100"
               }
             },
             {
@@ -2869,13 +3142,18 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code"
+              "localityname": {
+                "label": "City"
               }
             },
             {
-              "localityname": {
-                "label": "City"
+              "administrativearea": {
+                "label": "State"
+              }
+            },
+            {
+              "postalcode": {
+                "label": "ZIP code"
               }
             }
           ]
@@ -2930,7 +3208,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^GY\\d[\\dA-Z]?[ ]?\\d[ABD-HJLN-UW-Z]{2}$",
+                "eg": "GY1 1AA"
               }
             },
             {
@@ -3104,18 +3384,18 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code"
-              }
-            },
-            {
               "localityname": {
                 "label": "City"
               }
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "Province"
+              }
+            },
+            {
+              "postalcode": {
+                "label": "Postal code"
               }
             }
           ]
@@ -3140,7 +3420,26 @@
           "locality": [
             {
               "localityname": {
-                "label": "City"
+                "label": "District"
+              }
+            },
+            {
+              "administrativearea": {
+                "label": "Area",
+                "options": [
+                  {
+                    "": "--"
+                  },
+                  {
+                    "Kowloon": "Kowloon"
+                  },
+                  {
+                    "Hong Kong Island": "Hong Kong Island"
+                  },
+                  {
+                    "New Territories": "New Territories"
+                  }
+                ]
               }
             }
           ]
@@ -3348,7 +3647,7 @@
             },
             {
               "postalcode": {
-                "label": "Postal code",
+                "label": "PIN code",
                 "format": "^\\d{6}$",
                 "eg": "110005"
               }
@@ -3375,17 +3674,121 @@
           "locality": [
             {
               "localityname": {
-                "label": "City"
-              }
-            },
-            {
-              "administrativearea": {
-                "label": "State"
+                "label": "City/regency"
               }
             },
             {
               "postalcode": {
                 "label": "Postal code"
+              }
+            },
+            {
+              "administrativearea": {
+                "label": "Province",
+                "options": [
+                  {
+                    "": "--"
+                  },
+                  {
+                    "AC": "Aceh"
+                  },
+                  {
+                    "BA": "Bali"
+                  },
+                  {
+                    "BB": "Bangka Belitung"
+                  },
+                  {
+                    "BT": "Banten"
+                  },
+                  {
+                    "BE": "Bengkulu"
+                  },
+                  {
+                    "JK": "DKI Jakarta"
+                  },
+                  {
+                    "YO": "D.I. Yogyakarta"
+                  },
+                  {
+                    "GO": "Gorontalo"
+                  },
+                  {
+                    "JA": "Jambi"
+                  },
+                  {
+                    "JB": "Jawa Barat"
+                  },
+                  {
+                    "JT": "Jawa Tengah"
+                  },
+                  {
+                    "JI": "Jawa Timur"
+                  },
+                  {
+                    "KB": "Kalimantan Barat"
+                  },
+                  {
+                    "KS": "Kalimantan Selatan"
+                  },
+                  {
+                    "KT": "Kalimantan Tengah"
+                  },
+                  {
+                    "KI": "Kalimantan Timur"
+                  },
+                  {
+                    "KR": "Kepulauan Riau"
+                  },
+                  {
+                    "LA": "Lampung"
+                  },
+                  {
+                    "MA": "Maluku"
+                  },
+                  {
+                    "MU": "Maluku Utara"
+                  },
+                  {
+                    "NB": "Nusa Tenggara Barat"
+                  },
+                  {
+                    "NT": "Nusa Tenggara Timur"
+                  },
+                  {
+                    "PA": "Papua"
+                  },
+                  {
+                    "PB": "Papua Barat"
+                  },
+                  {
+                    "RI": "Riau"
+                  },
+                  {
+                    "SR": "Sulawesi Barat"
+                  },
+                  {
+                    "SN": "Sulawesi Selatan"
+                  },
+                  {
+                    "ST": "Sulawesi Tengah"
+                  },
+                  {
+                    "SG": "Sulawesi Tenggara"
+                  },
+                  {
+                    "SA": "Sulawesi Utara"
+                  },
+                  {
+                    "SB": "Sumatera Barat"
+                  },
+                  {
+                    "SS": "Sumatera Selatan"
+                  },
+                  {
+                    "SU": "Sumatera Utara"
+                  }
+                ]
               }
             }
           ]
@@ -3409,13 +3812,23 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code"
+              "dependent_localityname": {
+                "label": "Neighborhood"
               }
             },
             {
               "localityname": {
                 "label": "City"
+              }
+            },
+            {
+              "administrativearea": {
+                "label": "Province"
+              }
+            },
+            {
+              "postalcode": {
+                "label": "Postal code"
               }
             }
           ]
@@ -3439,13 +3852,18 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code"
+              "localityname": {
+                "label": "City"
               }
             },
             {
-              "localityname": {
-                "label": "City"
+              "administrativearea": {
+                "label": "Province"
+              }
+            },
+            {
+              "postalcode": {
+                "label": "Postal code"
               }
             }
           ]
@@ -3470,12 +3888,170 @@
           "locality": [
             {
               "localityname": {
-                "label": "City"
+                "label": "Town/city"
               }
             },
             {
               "administrativearea": {
-                "label": "County"
+                "label": "County",
+                "options": [
+                  {
+                    "": "--"
+                  },
+                  {
+                    "CW": "Co Carlow"
+                  },
+                  {
+                    "CN": "Co Cavan"
+                  },
+                  {
+                    "CE": "Co Clare"
+                  },
+                  {
+                    "CO": "Co Cork"
+                  },
+                  {
+                    "DL": "Co Donegal"
+                  },
+                  {
+                    "D": "Co Dublin"
+                  },
+                  {
+                    "D1": "Dublin 1"
+                  },
+                  {
+                    "D2": "Dublin 2"
+                  },
+                  {
+                    "D3": "Dublin 3"
+                  },
+                  {
+                    "D4": "Dublin 4"
+                  },
+                  {
+                    "D5": "Dublin 5"
+                  },
+                  {
+                    "D6": "Dublin 6"
+                  },
+                  {
+                    "D6W": "Dublin 6w"
+                  },
+                  {
+                    "D7": "Dublin 7"
+                  },
+                  {
+                    "D8": "Dublin 8"
+                  },
+                  {
+                    "D9": "Dublin 9"
+                  },
+                  {
+                    "D10": "Dublin 10"
+                  },
+                  {
+                    "D11": "Dublin 11"
+                  },
+                  {
+                    "D12": "Dublin 12"
+                  },
+                  {
+                    "D13": "Dublin 13"
+                  },
+                  {
+                    "D14": "Dublin 14"
+                  },
+                  {
+                    "D15": "Dublin 15"
+                  },
+                  {
+                    "D16": "Dublin 16"
+                  },
+                  {
+                    "D17": "Dublin 17"
+                  },
+                  {
+                    "D18": "Dublin 18"
+                  },
+                  {
+                    "D19": "Dublin 19"
+                  },
+                  {
+                    "D20": "Dublin 20"
+                  },
+                  {
+                    "D21": "Dublin 21"
+                  },
+                  {
+                    "D22": "Dublin 22"
+                  },
+                  {
+                    "D23": "Dublin 23"
+                  },
+                  {
+                    "D24": "Dublin 24"
+                  },
+                  {
+                    "G": "Co Galway"
+                  },
+                  {
+                    "KY": "Co Kerry"
+                  },
+                  {
+                    "KE": "Co Kildare"
+                  },
+                  {
+                    "KK": "Co Kilkenny"
+                  },
+                  {
+                    "LS": "Co Laois"
+                  },
+                  {
+                    "LM": "Co Leitrim"
+                  },
+                  {
+                    "LK": "Co Limerick"
+                  },
+                  {
+                    "LD": "Co Longford"
+                  },
+                  {
+                    "LH": "Co Louth"
+                  },
+                  {
+                    "MO": "Co Mayo"
+                  },
+                  {
+                    "MH": "Co Meath"
+                  },
+                  {
+                    "MN": "Co Monaghan"
+                  },
+                  {
+                    "OY": "Co Offaly"
+                  },
+                  {
+                    "RN": "Co Roscommon"
+                  },
+                  {
+                    "SO": "Co Sligo"
+                  },
+                  {
+                    "TA": "Co Tipperary"
+                  },
+                  {
+                    "WD": "Co Waterford"
+                  },
+                  {
+                    "WH": "Co Westmeath"
+                  },
+                  {
+                    "WX": "Co Wexford"
+                  },
+                  {
+                    "WW": "Co Wicklow"
+                  }
+                ]
               }
             }
           ]
@@ -3500,7 +4076,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^IM\\d[\\dA-Z]?[ ]?\\d[ABD-HJLN-UW-Z]{2}$",
+                "eg": "IM99 1PS"
               }
             },
             {
@@ -3964,8 +4542,55 @@
               }
             },
             {
-              "postalcode": {
-                "label": "Postal code"
+              "administrativearea": {
+                "label": "Parish",
+                "options": [
+                  {
+                    "": "--"
+                  },
+                  {
+                    "Clarendon": "Clarendon"
+                  },
+                  {
+                    "Hanover": "Hanover"
+                  },
+                  {
+                    "Kingston": "Kingston"
+                  },
+                  {
+                    "Manchester": "Manchester"
+                  },
+                  {
+                    "Portland": "Portland"
+                  },
+                  {
+                    "St. Andrew": "St. Andrew"
+                  },
+                  {
+                    "St. Ann": "St. Ann"
+                  },
+                  {
+                    "St. Catherine": "St. Catherine"
+                  },
+                  {
+                    "St. Elizabeth": "St. Elizabeth"
+                  },
+                  {
+                    "St. James": "St. James"
+                  },
+                  {
+                    "St. Mary": "St. Mary"
+                  },
+                  {
+                    "St. Thomas": "St. Thomas"
+                  },
+                  {
+                    "Trelawny": "Trelawny"
+                  },
+                  {
+                    "Westmoreland": "Westmoreland"
+                  }
+                ]
               }
             }
           ]
@@ -4173,7 +4798,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^JE\\d[\\dA-Z]?[ ]?\\d[ABD-HJLN-UW-Z]{2}$",
+                "eg": "JE2 2BT"
               }
             },
             {
@@ -4248,7 +4875,7 @@
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "Province"
               }
             }
           ]
@@ -4308,7 +4935,7 @@
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "Island"
               }
             }
           ]
@@ -4573,7 +5200,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^(948[5-9])|(949[0-7])$",
+                "eg": "9496"
               }
             },
             {
@@ -4633,7 +5262,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^\\d{4}$",
+                "eg": "4750"
               }
             },
             {
@@ -4782,18 +5413,76 @@
         {
           "locality": [
             {
+              "dependent_localityname": {
+                "label": "Village/township"
+              }
+            },
+            {
               "localityname": {
                 "label": "City"
               }
             },
             {
-              "postalcode": {
-                "label": "Postal code"
+              "administrativearea": {
+                "label": "State",
+                "options": [
+                  {
+                    "": "--"
+                  },
+                  {
+                    "Johor": "Johor"
+                  },
+                  {
+                    "Kedah": "Kedah"
+                  },
+                  {
+                    "Kelantan": "Kelantan"
+                  },
+                  {
+                    "Kuala Lumpur": "Kuala Lumpur"
+                  },
+                  {
+                    "Labuan": "Labuan"
+                  },
+                  {
+                    "Melaka": "Melaka"
+                  },
+                  {
+                    "Negeri Sembilan": "Negeri Sembilan"
+                  },
+                  {
+                    "Pahang": "Pahang"
+                  },
+                  {
+                    "Perak": "Perak"
+                  },
+                  {
+                    "Perlis": "Perlis"
+                  },
+                  {
+                    "Pulau Pinang": "Pulau Pinang"
+                  },
+                  {
+                    "Putrajaya": "Putrajaya"
+                  },
+                  {
+                    "Sabah": "Sabah"
+                  },
+                  {
+                    "Sarawak": "Sarawak"
+                  },
+                  {
+                    "Selangor": "Selangor"
+                  },
+                  {
+                    "Terengganu": "Terengganu"
+                  }
+                ]
               }
             },
             {
-              "administrativearea": {
-                "label": "State"
+              "postalcode": {
+                "label": "Postal code"
               }
             }
           ]
@@ -4902,13 +5591,18 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code"
+              "localityname": {
+                "label": "City"
               }
             },
             {
-              "localityname": {
-                "label": "City"
+              "administrativearea": {
+                "label": "State"
+              }
+            },
+            {
+              "postalcode": {
+                "label": "ZIP code"
               }
             }
           ]
@@ -4933,7 +5627,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^9[78]2\\d{2}$",
+                "eg": "97220"
               }
             },
             {
@@ -5018,7 +5714,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^976\\d{2}$",
+                "eg": "97600"
               }
             },
             {
@@ -5047,10 +5745,8 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code",
-                "format": "^\\d{5}$",
-                "eg": "03400"
+              "dependent_localityname": {
+                "label": "Neighborhood"
               }
             },
             {
@@ -5060,7 +5756,115 @@
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "State",
+                "options": [
+                  {
+                    "": "--"
+                  },
+                  {
+                    "AGU": "Aguascalientes"
+                  },
+                  {
+                    "BCN": "Baja California"
+                  },
+                  {
+                    "BCS": "Baja California Sur"
+                  },
+                  {
+                    "CAM": "Campeche"
+                  },
+                  {
+                    "COA": "Coahuila"
+                  },
+                  {
+                    "COL": "Colima"
+                  },
+                  {
+                    "CHP": "Chiapas"
+                  },
+                  {
+                    "CHH": "Chihuahua"
+                  },
+                  {
+                    "DIF": "Distrito Federal"
+                  },
+                  {
+                    "DUG": "Durango"
+                  },
+                  {
+                    "MEX": "Estado de México"
+                  },
+                  {
+                    "GUA": "Guanajuato"
+                  },
+                  {
+                    "GRO": "Guerrero"
+                  },
+                  {
+                    "HID": "Hidalgo"
+                  },
+                  {
+                    "JAL": "Jalisco"
+                  },
+                  {
+                    "MIC": "Michoacán"
+                  },
+                  {
+                    "MOR": "Morelos"
+                  },
+                  {
+                    "NAY": "Nayarit"
+                  },
+                  {
+                    "NLE": "Nuevo León"
+                  },
+                  {
+                    "OAX": "Oaxaca"
+                  },
+                  {
+                    "PUE": "Puebla"
+                  },
+                  {
+                    "QUE": "Queretaro"
+                  },
+                  {
+                    "ROO": "Quintana Roo"
+                  },
+                  {
+                    "SLP": "San Luis Potosí"
+                  },
+                  {
+                    "SIN": "Sinaloa"
+                  },
+                  {
+                    "SON": "Sonora"
+                  },
+                  {
+                    "TAB": "Tabasco"
+                  },
+                  {
+                    "TAM": "Tamaulipas"
+                  },
+                  {
+                    "TLA": "Tlaxcala"
+                  },
+                  {
+                    "VER": "Veracruz"
+                  },
+                  {
+                    "YUC": "Yucatán"
+                  },
+                  {
+                    "ZAC": "Zacatecas"
+                  }
+                ]
+              }
+            },
+            {
+              "postalcode": {
+                "label": "Postal code",
+                "format": "^\\d{5}$",
+                "eg": "03400"
               }
             }
           ]
@@ -5095,7 +5899,7 @@
             },
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "ZIP code"
               }
             }
           ]
@@ -5184,6 +5988,10 @@
               }
             },
             {
+              "administrativearea": {
+                "label": "Province"
+              }
+            },            {
               "postalcode": {
                 "label": "Postal code"
               }
@@ -5310,7 +6118,7 @@
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "Province"
               }
             }
           ]
@@ -5389,13 +6197,8 @@
         {
           "locality": [
             {
-              "localityname": {
-                "label": "City"
-              }
-            },
-            {
               "administrativearea": {
-                "label": "State"
+                "label": "District"
               }
             }
           ]
@@ -5512,7 +6315,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^988\\d{2}$",
+                "eg": "98814"
               }
             },
             {
@@ -5643,7 +6448,7 @@
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "Department"
               }
             }
           ]
@@ -5697,11 +6502,6 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code"
-              }
-            },
-            {
               "localityname": {
                 "label": "City"
               }
@@ -5709,6 +6509,11 @@
             {
               "administrativearea": {
                 "label": "State"
+              }
+            },
+            {
+              "postalcode": {
+                "label": "Postal code"
               }
             }
           ]
@@ -5762,13 +6567,18 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code"
+              "localityname": {
+                "label": "City"
               }
             },
             {
-              "localityname": {
-                "label": "City"
+              "administrativearea": {
+                "label": "Province"
+              }
+            },
+            {
+              "postalcode": {
+                "label": "Postal code"
               }
             }
           ]
@@ -5792,13 +6602,18 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code"
+              "localityname": {
+                "label": "City"
               }
             },
             {
-              "localityname": {
-                "label": "City"
+              "administrativearea": {
+                "label": "State"
+              }
+            },
+            {
+              "postalcode": {
+                "label": "ZIP code"
               }
             }
           ]
@@ -5848,7 +6663,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^\\d{4}$",
+                "eg": "0025"
               }
             },
             {
@@ -5953,7 +6770,7 @@
             },
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "ZIP code"
               }
             }
           ]
@@ -6007,18 +6824,13 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code"
-              }
-            },
-            {
               "localityname": {
                 "label": "City"
               }
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "Province"
               }
             }
           ]
@@ -6042,18 +6854,18 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code"
-              }
-            },
-            {
               "localityname": {
                 "label": "City"
               }
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "Province"
+              }
+            },
+            {
+              "postalcode": {
+                "label": "Postal code"
               }
             }
           ]
@@ -6107,13 +6919,98 @@
         {
           "locality": [
             {
-              "localityname": {
-                "label": "City"
+              "postalcode": {
+                "label": "Postal code"
               }
             },
             {
-              "postalcode": {
-                "label": "Postal code"
+              "administrativearea": {
+                "label": "Region",
+                "options": [
+                  {
+                    "": "--"
+                  },
+                  {
+                    "AMA": "Amazonas"
+                  },
+                  {
+                    "ANC": "Ancash"
+                  },
+                  {
+                    "APU": "Apurimac"
+                  },
+                  {
+                    "ARE": "Arequipa"
+                  },
+                  {
+                    "AYA": "Ayacucho"
+                  },
+                  {
+                    "CAJ": "Cajamarca"
+                  },
+                  {
+                    "CAL": "Callao"
+                  },
+                  {
+                    "CUS": "Cusco"
+                  },
+                  {
+                    "HUV": "Huancavelica"
+                  },
+                  {
+                    "HUC": "Huanuco"
+                  },
+                  {
+                    "ICA": "Ica"
+                  },
+                  {
+                    "JUN": "Junin"
+                  },
+                  {
+                    "LAL": "La Libertad"
+                  },
+                  {
+                    "LAM": "Lambayeque"
+                  },
+                  {
+                    "LIM": "Lima"
+                  },
+                  {
+                    "LOR": "Loreto"
+                  },
+                  {
+                    "MDD": "Madre de Dios"
+                  },
+                  {
+                    "MOQ": "Moquegua"
+                  },
+                  {
+                    "PAS": "Pasco"
+                  },
+                  {
+                    "PIU": "Piura"
+                  },
+                  {
+                    "PUN": "Puno"
+                  },
+                  {
+                    "SAM": "San Martin"
+                  },
+                  {
+                    "TAC": "Tacna"
+                  },
+                  {
+                    "TUM": "Tumbes"
+                  },
+                  {
+                    "UCA": "Ucayali"
+                  }
+                ]
+              }
+            },
+            {
+              "localityname": {
+                "label": "District"
               }
             }
           ]
@@ -6137,8 +7034,8 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code"
+              "dependent_localityname": {
+                "label": "Suburb"
               }
             },
             {
@@ -6148,7 +7045,12 @@
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "Province"
+              }
+            },
+            {
+              "postalcode": {
+                "label": "Postal code"
               }
             }
           ]
@@ -6203,7 +7105,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^\\d{2}-?\\d{3}$",
+                "eg": "00-950"
               }
             },
             {
@@ -6233,7 +7137,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^\\d{4}-?\\d{3}$",
+                "eg": "2725-079"
               }
             },
             {
@@ -6267,13 +7173,8 @@
               }
             },
             {
-              "administrativearea": {
-                "label": "State"
-              }
-            },
-            {
               "postalcode": {
-                "label": "Postal code"
+                "label": "ZIP code"
               }
             }
           ]
@@ -6328,7 +7229,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^9[78]4\\d{2}$",
+                "eg": "97400"
               }
             },
             {
@@ -6387,18 +7290,272 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code"
-              }
-            },
-            {
               "localityname": {
                 "label": "City"
               }
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "Province",
+                "options": [
+                  {
+                    "": "--"
+                  },
+                  {
+                    "MOW": "Moskva"
+                  },
+                  {
+                    "SPE": "Sankt-Peterburg"
+                  },
+                  {
+                    "AD": "Adygeya, Respublika"
+                  },
+                  {
+                    "AL": "Altay, Respublika"
+                  },
+                  {
+                    "BA": "Bashkortostan, Respublika"
+                  },
+                  {
+                    "BU": "Buryatiya, Respublika"
+                  },
+                  {
+                    "CE": "Chechenskaya Respublika"
+                  },
+                  {
+                    "CU": "Chuvashskaya Respublika"
+                  },
+                  {
+                    "DA": "Dagestan, Respublika"
+                  },
+                  {
+                    "IN": "Ingushetiya, Respublika"
+                  },
+                  {
+                    "KB": "Kabardino-Balkarskaya Respublika"
+                  },
+                  {
+                    "KL": "Kalmykiya, Respublika"
+                  },
+                  {
+                    "KC": "Karachayevo-Cherkesskaya Respublika"
+                  },
+                  {
+                    "KR": "Kareliya, Respublika"
+                  },
+                  {
+                    "KK": "Khakasiya, Respublika"
+                  },
+                  {
+                    "KO": "Komi, Respublika"
+                  },
+                  {
+                    "ME": "Mariy El, Respublika"
+                  },
+                  {
+                    "MO": "Mordoviya, Respublika"
+                  },
+                  {
+                    "SA": "Sakha, Respublika [Yakutiya]"
+                  },
+                  {
+                    "SE": "Severnaya Osetiya-Alaniya, Respublika"
+                  },
+                  {
+                    "TA": "Tatarstan, Respublika"
+                  },
+                  {
+                    "TY": "Tyva, Respublika [Tuva]"
+                  },
+                  {
+                    "UD": "Udmurtskaya Respublika"
+                  },
+                  {
+                    "ALT": "Altayskiy kray"
+                  },
+                  {
+                    "KAM": "Kamchatskiy kray"
+                  },
+                  {
+                    "KHA": "Khabarovskiy kray"
+                  },
+                  {
+                    "KDA": "Krasnodarskiy kray"
+                  },
+                  {
+                    "KYA": "Krasnoyarskiy kray"
+                  },
+                  {
+                    "PER": "Permskiy kray"
+                  },
+                  {
+                    "PRI": "Primorskiy kray"
+                  },
+                  {
+                    "STA": "Stavropolskiy kray"
+                  },
+                  {
+                    "ZAB": "Zabaykalskiy kray"
+                  },
+                  {
+                    "AMU": "Amurskaya oblast"
+                  },
+                  {
+                    "ARK": "Arkhangelskaya oblast"
+                  },
+                  {
+                    "AST": "Astrakhanskaya oblast"
+                  },
+                  {
+                    "BEL": "Belgorodskaya oblast"
+                  },
+                  {
+                    "BRY": "Bryanskaya oblast"
+                  },
+                  {
+                    "CHE": "Chelyabinskaya oblast"
+                  },
+                  {
+                    "IRK": "Irkutskaya oblast"
+                  },
+                  {
+                    "IVA": "Ivanovskaya oblast"
+                  },
+                  {
+                    "KGD": "Kaliningradskaya oblast"
+                  },
+                  {
+                    "KLU": "Kaluzhskaya oblast"
+                  },
+                  {
+                    "KEM": "Kemerovskaya oblast"
+                  },
+                  {
+                    "KIR": "Kirovskaya oblast"
+                  },
+                  {
+                    "KOS": "Kostromskaya oblast"
+                  },
+                  {
+                    "KGN": "Kurganskaya oblast"
+                  },
+                  {
+                    "KRS": "Kurskaya oblast"
+                  },
+                  {
+                    "LEN": "Leningradskaya oblast"
+                  },
+                  {
+                    "LIP": "Lipetskaya oblast"
+                  },
+                  {
+                    "MAG": "Magadanskaya oblast"
+                  },
+                  {
+                    "MOS": "Moskovskaya oblast"
+                  },
+                  {
+                    "MUR": "Murmanskaya oblast"
+                  },
+                  {
+                    "NIZ": "Nizhegorodskaya oblast"
+                  },
+                  {
+                    "NGR": "Novgorodskaya oblast"
+                  },
+                  {
+                    "NVS": "Novosibirskaya oblast"
+                  },
+                  {
+                    "OMS": "Omskaya oblast"
+                  },
+                  {
+                    "ORE": "Orenburgskaya oblast"
+                  },
+                  {
+                    "ORL": "Orlovskaya oblast"
+                  },
+                  {
+                    "PNZ": "Penzenskaya oblast"
+                  },
+                  {
+                    "PSK": "Pskovskaya oblast"
+                  },
+                  {
+                    "ROS": "Rostovskaya oblast"
+                  },
+                  {
+                    "RYA": "Ryazanskaya oblast"
+                  },
+                  {
+                    "SAK": "Sakhalinskaya oblast"
+                  },
+                  {
+                    "SAM": "Samarskaya oblast"
+                  },
+                  {
+                    "SAR": "Saratovskaya oblast"
+                  },
+                  {
+                    "SMO": "Smolenskaya oblast"
+                  },
+                  {
+                    "SVE": "Sverdlovskaya oblast"
+                  },
+                  {
+                    "TAM": "Tambovskaya oblast"
+                  },
+                  {
+                    "TOM": "Tomskaya oblast"
+                  },
+                  {
+                    "TUL": "Tulskaya oblast"
+                  },
+                  {
+                    "TVE": "Tverskaya oblast"
+                  },
+                  {
+                    "TYU": "Tyumenskaya oblast"
+                  },
+                  {
+                    "ULY": "Ulyanovskaya oblast"
+                  },
+                  {
+                    "VLA": "Vladimirskaya oblast"
+                  },
+                  {
+                    "VGG": "Volgogradskaya oblast"
+                  },
+                  {
+                    "VLG": "Vologodskaya oblast"
+                  },
+                  {
+                    "VOR": "Voronezhskaya oblast"
+                  },
+                  {
+                    "YAR": "Yaroslavskaya oblast"
+                  },
+                  {
+                    "YEV": "Yevreyskaya avtonomnaya oblast"
+                  },
+                  {
+                    "CHU": "Chukotskiy avtonomnyy okrug"
+                  },
+                  {
+                    "KHM": "Khanty-Mansiyskiy avtonomnyy okrug-Yugra"
+                  },
+                  {
+                    "NEN": "Nenetskiy avtonomnyy okrug"
+                  },
+                  {
+                    "YAN": "Yamalo-Nenetskiy avtonomnyy okrug"
+                  }
+                ]
+              }
+            },
+            {
+              "postalcode": {
+                "label": "Postal code"
               }
             }
           ]
@@ -6448,7 +7605,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^9[78][01]\\d{2}$",
+                "eg": "97100"
               }
             },
             {
@@ -6478,7 +7637,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^(ASCN|STHL)[ ]?1ZZ$",
+                "eg": "STHL 1ZZ"
               }
             },
             {
@@ -6507,18 +7668,13 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code"
-              }
-            },
-            {
               "localityname": {
                 "label": "City"
               }
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "Island"
               }
             }
           ]
@@ -6568,7 +7724,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^9[78][01]\\d{2}$",
+                "eg": "97100"
               }
             },
             {
@@ -6598,7 +7756,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^9[78]5\\d{2}$",
+                "eg": "97500"
               }
             },
             {
@@ -6684,11 +7844,6 @@
             {
               "localityname": {
                 "label": "City"
-              }
-            },
-            {
-              "administrativearea": {
-                "label": "State"
               }
             }
           ]
@@ -6829,6 +7984,11 @@
             {
               "localityname": {
                 "label": "City"
+              }
+            },
+            {
+              "administrativearea": {
+                "label": "Island"
               }
             }
           ]
@@ -7000,7 +8160,7 @@
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "Province"
               }
             },
             {
@@ -7126,8 +8286,8 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code"
+              "dependent_localityname": {
+                "label": "District"
               }
             },
             {
@@ -7137,7 +8297,68 @@
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "Province",
+                "options": [
+                  {
+                    "": "--"
+                  },
+                  {
+                    "Seoul": "Seoul"
+                  },
+                  {
+                    "Busan": "Busan"
+                  },
+                  {
+                    "Daegu": "Daegu"
+                  },
+                  {
+                    "Daejeon": "Daejeon"
+                  },
+                  {
+                    "Gwangju": "Gwangju"
+                  },
+                  {
+                    "Incheon": "Incheon"
+                  },
+                  {
+                    "Ulsan": "Ulsan"
+                  },
+                  {
+                    "Chungcheongbuk-do": "Chungcheongbuk-do"
+                  },
+                  {
+                    "Chungcheongnam-do": "Chungcheongnam-do"
+                  },
+                  {
+                    "Gangwon-do": "Gangwon-do"
+                  },
+                  {
+                    "Gyeonggi-do": "Gyeonggi-do"
+                  },
+                  {
+                    "Gyeongsangbuk-do": "Gyeongsangbuk-do"
+                  },
+                  {
+                    "Gyeongsangnam-do": "Gyeongsangnam-do"
+                  },
+                  {
+                    "Jeju-do": "Jeju-do"
+                  },
+                  {
+                    "Jeollabuk-do": "Jeollabuk-do"
+                  },
+                  {
+                    "Jeollanam-do": "Jeollanam-do"
+                  },
+                  {
+                    "Sejong": "Sejong"
+                  }
+                ]
+              }
+            },
+            {
+              "postalcode": {
+                "label": "Postal code"
               }
             }
           ]
@@ -7172,7 +8393,168 @@
             },
             {
               "administrativearea": {
-                "label": "Province"
+                "label": "Province",
+                "options": [
+                  {
+                    "": "--"
+                  },
+                  {
+                    "C": "A Coruña"
+                  },
+                  {
+                    "VI": "Alava"
+                  },
+                  {
+                    "AB": "Albacete"
+                  },
+                  {
+                    "A": "Alicante"
+                  },
+                  {
+                    "AL": "Almería"
+                  },
+                  {
+                    "O": "Asturias"
+                  },
+                  {
+                    "AV": "Ávila"
+                  },
+                  {
+                    "BA": "Badajoz"
+                  },
+                  {
+                    "PM": "Baleares"
+                  },
+                  {
+                    "B": "Barcelona"
+                  },
+                  {
+                    "BU": "Burgos"
+                  },
+                  {
+                    "CC": "Cáceres"
+                  },
+                  {
+                    "CA": "Cádiz"
+                  },
+                  {
+                    "S": "Cantabria"
+                  },
+                  {
+                    "CS": "Castellón"
+                  },
+                  {
+                    "CE": "Ceuta"
+                  },
+                  {
+                    "CR": "Ciudad Real"
+                  },
+                  {
+                    "CO": "Córdoba"
+                  },
+                  {
+                    "CU": "Cuenca"
+                  },
+                  {
+                    "GI": "Gerona"
+                  },
+                  {
+                    "GR": "Granada"
+                  },
+                  {
+                    "GU": "Guadalajara"
+                  },
+                  {
+                    "SS": "Guipúzcoa"
+                  },
+                  {
+                    "H": "Huelva"
+                  },
+                  {
+                    "HU": "Huesca"
+                  },
+                  {
+                    "J": "Jaén"
+                  },
+                  {
+                    "LO": "La Rioja"
+                  },
+                  {
+                    "GC": "Las Palmas"
+                  },
+                  {
+                    "LE": "León"
+                  },
+                  {
+                    "L": "Lérida"
+                  },
+                  {
+                    "LU": "Lugo"
+                  },
+                  {
+                    "M": "Madrid"
+                  },
+                  {
+                    "MA": "Málaga"
+                  },
+                  {
+                    "ML": "Melilla"
+                  },
+                  {
+                    "MU": "Murcia"
+                  },
+                  {
+                    "NA": "Navarra"
+                  },
+                  {
+                    "OR": "Ourense"
+                  },
+                  {
+                    "P": "Palencia"
+                  },
+                  {
+                    "PO": "Pontevedra"
+                  },
+                  {
+                    "SA": "Salamanca"
+                  },
+                  {
+                    "TF": "Santa Cruz de Tenerife"
+                  },
+                  {
+                    "SG": "Segovia"
+                  },
+                  {
+                    "SE": "Sevilla"
+                  },
+                  {
+                    "SO": "Soria"
+                  },
+                  {
+                    "T": "Tarragona"
+                  },
+                  {
+                    "TE": "Teruel"
+                  },
+                  {
+                    "TO": "Toledo"
+                  },
+                  {
+                    "V": "Valencia"
+                  },
+                  {
+                    "VA": "Valladolid"
+                  },
+                  {
+                    "BI": "Vizcaya"
+                  },
+                  {
+                    "ZA": "Zamora"
+                  },
+                  {
+                    "Z": "Zaragoza"
+                  }
+                ]
               }
             }
           ]
@@ -7262,7 +8644,7 @@
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "Province"
               }
             }
           ]
@@ -7287,7 +8669,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^\\d{4}$",
+                "eg": "9170"
               }
             },
             {
@@ -7347,7 +8731,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^\\d{3}[ ]?\\d{2}$",
+                "eg": "11455"
               }
             },
             {
@@ -7377,7 +8763,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^\\d{4}$",
+                "eg": "2544"
               }
             },
             {
@@ -7449,7 +8837,78 @@
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "State",
+                "options": [
+                  {
+                    "": "--"
+                  },
+                  {
+                    "TXG": "Taichung City"
+                  },
+                  {
+                    "TPE": "Taipei City"
+                  },
+                  {
+                    "TTT": "Taitung County"
+                  },
+                  {
+                    "TNN": "Tainan City"
+                  },
+                  {
+                    "ILA": "Yilan County"
+                  },
+                  {
+                    "HUA": "Hualien County"
+                  },
+                  {
+                    "Kinmen County": "Kinmen County"
+                  },
+                  {
+                    "NAN": "Nantou County"
+                  },
+                  {
+                    "PIF": "Pingtung County"
+                  },
+                  {
+                    "MIA": "Miaoli County"
+                  },
+                  {
+                    "TAO": "Taoyuan County"
+                  },
+                  {
+                    "KHH": "Kaohsiung City"
+                  },
+                  {
+                    "KEE": "Keelung City"
+                  },
+                  {
+                    "Lienchiang County": "Lienchiang County"
+                  },
+                  {
+                    "YUN": "Yunlin County"
+                  },
+                  {
+                    "TPQ": "New Taipei City"
+                  },
+                  {
+                    "HSZ": "Hsinchu City"
+                  },
+                  {
+                    "HSQ": "Hsinchu County"
+                  },
+                  {
+                    "CYI": "Chiayi City"
+                  },
+                  {
+                    "CYQ": "Chiayi County"
+                  },
+                  {
+                    "CHA": "Changhua County"
+                  },
+                  {
+                    "PEN": "Penghu County"
+                  }
+                ]
               }
             }
           ]
@@ -7528,13 +8987,18 @@
         {
           "locality": [
             {
+              "dependent_localityname": {
+                "label": "Suburb"
+              }
+            },
+            {
               "localityname": {
                 "label": "City"
               }
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "Province"
               }
             },
             {
@@ -7728,6 +9192,259 @@
               }
             },
             {
+              "administrativearea": {
+                "label": "Province",
+                "options": [
+                  {
+                    "": "--"
+                  },
+                  {
+                    "Adana": "Adana"
+                  },
+                  {
+                    "Adıyaman": "Adıyaman"
+                  },
+                  {
+                    "Afyon": "Afyon"
+                  },
+                  {
+                    "Ağrı": "Ağrı"
+                  },
+                  {
+                    "Aksaray": "Aksaray"
+                  },
+                  {
+                    "Amasya": "Amasya"
+                  },
+                  {
+                    "Ankara": "Ankara"
+                  },
+                  {
+                    "Antalya": "Antalya"
+                  },
+                  {
+                    "Ardahan": "Ardahan"
+                  },
+                  {
+                    "Artvin": "Artvin"
+                  },
+                  {
+                    "Aydın": "Aydın"
+                  },
+                  {
+                    "Balıkesir": "Balıkesir"
+                  },
+                  {
+                    "Bartın": "Bartın"
+                  },
+                  {
+                    "Batman": "Batman"
+                  },
+                  {
+                    "Bayburt": "Bayburt"
+                  },
+                  {
+                    "Bilecik": "Bilecik"
+                  },
+                  {
+                    "Bingöl": "Bingöl"
+                  },
+                  {
+                    "Bitlis": "Bitlis"
+                  },
+                  {
+                    "Bolu": "Bolu"
+                  },
+                  {
+                    "Burdur": "Burdur"
+                  },
+                  {
+                    "Bursa": "Bursa"
+                  },
+                  {
+                    "Çanakkale": "Çanakkale"
+                  },
+                  {
+                    "Çankırı": "Çankırı"
+                  },
+                  {
+                    "Çorum": "Çorum"
+                  },
+                  {
+                    "Denizli": "Denizli"
+                  },
+                  {
+                    "Diyarbakır": "Diyarbakır"
+                  },
+                  {
+                    "Düzce": "Düzce"
+                  },
+                  {
+                    "Edirne": "Edirne"
+                  },
+                  {
+                    "Elazığ": "Elazığ"
+                  },
+                  {
+                    "Erzincan": "Erzincan"
+                  },
+                  {
+                    "Erzurum": "Erzurum"
+                  },
+                  {
+                    "Eskişehir": "Eskişehir"
+                  },
+                  {
+                    "Gaziantep": "Gaziantep"
+                  },
+                  {
+                    "Giresun": "Giresun"
+                  },
+                  {
+                    "Gümüşhane": "Gümüşhane"
+                  },
+                  {
+                    "Hakkari": "Hakkari"
+                  },
+                  {
+                    "Hatay": "Hatay"
+                  },
+                  {
+                    "Iğdır": "Iğdır"
+                  },
+                  {
+                    "Isparta": "Isparta"
+                  },
+                  {
+                    "İstanbul": "İstanbul"
+                  },
+                  {
+                    "İzmir": "İzmir"
+                  },
+                  {
+                    "Kahramanmaraş": "Kahramanmaraş"
+                  },
+                  {
+                    "Karabük": "Karabük"
+                  },
+                  {
+                    "Karaman": "Karaman"
+                  },
+                  {
+                    "Kars": "Kars"
+                  },
+                  {
+                    "Kastamonu": "Kastamonu"
+                  },
+                  {
+                    "Kayseri": "Kayseri"
+                  },
+                  {
+                    "Kırıkkale": "Kırıkkale"
+                  },
+                  {
+                    "Kırklareli": "Kırklareli"
+                  },
+                  {
+                    "Kırşehir": "Kırşehir"
+                  },
+                  {
+                    "Kilis": "Kilis"
+                  },
+                  {
+                    "Kocaeli": "Kocaeli"
+                  },
+                  {
+                    "Konya": "Konya"
+                  },
+                  {
+                    "Kütahya": "Kütahya"
+                  },
+                  {
+                    "Malatya": "Malatya"
+                  },
+                  {
+                    "Manisa": "Manisa"
+                  },
+                  {
+                    "Mardin": "Mardin"
+                  },
+                  {
+                    "Mersin": "Mersin"
+                  },
+                  {
+                    "Muğla": "Muğla"
+                  },
+                  {
+                    "Muş": "Muş"
+                  },
+                  {
+                    "Nevşehir": "Nevşehir"
+                  },
+                  {
+                    "Niğde": "Niğde"
+                  },
+                  {
+                    "Ordu": "Ordu"
+                  },
+                  {
+                    "Osmaniye": "Osmaniye"
+                  },
+                  {
+                    "Rize": "Rize"
+                  },
+                  {
+                    "Sakarya": "Sakarya"
+                  },
+                  {
+                    "Samsun": "Samsun"
+                  },
+                  {
+                    "Siirt": "Siirt"
+                  },
+                  {
+                    "Sinop": "Sinop"
+                  },
+                  {
+                    "Sivas": "Sivas"
+                  },
+                  {
+                    "Şanlıurfa": "Şanlıurfa"
+                  },
+                  {
+                    "Şırnak": "Şırnak"
+                  },
+                  {
+                    "Tekirdağ": "Tekirdağ"
+                  },
+                  {
+                    "Tokat": "Tokat"
+                  },
+                  {
+                    "Trabzon": "Trabzon"
+                  },
+                  {
+                    "Tunceli": "Tunceli"
+                  },
+                  {
+                    "Uşak": "Uşak"
+                  },
+                  {
+                    "Van": "Van"
+                  },
+                  {
+                    "Yalova": "Yalova"
+                  },
+                  {
+                    "Yozgat": "Yozgat"
+                  },
+                  {
+                    "Zonguldak": "Zonguldak"
+                  }
+                ]
+              }
+            },
+            {
               "localityname": {
                 "label": "City"
               }
@@ -7816,6 +9533,43 @@
               "localityname": {
                 "label": "City"
               }
+            },
+            {
+              "administrativearea": {
+                "label": "Island",
+                "options": [
+                  {
+                    "": "--"
+                  },
+                  {
+                    "Funafuti": "Funafuti"
+                  },
+                  {
+                    "Funafuti Centre": "Funafuti Centre"
+                  },
+                  {
+                    "Nanumaga": "Nanumaga"
+                  },
+                  {
+                    "Nanumea": "Nanumea"
+                  },
+                  {
+                    "Niulakita": "Niulakita"
+                  },
+                  {
+                    "Niutao": "Niutao"
+                  },
+                  {
+                    "Nui": "Nui"
+                  },
+                  {
+                    "Nukulaelae": "Nukulaelae"
+                  },
+                  {
+                    "Vaitupu": "Vaitupu"
+                  }
+                ]
+              }
             }
           ]
         }
@@ -7898,18 +9652,18 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code"
-              }
-            },
-            {
               "localityname": {
                 "label": "City"
               }
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "Region"
+              }
+            },
+            {
+              "postalcode": {
+                "label": "Postal code"
               }
             }
           ]
@@ -7933,13 +9687,34 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code"
-              }
-            },
-            {
-              "localityname": {
-                "label": "City"
+              "administrativearea": {
+                "label": "Emirate",
+                "options": [
+                  {
+                    "": "--"
+                  },
+                  {
+                    "AZ": "Abu Dhabi"
+                  },
+                  {
+                    "FU": "Fujairah"
+                  },
+                  {
+                    "UQ": "Umm al-Quwain"
+                  },
+                  {
+                    "SH": "Sharjah"
+                  },
+                  {
+                    "DU": "Dubai"
+                  },
+                  {
+                    "RK": "Ras al-Khaimah"
+                  },
+                  {
+                    "AJ": "Ajmān"
+                  }
+                ]
               }
             }
           ]
@@ -8168,6 +9943,15 @@
                     "": "--"
                   },
                   {
+                    "AA": "Armed Forces (Americas)"
+                  },
+                  {
+                    "AE": "Armed Forces (Europe, Canada, Middle East, Africa)"
+                  },
+                  {
+                    "AP": "Armed Forces (Pacific)"
+                  },
+                  {
                     "AS": "American Samoa"
                   },
                   {
@@ -8222,13 +10006,18 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code"
+              "localityname": {
+                "label": "City"
               }
             },
             {
-              "localityname": {
-                "label": "City"
+              "administrativearea": {
+                "label": "State"
+              }
+            },
+            {
+              "postalcode": {
+                "label": "ZIP code"
               }
             }
           ]
@@ -8287,13 +10076,13 @@
         {
           "locality": [
             {
-              "postalcode": {
-                "label": "Postal code"
+              "localityname": {
+                "label": "City"
               }
             },
             {
-              "localityname": {
-                "label": "City"
+              "postalcode": {
+                "label": "Postal code"
               }
             }
           ]
@@ -8383,7 +10172,87 @@
             },
             {
               "administrativearea": {
-                "label": "State"
+                "label": "State",
+                "options": [
+                  {
+                    "": "--"
+                  },
+                  {
+                    "Z": "Amazonas"
+                  },
+                  {
+                    "B": "Anzoátegui"
+                  },
+                  {
+                    "C": "Apure"
+                  },
+                  {
+                    "D": "Aragua"
+                  },
+                  {
+                    "E": "Barinas"
+                  },
+                  {
+                    "F": "Bolívar"
+                  },
+                  {
+                    "G": "Carabobo"
+                  },
+                  {
+                    "H": "Cojedes"
+                  },
+                  {
+                    "Y": "Delta Amacuro"
+                  },
+                  {
+                    "W": "Dependencias Federales"
+                  },
+                  {
+                    "A": "Distrito Federal"
+                  },
+                  {
+                    "I": "Falcón"
+                  },
+                  {
+                    "J": "Guárico"
+                  },
+                  {
+                    "K": "Lara"
+                  },
+                  {
+                    "L": "Mérida"
+                  },
+                  {
+                    "M": "Miranda"
+                  },
+                  {
+                    "N": "Monagas"
+                  },
+                  {
+                    "O": "Nueva Esparta"
+                  },
+                  {
+                    "P": "Portuguesa"
+                  },
+                  {
+                    "R": "Sucre"
+                  },
+                  {
+                    "S": "Táchira"
+                  },
+                  {
+                    "T": "Trujillo"
+                  },
+                  {
+                    "X": "Vargas"
+                  },
+                  {
+                    "U": "Yaracuy"
+                  },
+                  {
+                    "V": "Zulia"
+                  }
+                ]
               }
             }
           ]
@@ -8443,7 +10312,9 @@
           "locality": [
             {
               "postalcode": {
-                "label": "Postal code"
+                "label": "Postal code",
+                "format": "^986\\d{2}$",
+                "eg": "98600"
               }
             },
             {
