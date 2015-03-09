@@ -2,7 +2,7 @@
  * Address field
  * https://github.com/tableau-mkt/jquery.addressfield
  *
- * Licensed under the GPL-2.0 license.
+ * Licensed under the MIT license.
  */
 
 (function ($) {
