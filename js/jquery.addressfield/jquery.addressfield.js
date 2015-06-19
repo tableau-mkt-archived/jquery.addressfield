@@ -1,6 +1,6 @@
-/*! Address Field - v1.0.1 - 2014-12-01
+/*! Address Field - v1.0.2 - 2015-06-18
 * https://github.com/tableau-mkt/jquery.addressfield
-* Copyright (c) 2014 Eric Peterson; Licensed MIT */
+* Copyright (c) 2015 Eric Peterson; Licensed MIT */
 (function ($) {
 
   /**
@@ -191,7 +191,7 @@
   $.fn.addressfield.binder = function(fieldMap, countryConfigMap) {
     var $container = this;
 
-    $(fieldMap.country).bind('change', function() {
+    $container.find(fieldMap.country).bind('change', function() {
       // Trigger the apply method with the country's data.
       $.fn.addressfield.apply.call($container, countryConfigMap[this.value], fieldMap);
     });
