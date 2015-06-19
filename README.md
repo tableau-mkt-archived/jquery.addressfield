@@ -58,6 +58,12 @@ The change handler will trigger a mutation process on the form that handles all
 of the features outlined above based on the configuration provided in the `json`
 key.
 
+#### Expected markup
+
+Note that this plugin makes certain assumptions about the structure of your form
+markup. Please be sure to see the [usage and configuration](docs/usage.md) guide
+for complete details.
+
 ### Detailed documentation
 More detailed, topic-based documentation on usage and configuration options is
 available here below.
