@@ -40,7 +40,7 @@ Here's example markup that encompasses the above recommendations:
   </div>
 </form>
 
-<script type="text/javascript>
+<script type="text/javascript">
 $('form').addressfield({
   json: '/*...*/',
   fields: {
