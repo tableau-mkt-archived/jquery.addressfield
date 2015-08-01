@@ -65,6 +65,9 @@
         url: configs.json,
         async: configs.async,
         success: function (data) {
+          if($(configs.fields.country)[0].children.length === 0){
+            $.fn.addressfield.initCountries($.fn.addressfield.transform(data), configs.fields.country);
+          }
           $.fn.addressfield.binder.call($container, configs.fields, $.fn.addressfield.transform(data));
           $(configs.fields.country).change();
         }
@@ -176,6 +179,19 @@
     $container.trigger('addressfield:after', {config: config, fieldMap: fieldMap});
 
     return this;
+  };
+
+  /**
+  * Popualtes country dropdown with list of countries from provided json file if it is empty
+  */
+  $.fn.addressfield.initCountries = function(countryMap, selector){
+    $.each(countryMap, function(key, value) {
+       $(selector)
+           .append($("<option></option>")
+           .attr("value",key)
+           .text(value.label)
+        );
+    });
   };
 
   /**
