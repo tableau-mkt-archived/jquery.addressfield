@@ -67,7 +67,6 @@
         async: configs.async,
         success: function (data) {
           if($(configs.fields.country)[0].children.length === 0){
-            console.log('empty');
             $.fn.addressfield.initCountries($.fn.addressfield.transform(data), configs.fields.country);
           }
           $.fn.addressfield.binder.call($container, configs.fields, $.fn.addressfield.transform(data));
