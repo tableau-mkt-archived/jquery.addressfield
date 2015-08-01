@@ -59,12 +59,17 @@
         }, options);
 
     // If a path was given for a JSON resource, load the resource and execute.
+
     if (typeof configs.json === 'string') {
       $.ajax({
         dataType: "json",
         url: configs.json,
         async: configs.async,
         success: function (data) {
+          if($(configs.fields.country)[0].children.length === 0){
+            console.log('empty');
+            $.fn.addressfield.initCountries($.fn.addressfield.transform(data), configs.fields.country);
+          }
           $.fn.addressfield.binder.call($container, configs.fields, $.fn.addressfield.transform(data));
           $(configs.fields.country).change();
         }
@@ -179,6 +184,19 @@
   };
 
   /**
+  * Popualtes country dropdown with list of countries from provided json file if it is empty
+  */
+  $.fn.addressfield.initCountries = function(countryMap, selector){
+    $.each(countryMap, function(key, value) {
+       $(selector)
+           .append($("<option></option>")
+           .attr("value",key)
+           .text(value.label)
+        );
+    });
+  };
+
+  /**
    * Binds a handler to the country form field element, which applies postal
    * address form mutations to this form container based on the selected country
    * and given xNAL field map.
@@ -217,6 +235,7 @@
     }
 
     return countryMap;
+
   };
 
   /**
