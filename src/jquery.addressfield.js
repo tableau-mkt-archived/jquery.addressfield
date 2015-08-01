@@ -59,7 +59,6 @@
         }, options);
 
     // If a path was given for a JSON resource, load the resource and execute.
-
     if (typeof configs.json === 'string') {
       $.ajax({
         dataType: "json",
