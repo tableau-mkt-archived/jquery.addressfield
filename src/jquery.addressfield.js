@@ -65,10 +65,9 @@
         url: configs.json,
         async: configs.async,
         success: function (data) {
-          if($(configs.fields.country)[0].children.length === 0){
-            $.fn.addressfield.initCountries($.fn.addressfield.transform(data), configs.fields.country);
-          }
-          $.fn.addressfield.binder.call($container, configs.fields, $.fn.addressfield.transform(data));
+          var transformedData = $.fn.addressfield.transform(data);
+          $.fn.addressfield.initCountries.call($container, configs.fields.country, transformedData);
+          $.fn.addressfield.binder.call($container, configs.fields, transformedData);
           $(configs.fields.country).change();
         }
       });
@@ -76,7 +75,9 @@
     }
     // In this case, a direct configuration has been provided inline.
     else if (typeof configs.json === 'object' && configs.json !== null) {
-      $.fn.addressfield.binder.call($container, configs.fields, $.fn.addressfield.transform(configs.json));
+      var transformedData = $.fn.addressfield.transform(configs.json);
+      $.fn.addressfield.initCountries.call($container, configs.fields.country, transformedData);
+      $.fn.addressfield.binder.call($container, configs.fields, transformedData);
       $(configs.fields.country).change();
       return $container;
     }
@@ -182,18 +183,28 @@
   };
 
   /**
-  * Popualtes country dropdown with list of countries from provided json file if it is empty
+  * Populates country dropdown with list of countries from provided json file if it is empty
+  *
+  *@param selector
+  *
+  *  Field identifying the country dropdown from user-configs.
+  *
+  *@param countryMap
+  *
+  *  A map of country codes to country names.
   */
-  $.fn.addressfield.initCountries = function(countryMap, selector){
-    $.each(countryMap, function(key, value) {
-       $(selector)
-           .append($("<option></option>")
-           .attr("value",key)
-           .text(value.label)
-        );
-    });
+  $.fn.addressfield.initCountries = function(selector, countryMap){
+    var $container = this;
+    if($container.find(selector)[0].children.length === 0){
+      $.each(countryMap, function(key, value) {
+         $container.find(selector)
+             .append($("<option></option>")
+             .attr("value",key)
+             .text(value.label)
+          );
+      });
+    }
   };
-
   /**
    * Binds a handler to the country form field element, which applies postal
    * address form mutations to this form container based on the selected country
