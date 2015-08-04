@@ -193,15 +193,17 @@
   *
   *  A map of country codes to country names.
   */
-  $.fn.addressfield.initCountries = function(selector, countryMap){
-    var $container = this;
-    if($container.find(selector)[0].children.length === 0){
+  $.fn.addressfield.initCountries = function(selector, countryMap) {
+    var $container = this,
+        $countrySelect = $container.find(selector + ':not(:has(>option))');
+
+    if ($countrySelect.length) {
       $.each(countryMap, function(key, value) {
-         $container.find(selector)
-             .append($("<option></option>")
-             .attr("value",key)
-             .text(value.label)
-          );
+        $countrySelect
+          .append($('<option></option>')
+            .attr('value', key)
+            .text(value.label)
+        );
       });
     }
   };
