@@ -343,8 +343,7 @@
       if (config.hasOwnProperty('format')) {
         // Create the validation method.
         $.validator.addMethod(methodName, function (value) {
-          // @todo Drop jQuery 1.3 support. No need for .toString() call.
-          return new RegExp(config.format).test($.trim(value.toString()));
+          return new RegExp(config.format).test($.trim(value));
         }, message);
 
         // Apply the rule.
@@ -390,13 +389,7 @@
         elementName = $this.attr('id'),
         $label = $('label[for="' + elementName + '"]') || $this.prev('label');
 
-    // @todo drop support for jQuery 1.3, just use .has()
-    if (typeof $.fn.has === 'function') {
-      return $this.parents().has($label).first();
-    }
-    else {
-      return $this.parents().find(':has(label):has(#' + elementName + '):last');
-    }
+    return $this.parents().has($label).first();
   };
 
   /**
@@ -425,36 +418,17 @@
    * order array is itself an array.
    */
   $.fn.addressfield.orderFields = function(order) {
-    var length = order.length,
-        i,
-        $element;
+    var $self = $(this),
+        $orderedContainers = $();
 
-    // Iterate through the fields to be ordered.
-    for (i = 0; i < length; ++i) {
-      if (i in order) {
-        // Save off the element container over its class selector in order.
-        $element = $.fn.addressfield.container.call(this.find(order[i]));
-        order[i] = {
-          'element': $element.clone(),
-          'selector': order[i],
-          'value': $(this).find(order[i]).val()
-        };
+    // Form a jQuery object with container elements in the correct order.
+    $.each(order, function (index, selector) {
+      var $container = $.fn.addressfield.container.call($self.find(selector));
+      $orderedContainers.push($container[0]);
+    });
 
-        // Remove the original element from the page.
-        $element.remove();
-      }
-    }
-
-    // Elements have been saved off in order and removed. Now, add them back in
-    // the correct order.
-    for (i = 0; i < length; ++i) {
-      if (i in order) {
-        $element = $(this).append(order[i].element);
-
-        // The clone process doesn't seem to copy input values; apply that here.
-        $element.find(order[i]['selector']).val(order[i].value).change();
-      }
-    }
+    // Re-append to parent in the correct order.
+    $orderedContainers.detach().appendTo($self);
   };
 
 }(jQuery));
