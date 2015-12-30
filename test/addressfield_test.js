@@ -434,22 +434,16 @@
         },
         oldOrder = [],
         newOrder = [],
-        mockCloneData = [],
-        mockRemoveData = [],
-        oldClone = $.fn.clone,
-        oldRemove = $.fn.remove,
+        mockDetachData = [],
+        oldDetach = $.fn.detach,
         $wrapper = this.address.find('.locality');
 
-    // Override the core clone method.
-    $.fn.clone = function() {
-      mockCloneData.push('.' + $(this).find('input, select').attr('class'));
-      return oldClone.call(this);
-    };
-
-    // Override the core remove method.
-    $.fn.remove = function() {
-      mockRemoveData.push('.' + $(this).find('input, select').attr('class'));
-      return oldRemove.call(this);
+    // Override the core detach method.
+    $.fn.detach = function() {
+      mockDetachData = $.map(this, function (element) {
+        return '.' + $(element).find('input, select').attr('class');
+      });
+      return oldDetach.call(this);
     };
 
     // Get the existing order of the locality fields.
@@ -472,12 +466,10 @@
     });
 
     deepEqual(newOrder, expectedOrder, 'Order of fields updated as expected.');
-    equal(mockCloneData.length, expectedOrder.length, 'Clone method called the correct number of times.');
-    deepEqual(mockCloneData, expectedOrder, 'Clone method called for each field in the expected order.');
-    equal(mockRemoveData.length, expectedOrder.length, 'Remove method called the correct number of times.');
-    deepEqual(mockRemoveData, expectedOrder, 'Remove method called for each field in the expected order.');
+    equal(mockDetachData.length, expectedOrder.length, 'Detach method called with the correct number of elements.');
+    deepEqual(mockDetachData, expectedOrder, 'Detach method called for each field in the expected order.');
 
-    expect(5 + Object.keys(expectedVals).length);
+    expect(3 + Object.keys(expectedVals).length);
   });
 
   module('jQuery#addressfield plugin behavior', {

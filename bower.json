@@ -8,7 +8,7 @@
   "description": "The simple, configurable, dynamic postal address form plugin.",
   "main": "dist/jquery.addressfield.js",
   "dependencies" : {
-    "jquery": ">=1.3.2",
+    "jquery": ">=1.4.4",
     "addressfield.json": "~1.1"
   },
   "devDependencies": {
