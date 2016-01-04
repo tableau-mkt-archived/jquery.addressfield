@@ -21,7 +21,10 @@ module.exports = function(grunt) {
         stripBanners: true
       },
       build: {
-        src: ['src/jquery.<%= pkg.name %>.js'],
+        src: [
+          'src/jquery.detach-polyfill.js',
+          'src/jquery.<%= pkg.name %>.js'
+        ],
         dest: 'dist/jquery.<%= pkg.name %>.js'
       }
     },
