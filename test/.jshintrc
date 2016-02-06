@@ -11,6 +11,7 @@
   "boss": true,
   "eqnull": true,
   "browser": true,
+  "evil": true,
   "predef": [
     "jQuery",
     "QUnit",
