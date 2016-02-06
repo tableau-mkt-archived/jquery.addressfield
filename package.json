@@ -37,6 +37,6 @@
   },
   "dependencies": {
     "jquery": ">=1.3.2",
-    "addressfield.json": "https://github.com/tableau-mkt/addressfield.json.git"
+    "addressfield.json": "tableau-mkt/addressfield.json"
   }
 }
