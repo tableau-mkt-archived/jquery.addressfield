@@ -1,6 +1,6 @@
 {
   "name": "jquery.addressfield",
-  "version": "1.0.2",
+  "version": "0.0.0",
   "homepage": "https://tableau-mkt.github.io/jquery.addressfield",
   "engines": {
     "node": ">= 0.8.0"
@@ -15,6 +15,11 @@
     "dynamic",
     "field",
     "form"
+  ],
+  "files": [
+    "dist/jquery.addressfield.js",
+    "dist/jquery.addressfield.min.js",
+    "docs/**/*"
   ],
   "license": "MIT",
   "main": "dist/jquery.addressfield.js",
