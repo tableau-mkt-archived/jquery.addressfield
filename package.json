@@ -38,6 +38,6 @@
   },
   "dependencies": {
     "jquery": ">=1.3.2",
-    "addressfield.json": "tableau-mkt/addressfield.json"
+    "addressfield.json": "tableau-mkt/addressfield.json#1.1"
   }
 }
