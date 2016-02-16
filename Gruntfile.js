@@ -22,7 +22,7 @@ module.exports = function(grunt) {
       },
       build: {
         src: [
-          'libs/jquery.detach-polyfill.js',
+          'src/jquery.detach-polyfill.js',
           'src/jquery.<%= pkg.name %>.js'
         ],
         dest: 'dist/jquery.<%= pkg.name %>.js'

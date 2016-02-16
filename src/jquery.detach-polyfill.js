@@ -4,8 +4,11 @@
  * The .detach() method is the same as .remove(), except that .detach() keeps
  * all jQuery data associated with the removed elements. This method is useful
  * when removed elements are to be reinserted into the DOM at a later time.
+ *
+ * Remove when support for jQuery 1.3 is dropped.
  */
 (function ($) {
+  /* istanbul ignore next */
   if (!$.fn.detach) {
     $.fn.detach = function (selector) {
       for (var i = 0, elem; (elem = this[i]) != null; i++) {
