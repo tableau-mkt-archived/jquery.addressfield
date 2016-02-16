@@ -429,35 +429,18 @@
    * order array is itself an array.
    */
   $.fn.addressfield.orderFields = function(order) {
-    var length = order.length,
-        i,
-        $element;
+    var $self = $(this),
+        // Create an empty jQuery object.
+        // @todo Remove .not(document) when dropping jQuery 1.3 support.
+        $orderedContainers = $().not(document);
 
-    // Iterate through the fields to be ordered.
-    for (i = 0; i < length; ++i) {
-      if (i in order) {
-        // Save off the element container over its class selector in order.
-        $element = $.fn.addressfield.container.call(this.find(order[i]));
-        order[i] = {
-          'element': $element.clone(),
-          'selector': order[i],
-          'value': $(this).find(order[i]).val()
-        };
+    // Form a jQuery object with container elements in the correct order.
+    $.each(order, function (index, selector) {
+      var $container = $.fn.addressfield.container.call($self.find(selector));
+      $orderedContainers.push($container[0]);
+    });
 
-        // Remove the original element from the page.
-        $element.remove();
-      }
-    }
-
-    // Elements have been saved off in order and removed. Now, add them back in
-    // the correct order.
-    for (i = 0; i < length; ++i) {
-      if (i in order) {
-        $element = $(this).append(order[i].element);
-
-        // The clone process doesn't seem to copy input values; apply that here.
-        $element.find(order[i]['selector']).val(order[i].value).change();
-      }
-    }
+    // Re-append to parent in the correct order.
+    $orderedContainers.detach().appendTo($self);
   };
 }));
