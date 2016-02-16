@@ -32,14 +32,6 @@ module.exports = function(grunt) {
         }
       }
     },
-    copy: {
-      main: {
-        expand: true,
-        src: 'libs/addressfield.json/build/addressfield.min.json',
-        dest: 'dist/',
-        flatten: true
-      }
-    },
     uglify: {
       options: {
         banner: '<%= banner %>'
@@ -112,7 +104,6 @@ module.exports = function(grunt) {
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-qunit-istanbul');
   grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -120,7 +111,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
 
   // Default task.
-  grunt.registerTask('default', ['connect', 'jshint', 'qunit', 'clean', 'concat', 'uglify', 'copy']);
+  grunt.registerTask('default', ['connect', 'jshint', 'qunit', 'clean', 'concat', 'uglify']);
 
   // Test task.
   grunt.registerTask('test', ['connect', 'jshint', 'qunit']);
