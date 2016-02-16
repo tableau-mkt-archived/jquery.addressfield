@@ -4,9 +4,13 @@
  *
  * Licensed under the MIT license.
  */
-
-(function ($) {
-
+(function(factory) {
+  if (typeof module === "object" && typeof module.exports === "object") {
+    factory(require("jquery"));
+  } else {
+    factory(jQuery);
+  }
+}(function factory($) {
   /**
    * Modifies an address field for this wrapped set of fields, given a config
    * representing how the country writes its addresses (conforming roughly to
@@ -456,5 +460,4 @@
       }
     }
   };
-
-}(jQuery));
+}));

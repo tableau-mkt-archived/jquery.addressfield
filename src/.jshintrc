@@ -11,5 +11,6 @@
   "boss": true,
   "eqnull": true,
   "browser": true,
+  "node": true,
   "predef": ["jQuery"]
 }

@@ -1,6 +1,3 @@
 {
-  "directory": "libs",
-  "scripts": {
-    "postinstall": "./.postinstall.sh"
-  }
+  "directory": "libs"
 }

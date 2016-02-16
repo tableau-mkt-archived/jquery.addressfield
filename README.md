@@ -28,6 +28,23 @@ in some other magical way):
 <script src="/path/to/jquery.addressfield.js"></script>
 ```
 
+Also available on NPM, for [browserified](http://browserify.org/) builds.
+
+Install into `node_modules`:
+
+```shell
+$ npm install jquery.addressfield
+```
+
+In your application module;
+
+```javascript
+var $ = require('jquery');
+require('jquery.addressfield');
+
+$(...).addressfield(...);
+```
+
 #### Basic usage
 Using jquery.addressfield is easy! Instantiate the plugin against a form or form
 wrapper with a few special configuration keys and the plugin takes care of the
