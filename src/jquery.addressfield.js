@@ -5,6 +5,7 @@
  * Licensed under the MIT license.
  */
 (function(factory) {
+  /* istanbul ignore next */
   if (typeof module === "object" && typeof module.exports === "object") {
     factory(require("jquery"));
   } else {
