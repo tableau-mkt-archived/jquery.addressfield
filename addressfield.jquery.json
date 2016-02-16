@@ -2,7 +2,7 @@
   "name": "addressfield",
   "title": "Address Field",
   "description": "The simple, configurable, dynamic postal address field plugin.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "homepage": "https://github.com/tableau-mkt/jquery.addressfield",
   "author": {
     "name": "Eric Peterson",
