@@ -70,7 +70,9 @@
         url: configs.json,
         async: configs.async,
         success: function (data) {
-          $.fn.addressfield.binder.call($container, configs.fields, $.fn.addressfield.transform(data));
+          var transformedData = $.fn.addressfield.transform(data);
+          $.fn.addressfield.initCountries.call($container, configs.fields.country, transformedData);
+          $.fn.addressfield.binder.call($container, configs.fields, transformedData);
           $(configs.fields.country).change();
         }
       });
@@ -78,7 +80,9 @@
     }
     // In this case, a direct configuration has been provided inline.
     else if (typeof configs.json === 'object' && configs.json !== null) {
-      $.fn.addressfield.binder.call($container, configs.fields, $.fn.addressfield.transform(configs.json));
+      var transformedData = $.fn.addressfield.transform(configs.json);
+      $.fn.addressfield.initCountries.call($container, configs.fields.country, transformedData);
+      $.fn.addressfield.binder.call($container, configs.fields, transformedData);
       $(configs.fields.country).change();
       return $container;
     }
@@ -183,6 +187,31 @@
     return this;
   };
 
+  /**
+  * Populates country dropdown with list of countries from provided json file if it is empty
+  *
+  *@param selector
+  *
+  *  Field identifying the country dropdown from user-configs.
+  *
+  *@param countryMap
+  *
+  *  A map of country codes to country names.
+  */
+  $.fn.addressfield.initCountries = function(selector, countryMap) {
+    var $container = this,
+        $countrySelect = $container.find(selector + ':not(:has(>option))');
+
+    if ($countrySelect.length) {
+      $.each(countryMap, function(key, value) {
+        $countrySelect
+          .append($('<option></option>')
+            .attr('value', key)
+            .text(value.label)
+        );
+      });
+    }
+  };
   /**
    * Binds a handler to the country form field element, which applies postal
    * address form mutations to this form container based on the selected country
