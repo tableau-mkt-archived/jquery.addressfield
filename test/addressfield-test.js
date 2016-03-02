@@ -104,6 +104,9 @@
         addMethodValues = {},
         rulesValues = {};
 
+    // Make our postal code field required.
+    $('.postalcode').toggleClass('required');
+
     // Stub out jQuery.validator.
     $.validator = {
       "messages": {},
@@ -142,6 +145,9 @@
     equal(addMethodValues.callable('d'), false, 'should set validation method to evaluate false when appropriate');
     equal(rulesValues.method, 'add', 'should call $.rules with add method');
     deepEqual(rulesValues.rule, expectedRule, 'should call $.rules with expected rule');
+
+    // Unset required field.
+    $('.postalcode').toggleClass('required');
 
     // "Unset" jQuery.validator and the rules method.
     delete $.validator;
