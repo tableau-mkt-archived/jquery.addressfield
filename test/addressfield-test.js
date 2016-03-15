@@ -253,6 +253,49 @@
     expect(6 + oldOptions.length - 1 + Object.keys(options).length * 2);
   });
 
+  test('empty country population', function() {
+    var $cloneAddress = this.address.clone(),
+        $emptyCountry = $cloneAddress.find('.country'),
+        mockJsonData = {
+          "label": "Country",
+          "options": [
+            {
+              "label": "United States",
+              "iso": "US"
+            },
+            {
+              "label": "Canada",
+              "iso": "CA"
+            },
+            {
+              "label": "Japan",
+              "iso": "JA"
+            }
+          ]
+        };
+
+    // Init with mock data.
+    $cloneAddress.addressfield({json: mockJsonData, fields: {country: '.country'}});
+
+    strictEqual($cloneAddress.find('.country option').length, $(this.address).find('.country option').length, 'Same number of options exist as initial country select element.');
+
+    // Now empty out the cloned <select>.
+    $emptyCountry.find('option').remove();
+
+    // Init again with mock data.
+    $cloneAddress.addressfield({json: mockJsonData, fields: {country: '.country'}});
+
+    strictEqual($emptyCountry.find('option').length, mockJsonData.options.length, 'Correct number of options appended to country select element.');
+
+    // Check that the new values match up.
+    $.each(mockJsonData.options, function(optionPos, value) {
+      strictEqual($emptyCountry.find('option[value="' + value.iso + '"]').length, 1, 'Should add new option');
+      strictEqual($emptyCountry.find('option[value="' + value.iso + '"]').text(), mockJsonData.options[optionPos]['label'], 'Should add proper label for each value');
+    });
+
+    expect(8);
+  });
+
   test('default field hide', function() {
     // Set a value on the postal code field.
     this.postalcode.val('foo');
