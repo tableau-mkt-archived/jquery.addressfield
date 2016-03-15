@@ -61,7 +61,8 @@
           async: true,
           // @deprecated Support for manual, synchronous, external control.
           defs: {fields: {}}
-        }, options);
+        }, options),
+        transformedData;
 
     // If a path was given for a JSON resource, load the resource and execute.
     if (typeof configs.json === 'string') {
@@ -70,7 +71,10 @@
         url: configs.json,
         async: configs.async,
         success: function (data) {
-          $.fn.addressfield.binder.call($container, configs.fields, $.fn.addressfield.transform(data));
+          transformedData = $.fn.addressfield.transform(data);
+
+          $.fn.addressfield.initCountries.call($container, configs.fields.country, transformedData);
+          $.fn.addressfield.binder.call($container, configs.fields, transformedData);
           $(configs.fields.country).change();
         }
       });
@@ -78,7 +82,10 @@
     }
     // In this case, a direct configuration has been provided inline.
     else if (typeof configs.json === 'object' && configs.json !== null) {
-      $.fn.addressfield.binder.call($container, configs.fields, $.fn.addressfield.transform(configs.json));
+      transformedData = $.fn.addressfield.transform(configs.json);
+
+      $.fn.addressfield.initCountries.call($container, configs.fields.country, transformedData);
+      $.fn.addressfield.binder.call($container, configs.fields, transformedData);
       $(configs.fields.country).change();
       return $container;
     }
@@ -181,6 +188,31 @@
     $container.trigger('addressfield:after', {config: config, fieldMap: fieldMap});
 
     return this;
+  };
+
+  /**
+  * Populates country dropdown with list of countries from provided json file if it is empty.
+  *
+  * @param selector
+  *   Field identifying the country dropdown from user-configs.
+  *
+  * @param countryMap
+  *   A map of country codes to country names.
+  */
+  $.fn.addressfield.initCountries = function(selector, countryMap) {
+    var $container = this,
+        $countrySelect = $container.find(selector + ':not(:has(>option))');
+
+    if (!$countrySelect.length) {
+      return;
+    }
+
+    $.each(countryMap, function(key, value) {
+      $countrySelect.append($('<option></option>')
+        .attr('value', key)
+        .text(value.label)
+      );
+    });
   };
 
   /**
