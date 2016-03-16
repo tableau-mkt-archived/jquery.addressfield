@@ -256,6 +256,7 @@
   test('empty country population', function() {
     var $cloneAddress = this.address.clone(),
         $emptyCountry = $cloneAddress.find('.country'),
+        oldAjax = $.ajax,
         mockJsonData = {
           "label": "Country",
           "options": [
@@ -272,9 +273,11 @@
               "iso": "JA"
             }
           ]
-        };
+        },
+        expectedResponseData = $.extend(true, {}, mockJsonData);
 
-    // Init with mock data.
+    // Init with mock inline JSON data. This should be a no-op because the <select> is already
+    // populated with options.
     $cloneAddress.addressfield({json: mockJsonData, fields: {country: '.country'}});
 
     strictEqual($cloneAddress.find('.country option').length, $(this.address).find('.country option').length, 'Same number of options exist as initial country select element.');
@@ -282,7 +285,7 @@
     // Now empty out the cloned <select>.
     $emptyCountry.find('option').remove();
 
-    // Init again with mock data.
+    // Init again with mock inline JSON data.
     $cloneAddress.addressfield({json: mockJsonData, fields: {country: '.country'}});
 
     strictEqual($emptyCountry.find('option').length, mockJsonData.options.length, 'Correct number of options appended to country select element.');
@@ -293,7 +296,44 @@
       strictEqual($emptyCountry.find('option[value="' + value.iso + '"]').text(), mockJsonData.options[optionPos]['label'], 'Should add proper label for each value');
     });
 
-    expect(8);
+    // Test against mock ajax retrieved data.
+
+    // First. Push another option into the mock ajax repsponse to differentiate it from the mock JSON string.
+    expectedResponseData.options.push({
+      "label": "Germany",
+      "iso": "DE"
+    });
+
+    // Mock an ajax request.
+    $.ajax = function(options) {
+      options.success(expectedResponseData);
+      // Override so any real AJAX results in a no-op.
+      options.success = function() {};
+      return oldAjax(options);
+    };
+
+    // Now empty out the cloned <select> again.
+    $emptyCountry.find('option').remove();
+
+    // Init a synchronous mock ajax request.
+    $cloneAddress.addressfield({
+      json: '/foo/bar/baz.json',
+      fields: {country: '.country'},
+      async: false
+    });
+
+    strictEqual($emptyCountry.find('option').length, expectedResponseData.options.length, 'Correct number of options appended to country select element via ajax request.');
+
+    // Check that the new values match up.
+    $.each(expectedResponseData.options, function(optionPos, value) {
+      strictEqual($emptyCountry.find('option[value="' + value.iso + '"]').length, 1, 'Should add new option');
+      strictEqual($emptyCountry.find('option[value="' + value.iso + '"]').text(), expectedResponseData.options[optionPos]['label'], 'Should add proper label for each value');
+    });
+
+    // Reset methods.
+    $.ajax = oldAjax;
+
+    expect(17);
   });
 
   test('default field hide', function() {
