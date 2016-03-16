@@ -1,6 +1,6 @@
 {
   "name": "jquery.addressfield",
-  "version": "1.1.0",
+  "version": "1.1.0-dev",
   "homepage": "https://tableau-mkt.github.io/jquery.addressfield",
   "engines": {
     "node": ">= 0.8.0"
