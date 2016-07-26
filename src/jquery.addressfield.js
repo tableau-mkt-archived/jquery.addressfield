@@ -202,14 +202,14 @@
   $.fn.addressfield.initCountries = function(selector, countryMap) {
     var $container = this,
         $countrySelect = $container.find(selector + ':not(:has(>option))'),
-		    defaultCountry = $countrySelect.data().countrySelected;
+        defaultCountry = $countrySelect.data().countrySelected;
 
     if (!$countrySelect.length) {
       return;
     }
 
     $.each(countryMap, function(key, value) {
-      if (typeof defaultCountry != 'undefined' &&
+      if (typeof defaultCountry !== 'undefined' &&
           key.toLowerCase() === defaultCountry.toLowerCase()) {
         $countrySelect.append($('<option></option>')
           .attr('value', key)
