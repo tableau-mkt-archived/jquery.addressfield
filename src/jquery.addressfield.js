@@ -206,8 +206,9 @@
 
     if (!$countrySelect.length) {
       return;
-    } else {
-      defaultCountry = $countrySelect.attr("data-country-selected");
+    }
+    else {
+      defaultCountry = $countrySelect.attr('data-country-selected');
     }
 
     $.each(countryMap, function(key, value) {
@@ -218,7 +219,8 @@
           .attr('selected', 'selected')
           .text(value.label)
         );
-      } else {
+      }
+      else {
         $countrySelect.append($('<option></option>')
           .attr('value', key)
           .text(value.label)
