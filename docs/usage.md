@@ -13,6 +13,8 @@ To ensure the plugin is able to do its thing, please make sure of the following:
   code) are themselves wrapped within a container and that you specify a
   selector for that container. This is necessary because some countries display
   a locality field _set_ with different weight with respect to other fields.
+- Optionally you can specify which country is selected by default. Just add a
+  data attribute to the country select.
 
 Here's example markup that encompasses the above recommendations:
 
@@ -21,7 +23,7 @@ Here's example markup that encompasses the above recommendations:
   <div class="field-wrapper">
     <div class="field-wrapper">
       <label for="country">Country</label>
-      <select id="country"></select>
+      <select id="country" data-country-selected="US"></select>
     </div>
   </div>
   <div id="locality-fields">

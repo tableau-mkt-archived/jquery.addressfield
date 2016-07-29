@@ -201,17 +201,31 @@
   */
   $.fn.addressfield.initCountries = function(selector, countryMap) {
     var $container = this,
-        $countrySelect = $container.find(selector + ':not(:has(>option))');
+        $countrySelect = $container.find(selector + ':not(:has(>option))'),
+        defaultCountry;
 
     if (!$countrySelect.length) {
       return;
     }
+    else {
+      defaultCountry = $countrySelect.attr('data-country-selected');
+    }
 
     $.each(countryMap, function(key, value) {
-      $countrySelect.append($('<option></option>')
-        .attr('value', key)
-        .text(value.label)
-      );
+      if (typeof defaultCountry !== 'undefined' &&
+          key.toLowerCase() === defaultCountry.toLowerCase()) {
+        $countrySelect.append($('<option></option>')
+          .attr('value', key)
+          .attr('selected', 'selected')
+          .text(value.label)
+        );
+      }
+      else {
+        $countrySelect.append($('<option></option>')
+          .attr('value', key)
+          .text(value.label)
+        );
+      }
     });
   };
 

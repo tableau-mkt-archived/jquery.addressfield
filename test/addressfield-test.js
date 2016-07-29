@@ -336,6 +336,74 @@
     expect(17);
   });
 
+  test('select a default country', function() {
+    var $cloneAddress = this.address.clone(),
+        $emptyCountry = $cloneAddress.find('.country'),
+        mockJsonData = {
+          "label": "Country",
+          "options": [
+            {
+              "label": "United States",
+              "iso": "US"
+            },
+            {
+              "label": "Canada",
+              "iso": "CA"
+            },
+            {
+              "label": "Japan",
+              "iso": "JA"
+            }
+          ]
+        };
+
+    // Remove existing countries and set the default attr to CA
+    $emptyCountry.find('option').remove().end();
+    $emptyCountry.attr("data-country-selected", "CA");
+
+
+    // Init with mock inline JSON data. This should be a no-op because the <select> is already
+    // populated with options.
+    $cloneAddress.addressfield({json: mockJsonData, fields: {country: '.country'}});
+
+    // Check the country is set to US
+    strictEqual($emptyCountry.val(), 'CA', 'Expected country to be set to CA');
+  });
+
+  test('select an invalid default country', function() {
+    var $cloneAddress = this.address.clone(),
+        $emptyCountry = $cloneAddress.find('.country'),
+        mockJsonData = {
+          "label": "Country",
+          "options": [
+            {
+              "label": "United States",
+              "iso": "US"
+            },
+            {
+              "label": "Canada",
+              "iso": "CA"
+            },
+            {
+              "label": "Japan",
+              "iso": "JA"
+            }
+          ]
+        };
+
+    // Remove existing countries and set the default attr to CA
+    $emptyCountry.find('option').remove().end();
+    $emptyCountry.attr("data-country-selected", "CAA");
+
+
+    // Init with mock inline JSON data. This should be a no-op because the <select> is already
+    // populated with options.
+    $cloneAddress.addressfield({json: mockJsonData, fields: {country: '.country'}});
+
+    // Check the country is set to US
+    strictEqual($emptyCountry.val(), 'US', 'Expected country to be set to US');
+  });
+
   test('default field hide', function() {
     // Set a value on the postal code field.
     this.postalcode.val('foo');
