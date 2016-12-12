@@ -49,6 +49,7 @@
   test('default example placeholder', function() {
     var postExamplesExpecteds = {
           "98103": "e.g. 98103",
+          "a1c 5M2": "e.g. a1c 5M2",
           "": ""
         },
         example;
