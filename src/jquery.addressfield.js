@@ -395,7 +395,8 @@
         // Create the validation method.
         $.validator.addMethod(methodName, function (value) {
           // @todo Drop jQuery 1.3 support. No need for .toString() call.
-          return new RegExp(config.format).test($.trim(value.toString()));
+          // Make validation case insenstitve.
+          return new RegExp(config.format, 'i').test($.trim(value.toString()));
         }, message);
 
         // Apply the rule.
