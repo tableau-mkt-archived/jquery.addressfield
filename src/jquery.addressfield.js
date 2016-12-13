@@ -381,6 +381,7 @@
    */
   $.fn.addressfield.validate = function(field, config) {
     var $this = $(this),
+        isRequired = $(this).hasClass('required'),
         methodName = 'isValid_' + field,
         rule = {},
         message = "Please check your formatting.";
@@ -391,7 +392,7 @@
       message = $.validator.messages.hasOwnProperty(methodName) ? $.validator.messages[methodName] : message;
 
       // If the provided field has a specified format...
-      if (config.hasOwnProperty('format')) {
+      if (isRequired && config.hasOwnProperty('format')) {
         // Create the validation method.
         $.validator.addMethod(methodName, function (value) {
           // @todo Drop jQuery 1.3 support. No need for .toString() call.
