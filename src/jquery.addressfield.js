@@ -119,7 +119,10 @@
 
     // Iterate through defined address fields for this country.
     for (fieldPos in config.fields) {
-      // Determine the xNAL name of this field.
+      // Determine the xNAL name of this field and ignore
+      if (!config.fields.hasOwnProperty(fieldPos)) {
+        continue;
+      }
       field = $.fn.addressfield.onlyKey(config.fields[fieldPos]);
 
       // Pick out the existing elements for the given field.
