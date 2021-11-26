@@ -75,7 +75,7 @@
 
           $.fn.addressfield.initCountries.call($container, configs.fields.country, transformedData);
           $.fn.addressfield.binder.call($container, configs.fields, transformedData);
-          $(configs.fields.country).change();
+          $(configs.fields.country, $container).change();
         }
       });
       return $container;
@@ -86,7 +86,7 @@
 
       $.fn.addressfield.initCountries.call($container, configs.fields.country, transformedData);
       $.fn.addressfield.binder.call($container, configs.fields, transformedData);
-      $(configs.fields.country).change();
+      $(configs.fields.country, $container).change();
       return $container;
     }
     // Legacy support for manual, synchronous, external control.
@@ -310,7 +310,7 @@
   $.fn.addressfield.updateLabel = function (label) {
     var $this = $(this),
         elementName = $this.attr('id'),
-        $label = $('label[for="' + elementName + '"]') || $this.prev('label');
+        $label = $('label[for="' + elementName + '"]', $this.get(0).ownerDocument) || $this.prev('label');
 
     $label.text(label);
   };
@@ -443,7 +443,7 @@
   $.fn.addressfield.container = function() {
     var $this = $(this),
         elementName = $this.attr('id'),
-        $label = $('label[for="' + elementName + '"]') || $this.prev('label');
+        $label = $('label[for="' + elementName + '"]', $this.get(0).ownerDocument) || $this.prev('label');
 
     // @todo drop support for jQuery 1.3, just use .has()
     if (typeof $.fn.has === 'function') {
