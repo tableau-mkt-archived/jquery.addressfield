@@ -506,11 +506,11 @@
     $.fn.addressfield.copyAttrsTo.call($mock, $target);
 
     // Ensure expected behavior.
-    strictEqual(mockAttrData.length, 2, 'called exactly 3 times');
+    strictEqual(mockAttrData.length, 3, 'called exactly 3 times');
     ok($.inArray('id', mockAttrData) > -1, 'id copied');
     ok($.inArray('name', mockAttrData) > -1, 'name copied');
     strictEqual($.inArray('class', mockAttrData), -1, 'class not copied');
-    strictEqual($.inArray('other', mockAttrData), -1, 'class not copied');
+	ok($.inArray('other', mockAttrData) > -1, 'other copied');
 
     // Fake IE8 test: add a propdescname attribute to the DOM element.
     mockAttrData = [];
